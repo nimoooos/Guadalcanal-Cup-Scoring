@@ -1,0 +1,20 @@
+*{
+    margin: 1em;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.title{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+    font-size: 3em;
+}
+
+body{
+    background-image: linear-gradient(320deg,#c41e3a, #ffc61e);
+    color: #222222;
+    font-family: "Roboto";
+    min-height: 100vh;
+}
