@@ -42,11 +42,19 @@ db.session.add(Placement(teams_id=4, events_id=3, place=1))
 db.session.add(Placement(teams_id=5, events_id=3, place=5))
 db.session.commit()
 
-result = Placement.query.filter_by(teams_id=1).all()
-print(result)
+# result = Placement.query.filter_by(teams_id=1).all()
+# print(result)
+
+# for r in result:
+#     print(r)
+#     print(Team.query.filter_by(id=r.teams_id).first().name)  # print team name
+#     print(Event.query.filter_by(id=r.events_id).first().name)  # print event name
+#     print(r.place)
+
+result = Team.query.all()
 
 for r in result:
-    print(r)
-    print(Team.query.filter_by(id=r.teams_id).first().name)
-    print(Event.query.filter_by(id=r.events_id).first().name)
-    print(r.place)
+    team = Team.query.filter_by(id=r.id).first()
+    team.update_score()
+    print("--------------------")
+db.session.commit()
