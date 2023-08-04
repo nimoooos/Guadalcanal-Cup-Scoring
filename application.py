@@ -12,6 +12,7 @@ app.config["SECRET_KEY"] = env.FLASK_SECRETKEY
 debug = DebugToolbarExtension(app)
 
 models.connect_db(app)
+app.app_context().push()
 models.db.create_all()
 
 
