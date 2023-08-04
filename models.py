@@ -20,6 +20,7 @@ class Team(db.Model):
     def __repr__(self):
         return f"<{self.__tablename__}: id={self.id}, name={self.name}, score={self.score}>"
 
+
 class Event(db.Model):
     """Model for different events (i.e., Basketball, Frisbee)"""
     __tablename__ = 'events'
@@ -38,7 +39,7 @@ class Placement(db.Model):
 
     teams_id = db.Column(db.Integer, db.ForeignKey('teams.id'), primary_key=True)
     events_id = db.Column(db.Integer, db.ForeignKey('events.id'), primary_key=True)
-    placement = db.Column(db.Integer, nullable=True)
+    place = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
         return f"<{self.__tablename__}: teams_id={self.teams_id}, events_id={self.events_id}, placement={self.placement}>"

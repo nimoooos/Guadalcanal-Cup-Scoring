@@ -1,12 +1,23 @@
-from flask import Flask
-from flask import render_template
+import flask
+from flask import session
+from flask_debugtoolbar import DebugToolbarExtension
 
-app = Flask(__name__)
+import env
+import models
+
+app = flask.Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = env.DB_URI
+app.config["SECRET_KEY"] = env.FLASK_SECRETKEY
+debug = DebugToolbarExtension(app)
+
+models.connect_db(app)
+models.db.create_all()
 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return flask.render_template('index.html')
 
 
 if __name__ == '__main__':
