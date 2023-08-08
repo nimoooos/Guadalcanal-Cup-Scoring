@@ -25,6 +25,29 @@
             {% endfor %}
         </div>
     <hr>
+    <div class="section">
+        <h2>Scoreboard</h2>
+        <br>
+<!--        TODO: CSS for scoreboard-->
+        <table class="Scoreboard">
+            {% for row in scoreboard %}
+                {% if row[0]=="Teams" %}
+                    <tr>
+                    {% for item in row %}
+                        <th>{{item}}</th>
+                    {% endfor %}
+                    </tr>
+                {% else %}
+                    <tr>
+                    {% for item in row %}
+                        <td>{{item}}</td>
+                    {% endfor %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    <hr>
 <!--    <div class="section">-->
 <!--        <h2>Upcoming Events</h2>-->
 <!--        <br>-->
