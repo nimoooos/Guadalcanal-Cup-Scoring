@@ -48,17 +48,8 @@ body{
     list-style:none;
 }
 
-.event-holder{
-    padding: 0.5rem;
-    margin-left: 20%;
-    margin-right: 20%;
-    justify-content: center;
 }
 
-.event{
-    background:rgba(255, 255, 255, 0.35);
-    color:black;
-    font-family:Roboto;
     padding: 0.5rem;
     margin: 0.5rem;
     font-size: 1.5rem;
