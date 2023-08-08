@@ -79,6 +79,12 @@ tr.scoreboard-row:hover{
     font-weight: bold;
 }
 
+button.update-score{
+    border: none;
+    padding: 0.1rem;
+    font-size: 1rem;
+}
+
 .dev-info{
     display: box;
     margin: 1rem;
