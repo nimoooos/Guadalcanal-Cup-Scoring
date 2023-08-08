@@ -20,11 +20,9 @@
         <h2>Current Leaderboard</h2>
     </div>
         <div class="battalion-holder">
-            <button class="battalion">2-35 IN<br>0🥇0🥈0🥉</button>
-            <button class="battalion">HHBN<br>0🥇0🥈0🥉</button>
-            <button class="battalion">325 BSB<br>0🥇0🥈0🥉</button>
-            <button class="battalion">2-25 AVN<br>0🥇0🥈0🥉</button>
-            <button class="battalion">1-27 IN<br>0🥇0🥈0🥉</button>
+            {% for team in teams %}
+            <button class="battalion" id="button_teamid_{{ team.id }}">{{ team.name }}<br>{{ team.score }} Points</button>
+            {% endfor %}
         </div>
     <hr>
 <!--    <div class="section">-->

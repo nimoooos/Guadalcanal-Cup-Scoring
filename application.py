@@ -18,7 +18,11 @@ models.db.create_all()
 
 @app.route('/')
 def home():
-    return flask.render_template('index.html')
+    teams = models.Team.query.all()  # create a list of teams participating
+    for t in teams:
+        t.update_score()
+    teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
+    return flask.render_template('index.html', teams=teams)
 
 
 if __name__ == '__main__':
