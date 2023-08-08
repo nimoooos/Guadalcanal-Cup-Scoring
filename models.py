@@ -82,3 +82,12 @@ class Placement(db.Model):
 
     def __repr__(self):
         return self.__str__()
+
+
+class User(db.Model):
+    """Stores user login information. Each code can access one event"""
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.Text, nullable=False)
+    events_id = db.Column(db.Integer, db.ForeignKey('events.id'))
