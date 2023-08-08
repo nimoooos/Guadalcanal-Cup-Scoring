@@ -28,24 +28,25 @@
     <div class="section">
         <h2>Scoreboard</h2>
         <br>
-<!--        TODO: CSS for scoreboard-->
-        <table class="Scoreboard">
-            {% for row in scoreboard %}
-                {% if row[0]=="Teams" %}
-                    <tr>
-                    {% for item in row %}
-                        <th>{{item}}</th>
-                    {% endfor %}
-                    </tr>
-                {% else %}
-                    <tr>
-                    {% for item in row %}
-                        <td>{{item}}</td>
-                    {% endfor %}
-                    </tr>
-                {% endif %}
-            {% endfor %}
-        </table>
+        <div class="scoreboard">
+            <table class="scoreboard">
+                {% for row in scoreboard %}
+                    {% if row[0]=="Teams" %}
+                        <tr class="scoreboard-header">
+                        {% for item in row %}
+                            <th class="scoreboard-item">{{item}}</th>
+                        {% endfor %}
+                        </tr>
+                    {% else %}
+                        <tr class="scoreboard-row">
+                        {% for item in row %}
+                            <td class="scoreboard-item">{{item}}</td>
+                        {% endfor %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
     </div>
     <hr>
     <footer class="dev-info">
