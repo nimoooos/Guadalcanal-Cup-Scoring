@@ -15,25 +15,36 @@
     </div>
     <br>
     <div class="scoreboard">
-        <table class="scoreboard">
-            <tr class="scoreboard-header">
-                <th class="scoreboard-item">Battalion</th>
-            {% for i in range(teamcount) %}
-                <th class="scoreboard-item">{{i+1}}th place</th>
-            {% endfor %}
-            </tr>
-
-            {% for team in teams %}
-            <tr class="scoreboard-row">
-                <th class="scoreboard-item">{{ team.name }}</th>
+        <form>
+            <table class="scoreboard">
+                <tr class="scoreboard-header">
+                    <th class="scoreboard-item">Battalion</th>
                 {% for i in range(teamcount) %}
-                <td class="scoreboard-item">
-                    <input class="update-radio" type="radio" name="teamID-{{team.id}}">
-                </td>
+                    {% if i==0 %}
+                    <th class="scoreboard-emoji">🥇</th>
+                    {% elif i==1 %}
+                    <th class="scoreboard-emoji">🥈</th>
+                    {% elif i==2 %}
+                    <th class="scoreboard-emoji">🥉</th>
+                    {% else %}
+                    <th class="scoreboard-item">{{i+1}}th<br>place</th>
+                    {% endif %}
                 {% endfor %}
-            </tr>
-            {% endfor %}
-        </table>
+                </tr>
+
+                {% for team in teams %}
+                <tr class="scoreboard-row">
+                    <th class="scoreboard-item">{{ team.name }}</th>
+                    {% for i in range(teamcount) %}
+                    <td class="scoreboard-item">
+                        <input class="update-radio" type="radio" name="teamID-{{team.id}}">
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Submit score for {{event.name}}">
+        </form>
     </div>
 
 <!--TODO: determine what info is needed by edit page. list of teams, event name-->
