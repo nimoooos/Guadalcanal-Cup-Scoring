@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./static/style.css">
+    <title>Edit</title>
+</head>
+<body>
+    <div class="title">
+        <h4>Upload Scores for {{ event.name }}</h4>
+    </div>
+    <br>
+    <div class="scoreboard">
+        <table class="scoreboard">
+            <tr class="scoreboard-header">
+                <th class="scoreboard-item">Battalion</th>
+            {% for i in range(teamcount) %}
+                <th class="scoreboard-item">{{i+1}}th place</th>
+            {% endfor %}
+            </tr>
+
+            {% for team in teams %}
+            <tr class="scoreboard-row">
+                <th class="scoreboard-item">{{ team.name }}</th>
+                {% for i in range(teamcount) %}
+                <td class="scoreboard-item">
+                    <input class="update-radio" type="radio" name="teamID-{{team.id}}">
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+<!--TODO: determine what info is needed by edit page. list of teams, event name-->
+<!--TODO: confirmation message showing what info you're editing-->
+<!--TODO: select what place each team got. Use stylized radio buttons-->
+<!--TODO: submit button, send to database-->
+    <hr>
+    <footer class="dev-info">
+        <p>Created by Lightning Labs</p>
+        <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a></p>
+    </footer>
+</body>
+</html>
