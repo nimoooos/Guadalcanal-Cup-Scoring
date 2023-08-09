@@ -18,7 +18,6 @@ body{
     background-image: linear-gradient(315deg,#c41e3a, #ffc61e); /*Colors of 25ID logo*/
     color: #222222;
     font-family: "Roboto";
-    min-height: 300vh;
 }
 
 .section{
