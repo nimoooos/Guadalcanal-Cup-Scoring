@@ -88,6 +88,5 @@ class User(db.Model):
     """Stores user login information. Each code can access one event"""
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    code = db.Column(db.Text, nullable=False)
+    code = db.Column(db.Text, primary_key=True, nullable=False)
     events_id = db.Column(db.Integer, db.ForeignKey('events.id'))
