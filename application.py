@@ -1,5 +1,5 @@
 import flask
-from flask import session
+from flask import url_for  # imported for use in frontend
 from flask_debugtoolbar import DebugToolbarExtension
 
 import env
@@ -55,6 +55,34 @@ def home():
     print("Creating table complete.")
     print("Rendering template...")
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard)
+
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    return flask.render_template('login.html')
+
+
+@app.route('/edit', methods=['POST', 'GET'])
+def edit():
+    # TODO: show editor if login was good
+    if flask.request.method == 'POST':
+        password = flask.request.form['password'].upper()
+        query = models.User.query.filter_by(code=password)
+
+        # TODO: if invalid code, redirect to login WITH FLASH MESSAGE
+        if query.count() == 0:  # no match found, send back to login page
+            print("Code '{}' not found".format(password))
+            return flask.redirect('/login', code=401)
+
+        else:  # a match was found
+            event_id = query.first().events_id
+            event = models.Event.query.filter_by(id=event_id).first()
+            teams = models.Team.query.order_by(models.Team.id)
+            teamcount = teams.count()
+
+            return flask.render_template('edit.html', event=event, teams=teams, teamcount=teamcount)
+
+    return "Unknown error encountered"
 
 
 if __name__ == '__main__':
