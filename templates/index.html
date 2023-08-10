@@ -31,19 +31,19 @@
         <div class="container-fluid">
             <table class="table table-responsive-sm table-striped table-bordered text-center">
                 {% for row in scoreboard %}
-                {% if row[0]=="Teams" %}
-                <tr class="table-primary">
-                    {% for item in row %}
-                    <th>{{ item }}</th>
-                    {% endfor %}
-                </tr>
-                {% else %}
-                <tr>
-                    {% for item in row %}
-                    <td>{{ item }}</td>
-                    {% endfor %}
-                </tr>
-                {% endif %}
+                    {% if row[0]=="Teams" %}
+                    <tr class="table-primary">
+                        {% for item in row %}
+                        <th class="align-middle">{{ item }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% else %}
+                    <tr>
+                        {% for item in row %}
+                        <td class="align-middle">{{ item }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
                 {% endfor %}
             </table>
         </div>
