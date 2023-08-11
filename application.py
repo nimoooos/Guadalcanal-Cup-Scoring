@@ -45,9 +45,11 @@ def home():
         # query with all the team's placements, ordered by event id
         placements = models.Placement.query.filter_by(teams_id=team.id).order_by(models.Placement.events_id)
         for placement in placements:
-            print(placement)
-            row.append(models.place_to_score(placement.place) *  # raw score from placement
-                       models.Event.query.filter_by(id=placement.events_id).first().weight)  # weight from event
+            if placement.place == 0:
+                row.append("N/A")
+            else:
+                row.append(models.place_to_score(placement.place) *  # raw score from placement
+                           models.Event.query.filter_by(id=placement.events_id).first().weight)  # weight from event
 
         row.append(team.score)
         scoreboard.append(row)
