@@ -72,7 +72,8 @@ def edit():
         # TODO: if invalid code, redirect to login WITH FLASH MESSAGE
         if query.count() == 0:  # no match found, send back to login page
             print("Code '{}' not found".format(password))
-            return flask.redirect('/login', code=401)
+            flask.flash("Incorrect code presented.")
+            return flask.redirect(flask.url_for('login'))
 
         else:  # a match was found
             event_id = query.first().events_id
