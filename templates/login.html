@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./static/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <!--bootstrap version 4-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Log In</title>
 </head>
 <body>
-    <div class="title">
-        <h4>Enter your login information</h4>
-        <form action="{{ url_for('edit') }}" method="POST">
-            <input type="password" name="password">
-            <input type="submit" value="Login">
-        </form>
-<!--        TODO: add flash message in case of redirect-->
+        <br>
+    <div class="container-md">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     </div>
-    <hr>
-    <footer class="dev-info">
-        <p>Created by Lightning Labs</p>
-        <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a></p>
-    </footer>
+    <div class="container-md">
+        <form action="{{ url_for('edit') }}" method="POST">
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" placeholder="Login Code" id="password" name="password">
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-success" value="Submit">
+                    </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container-md">
+        <hr>
+        <label>Created by Lightning Labs</label>
+        <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a>
+    </div>
 </body>
 </html>
