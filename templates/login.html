@@ -11,6 +11,18 @@
     <title>Log In</title>
 </head>
 <body>
+        <br>
+    <div class="container-md">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
     <div class="container-md">
         <form action="{{ url_for('edit') }}" method="POST">
             <div class="input-group mb-3">
