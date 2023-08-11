@@ -32,7 +32,7 @@
                     <th class="align-middle">{{ team.name }}</th>
                     {% for i in range(teamcount) %}
                     <td class="align-middle">
-                        <input class="update-radio form-control form-control-lg" type="radio" name="teamID-{{team.id}}-{{i+1}}">
+                        <input class="update-radio form-control" type="radio" id="teamID-{{team.id}}-{{i+1}}">
                     </td>
                     {% endfor %}
                 </tr>
