@@ -13,10 +13,10 @@
 
 <body>
     <div class="container-fluid d-flex justify-content-center">
-        <label class="display-4">Guadalcanal Cup 2023</label>
+        <label class="display-4 text-center">Guadalcanal Cup 2023</label>
     </div>
     <hr>
-    <div class="container-md">
+    <div class="container-md text-center">
         <h2>Current Leaderboard</h2>
         <ul class="container-fluid list-group text-center">
             {% for team in teams %}
@@ -25,7 +25,7 @@
         </ul>
     </div>
     <hr>
-    <div class="container-md">
+    <div class="container-md text-center">
         <h2>Scoreboard</h2>
         <br>
         <div class="container-fluid">
@@ -49,11 +49,11 @@
         </div>
     </div>
     <hr>
-    <footer>
-        <a href="{{ url_for('login') }}"><button class="btn btn-primary">Update Score</button></a>
+    <div class="container-md">
+        <a href="{{ url_for('login') }}"><button class="btn btn-primary">Upload Score</button></a>
         <br>
         <label>Created by Lightning Labs</label>
         <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a></p>
-    </footer>
+    </div>
 </body>
 </html>
