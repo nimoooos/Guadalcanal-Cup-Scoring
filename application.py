@@ -64,12 +64,10 @@ def login():
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
-    # TODO: show editor if login was good
     if flask.request.method == 'POST':
         password = flask.request.form['password'].upper()
         query = models.User.query.filter_by(code=password)
 
-        # TODO: if invalid code, redirect to login WITH FLASH MESSAGE
         if query.count() == 0:  # no match found, send back to login page
             print("Code '{}' not found".format(password))
             flask.flash("Incorrect code presented.")
