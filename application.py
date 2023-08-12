@@ -4,7 +4,6 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 import env
 import models
-import forms
 
 app = flask.Flask(__name__)
 
@@ -76,23 +75,13 @@ def edit():
             flask.flash("Incorrect code presented.")
             return flask.redirect(flask.url_for('login'))
 
-        # else:  # a match was found
-        #     event_id = query.first().events_id
-        #     event = models.Event.query.filter_by(id=event_id).first()
-        #     teams = models.Team.query.order_by(models.Team.id)
-        #     teamcount = teams.count()
-        #
-        #     return flask.render_template('edit.html', event=event, teams=teams, teamcount=teamcount)
-
-        else:  # WTForms implementation
+        else:  # a match was found
+            event_id = query.first().events_id
+            event = models.Event.query.filter_by(id=event_id).first()
             teams = models.Team.query.order_by(models.Team.id)
-            form = forms.TeamRankForm(teams=teams)
+            teamcount = teams.count()
 
-            if form.validate_on_submit():
-                # Process form data
-                pass
-
-            return flask.render_template('edit.html', form=form)
+            return flask.render_template('edit.html', event=event, teams=teams, teamcount=teamcount)
 
     return "Unknown error encountered"
 

@@ -15,18 +15,29 @@
     <hr>
     <div class="container-md border border-0">
         <form>
-            <ul class="container-fluid list-group">
-                {% for team in teams %}
-                <li class="list-group-item">{{ team.name }}
-                    <select class="form-control form-control-sm" id="team{{team.id}}_placement">
-                        <option value="">Select placement</option>
-                        {% for i in range(teamcount) %}
-                        <option value="i+1">{{i+1}}th place</option>
-                        {% endfor %}
-                    </select>
-                </li>
+            <table class="table table-responsive text-center text-middle">
+                <tr class="table-secondary table-bordered">
+                    <th class="align-middle">Battalion</th>
+                {% for i in range(teamcount) %}
+                    {% if i==0 %}<th>🥇</th>
+                    {% elif i==1 %}<th>🥈</th>
+                    {% elif i==2 %}<th>🥉</th>
+                    {% else %}<th>{{i+1}}th</th>
+                    {% endif %}
                 {% endfor %}
-            </ul>
+                </tr>
+
+                {% for team in teams %}
+                <tr class="table-bordered">
+                    <th class="align-middle">{{ team.name }}</th>
+                    {% for i in range(teamcount) %}
+                    <td class="align-middle">
+                        <input class="update-radio form-control" type="radio" id="teamID-{{team.id}}-{{i+1}}">
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
             <input type="submit" class="btn btn-success" value="Submit score for {{event.name}}">
         </form>
     </div>
