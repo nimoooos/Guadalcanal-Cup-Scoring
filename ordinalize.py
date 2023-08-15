@@ -8,9 +8,9 @@ def num_to_ordinal(number):
     if number == 2: return str("🥈")
     if number == 3: return str("🥉")
 
-    if number <= 20: return str(number + "th")
+    if number <= 20: return str(number) + "th"
 
-    if last_digit == 1: return str(number + "st")
-    if last_digit == 2: return str(number + "nd")
-    if last_digit == 3: return str(number + "rd")
-    else: return str(number + "th")
+    if last_digit == 1: return str(number) + "st"
+    if last_digit == 2: return str(number) + "nd"
+    if last_digit == 3: return str(number) + "rd"
+    else: return str(number) + "th"
