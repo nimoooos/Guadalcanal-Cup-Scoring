@@ -93,6 +93,8 @@ def edit():
 def submit():
     message = ""
     message = message+"Submit Successful"
+    # TODO: receive the post request
+    # TODO: use the post request to make changes in database
     return flask.render_template('submit.html', message=message)
 
 
