@@ -14,18 +14,16 @@
 <div class="container-md"><h4>Upload Scores for<br>{{ event.name }}</h4></div>
     <hr>
     <div class="container-md border border-0">
-        <form action="{{ url_for('submit') }}" method="POST" id="scores">
+        <form action="{{ url_for('submit') }}" method="POST">
             <input type="email" id="email1">
             <ul class="container-fluid list-group text-center">
                 {% for team in teams %}
                 <li class="list-group-item">
-                    {{ team.name }}
-                    <select class="form-control form-control-sm" id="{{ team.id }}" form_id="scores">
+                    <label for="teamid_{{ team.id }}">{{ team.name }}</label>
+                    <select class="form-control form-control-sm" id="teamid_{{ team.id }}" name="teamid_{{ team.id }}">
                         <option value="0">Select placement</option>
                         {% for placement in placements %}
-
                         <option value="{{placement[0]}}">{{placement[1]}}</option>
-
                         {% endfor %}
                     </select>
                 </li>
