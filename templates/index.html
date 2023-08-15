@@ -12,50 +12,52 @@
 </head>
 
 <body>
-    <div class="container-fluid d-flex justify-content-center">
-        <label class="display-4 text-center">Guadalcanal Cup 2023</label>
-    </div>
-    <div class="container-md text-center">
-        <hr>
-        <h2>Current Leaderboard</h2>
-        <ul class="container-fluid list-group text-center">
-            {% for team in teams %}
-            <li class="list-group-item">{{ team.name }}  -  {{ team.score }} Points</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="container-md text-center">
-        <hr>
-        <h2>Scoreboard</h2>
-        <br>
-        <div class="container-fluid">
-            <table class="table table-sm table-responsive-sm table-striped table-bordered text-center">
-                {% for row in scoreboard %}
-                    {% if row[0]=="Teams" %}
-                    <tr class="table-primary">
-                        {% for item in row %}
-                        <th class="align-middle">{{ item }}</th>
-                        {% endfor %}
-                    </tr>
-                    {% else %}
-                    <tr>
-                        {% for item in row %}
-                        <td class="align-middle">{{ item }}</td>
-                        {% endfor %}
-                    </tr>
-                    {% endif %}
-                {% endfor %}
-            </table>
+    <div class="container-fluid">
+        <div class="container-md d-flex justify-content-center">
+            <label class="display-4 text-center">Guadalcanal Cup 2023</label>
         </div>
-    </div>
+        <div class="container-md text-center">
+            <hr>
+            <h2>Current Leaderboard</h2>
+            <ul class="container-fluid list-group text-center">
+                {% for team in teams %}
+                <li class="list-group-item">{{ team.name }}  -  {{ team.score }} Points</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-    <div class="container-md">
-        <hr>
-        <a href="{{ url_for('login') }}"><button class="btn btn-primary">Upload Score</button></a>
-        <br>
-        <label>Created by Lightning Labs</label>
-        <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a></p>
+        <div class="container-md text-center">
+            <hr>
+            <h2>Scoreboard</h2>
+            <br>
+            <div class="container-md">
+                <table class="table table-sm table-responsive-sm table-striped table-bordered text-center">
+                    {% for row in scoreboard %}
+                        {% if row[0]=="Teams" %}
+                        <tr class="table-primary">
+                            {% for item in row %}
+                            <th class="align-middle">{{ item }}</th>
+                            {% endfor %}
+                        </tr>
+                        {% else %}
+                        <tr>
+                            {% for item in row %}
+                            <td class="align-middle">{{ item }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="container-md">
+            <hr>
+            <a href="{{ url_for('login') }}"><button class="btn btn-primary">Upload Score</button></a>
+            <br>
+            <label>Created by Lightning Labs</label>
+            <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a></p>
+        </div>
     </div>
 </body>
 </html>
