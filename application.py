@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 import env
 import models
+from ordinalize import num_to_ordinal  # imported for use in frontend
 
 app = flask.Flask(__name__)
 
@@ -79,9 +80,11 @@ def edit():
             event_id = query.first().events_id
             event = models.Event.query.filter_by(id=event_id).first()
             teams = models.Team.query.order_by(models.Team.id)
-            teamcount = teams.count()
+            placements = []
+            for i in range(teams.count()):
+                placements.append((i+1, num_to_ordinal(i+1)))
 
-            return flask.render_template('edit.html', event=event, teams=teams, teamcount=teamcount)
+            return flask.render_template('edit.html', event=event, teams=teams, placements=placements)
 
     return "Unknown error encountered"
 
