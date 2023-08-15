@@ -14,7 +14,7 @@
 <div class="container-md"><h4>Upload Scores for<br>{{ event.name }}</h4></div>
     <hr>
     <div class="container-md border border-0">
-        <form>
+        <form action="{{ url_for('submit') }}">
             <table class="table table-responsive text-center text-middle">
                 <tr class="table-secondary table-bordered">
                     <th class="align-middle">Battalion</th>

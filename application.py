@@ -86,5 +86,12 @@ def edit():
     return "Unknown error encountered"
 
 
+@app.route('/submit', methods=['POST', 'GET'])
+def submit():
+    message = ""
+    message = message+"Submit Successful"
+    return flask.render_template('submit.html', message=message)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
