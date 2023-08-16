@@ -94,16 +94,26 @@ def edit():
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     if flask.request.method == 'POST':
-        print(flask.request.form)
+        db_submit = {}  # list to be stored in session
         for item in flask.request.form:
-            print(convert_to_id(item))  # receiving team id as integer
-            print(convert_to_id(flask.request.form[item]))  # receiving team placement as integer
+            key = convert_to_id(item)  # receiving team id as integer
+            value = convert_to_id(flask.request.form[item])  # receiving team placement as integer
+            db_submit[key] = value
+        flask.session['db_submit'] = db_submit  # loaded into submit for future feature (confirmation page)
 
-    message = ""
-    message = message + "Submit Successful"
-    # TODO: need to use Session to know what database needs to be updated
-    # TODO: use the post request to make changes in database
-    return flask.render_template('submit.html', message=message)
+        event_id = flask.session['event_id']
+        for team_id in db_submit:
+            placement = models.Placement.query.get((team_id, event_id))
+            placement.place = db_submit[team_id]
+
+#            models.db.session.add(models.Placement(teams_id=key, events_id=event_id, place=db_submit[key]))
+            flask.flash("teams_id: {}, place: {}".format(team_id, db_submit[team_id]))
+            models.db.session.commit()
+
+        flask.flash("Submit successful!")
+    else:
+        flask.flash("Unknown error encountered.")
+    return flask.render_template('submit.html')
 
 
 def convert_to_id(string):
