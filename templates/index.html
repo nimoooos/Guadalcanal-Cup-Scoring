@@ -22,7 +22,7 @@
             <hr>
             <h2>Scoreboard</h2>
             <br>
-            <div class="container-md">
+            <div class="container-md row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-striped table-bordered text-center">
                     {% for row in scoreboard %}
                         {% if row[0]=="Teams" %}
@@ -42,5 +42,8 @@
                 </table>
             </div>
         </div>
+        <form action="{{url_for('login')}}">
+            <input type="submit" class="btn btn-primary" value="Update Scores">
+        </form>
     </div>
 {% endblock %}

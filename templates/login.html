@@ -1,29 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!--bootstrap version 4-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Log In</title>
-</head>
-<body>
-        <br>
+{% extends "base.html" %}
+{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
     <div class="container-md">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-danger">
-                    <strong>Error!</strong> {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    </div>
-    <div class="container-md">
+        <label>Enter login code</label>
         <form action="{{ url_for('login') }}" method="POST">
             <div class="input-group mb-3">
                 <input type="password" class="form-control" placeholder="Login Code" id="password" name="password">
@@ -33,11 +15,4 @@
             </div>
         </form>
     </div>
-
-    <div class="container-md">
-        <hr>
-        <label>Created by Lightning Labs</label>
-        <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a>
-    </div>
-</body>
-</html>
+{% endblock %}

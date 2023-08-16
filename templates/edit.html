@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <!--bootstrap version 4-->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <title>Edit</title>
-</head>
-<body>
-<div class="container-md"><h4>Upload Scores for<br>{{ event.name }}</h4></div>
+{% extends "base.html" %}
+{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="container-md"><h4>Upload Scores for<br>{{ event.name }}</h4></div>
     <hr>
     <div class="container-md border border-0">
         <form action="{{ url_for('submit') }}" method="POST">
@@ -28,16 +21,9 @@
                 </li>
                 {% endfor %}
             </ul>
+            <br>
             <input type="submit" class="btn btn-success" value="Submit score for {{event.name}}">
         </form>
     </div>
-
 <!--TODO: confirmation message showing what info you're editing-->
-<!--TODO: submit button, send to database-->
-    <div class="container-md">
-        <hr>
-        <label>Created by Lightning Labs</label>
-        <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a></p>
-    </div>
-</body>
-</html>
+{% endblock %}
