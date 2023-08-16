@@ -62,32 +62,31 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
-    # TODO: implement session, store login code in session so that it can be called again in /submit
+    if flask.request.method == 'POST':  # called when login button redirects to login()
+        password = flask.request.form['password'].upper()
+        flask.session['password'] = password
+        query = models.User.query.filter_by(code=password)
+
+        if query.count() == 0:  # no match found, send back to login()
+            print("Code '{}' not found".format(password))
+            flask.flash("Incorrect code presented.")
+            return flask.redirect(flask.url_for('login'))
+
+        else: return flask.redirect(flask.url_for('edit'))  # match found, send to edit()
+
     return flask.render_template('login.html')
 
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
-    if flask.request.method == 'POST':
-        password = flask.request.form['password'].upper()
-        query = models.User.query.filter_by(code=password)
-
-        if query.count() == 0:  # no match found, send back to login page
-            print("Code '{}' not found".format(password))
-            flask.flash("Incorrect code presented.")
-            return flask.redirect(flask.url_for('login'))
-
-        else:  # a match was found
-            event_id = query.first().events_id
-            event = models.Event.query.filter_by(id=event_id).first()
-            teams = models.Team.query.order_by(models.Team.id)
-            placements = []
-            for i in range(teams.count()):
-                placements.append((i + 1, num_to_ordinal(i + 1)))
-
-            return flask.render_template('edit.html', event=event, teams=teams, placements=placements)
-
-    return "Unknown error encountered"
+    query = models.User.query.filter_by(code=flask.session['password'])
+    event_id = query.first().events_id
+    event = models.Event.query.filter_by(id=event_id).first()
+    teams = models.Team.query.order_by(models.Team.id)
+    placements = []
+    for i in range(teams.count()):
+        placements.append((i + 1, num_to_ordinal(i + 1)))
+    return flask.render_template('edit.html', event=event, teams=teams, placements=placements)
 
 
 @app.route('/submit', methods=['POST', 'GET'])
