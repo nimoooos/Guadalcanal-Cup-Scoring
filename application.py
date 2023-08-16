@@ -93,12 +93,6 @@ def edit():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
-    def convert_to_id(string):
-        if string.startswith("teamid_"):
-            return int(string.split("_")[1])
-        if string.isnumeric:
-            return int(string)
-
     if flask.request.method == 'POST':
         print(flask.request.form)
         for item in flask.request.form:
@@ -110,6 +104,13 @@ def submit():
     # TODO: need to use Session to know what database needs to be updated
     # TODO: use the post request to make changes in database
     return flask.render_template('submit.html', message=message)
+
+
+def convert_to_id(string):
+    if string.startswith("teamid_"):
+        return int(string.split("_")[1])
+    if string.isnumeric:
+        return int(string)
 
 
 if __name__ == '__main__':
