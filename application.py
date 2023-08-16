@@ -81,7 +81,7 @@ def login():
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
-
+    # TODO: pre-select placement for each team based on previous data entry
     event_id = flask.session['event_id']
     event = models.Event.query.filter_by(id=event_id).first()
     teams = models.Team.query.order_by(models.Team.id)
@@ -101,13 +101,11 @@ def submit():
             db_submit[key] = value
         flask.session['db_submit'] = db_submit  # loaded into submit for future feature (confirmation page)
 
+        # this loops through all the submission and updates record
         event_id = flask.session['event_id']
         for team_id in db_submit:
             placement = models.Placement.query.get((team_id, event_id))
             placement.place = db_submit[team_id]
-
-#            models.db.session.add(models.Placement(teams_id=key, events_id=event_id, place=db_submit[key]))
-            flask.flash("teams_id: {}, place: {}".format(team_id, db_submit[team_id]))
             models.db.session.commit()
 
         flask.flash("Submit successful!")
