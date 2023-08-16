@@ -2,14 +2,14 @@ import flask
 from flask import url_for  # imported for use in frontend
 from flask_debugtoolbar import DebugToolbarExtension
 
-import env
+from env import DB_URI, FLASK_SECRETKEY
 import models
-from ordinalize import num_to_ordinal  # imported for use in frontend
+from ordinalize import num_to_ordinal
 
 app = flask.Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = env.DB_URI
-app.config["SECRET_KEY"] = env.FLASK_SECRETKEY
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
+app.config["SECRET_KEY"] = FLASK_SECRETKEY
 debug = DebugToolbarExtension(app)
 
 models.connect_db(app)
