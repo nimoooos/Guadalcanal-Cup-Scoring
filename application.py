@@ -64,7 +64,6 @@ def home():
 def login():
     if flask.request.method == 'POST':  # called when login button redirects to login()
         password = flask.request.form['password'].upper()
-        flask.session['password'] = password
         query = models.User.query.filter_by(code=password)
 
         if query.count() == 0:  # no match found, send back to login()
@@ -72,15 +71,18 @@ def login():
             flask.flash("Incorrect code presented.")
             return flask.redirect(flask.url_for('login'))
 
-        else: return flask.redirect(flask.url_for('edit'))  # match found, send to edit()
+        else:  # match found, send to edit()
+            query = models.User.query.filter_by(code=password)
+            flask.session['event_id'] = query.first().events_id
+            return flask.redirect(flask.url_for('edit'))
 
     return flask.render_template('login.html')
 
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
-    query = models.User.query.filter_by(code=flask.session['password'])
-    event_id = query.first().events_id
+
+    event_id = flask.session['event_id']
     event = models.Event.query.filter_by(id=event_id).first()
     teams = models.Team.query.order_by(models.Team.id)
     placements = []
