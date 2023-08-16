@@ -11,6 +11,17 @@
     <title>Submit</title>
 </head>
 <body>
-    {{ message }}
+    <div class="container-md">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
 </body>
 </html>
