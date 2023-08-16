@@ -62,6 +62,7 @@ def home():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    # TODO: implement session, store login code in session so that it can be called again in /submit
     return flask.render_template('login.html')
 
 
@@ -82,7 +83,7 @@ def edit():
             teams = models.Team.query.order_by(models.Team.id)
             placements = []
             for i in range(teams.count()):
-                placements.append((i+1, num_to_ordinal(i+1)))
+                placements.append((i + 1, num_to_ordinal(i + 1)))
 
             return flask.render_template('edit.html', event=event, teams=teams, placements=placements)
 
@@ -91,9 +92,21 @@ def edit():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
+    def convert_to_id(string):
+        if string.startswith("teamid_"):
+            return int(string.split("_")[1])
+        if string.isnumeric:
+            return int(string)
+
+    if flask.request.method == 'POST':
+        print(flask.request.form)
+        for item in flask.request.form:
+            print(convert_to_id(item))  # receiving team id as integer
+            print(convert_to_id(flask.request.form[item]))  # receiving team placement as integer
+
     message = ""
-    message = message+"Submit Successful"
-    # TODO: receive the post request
+    message = message + "Submit Successful"
+    # TODO: need to use Session to know what database needs to be updated
     # TODO: use the post request to make changes in database
     return flask.render_template('submit.html', message=message)
 
