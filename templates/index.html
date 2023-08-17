@@ -41,9 +41,11 @@
                     {% endfor %}
                 </table>
             </div>
+            <hr>
+            <form action="{{url_for('login')}}">
+                <input type="submit" class="btn btn-dark" value="Update Scores">
+            </form>
         </div>
-        <form action="{{url_for('login')}}">
-            <input type="submit" class="btn btn-primary" value="Update Scores">
-        </form>
+
     </div>
 {% endblock %}
