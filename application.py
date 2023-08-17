@@ -20,26 +20,21 @@ models.db.create_all()
 @app.route('/')
 def home():
     teams = models.Team.query.all()  # create a list of teams participating
-    print("\nUpdating team scores...")
     for t in teams:
         t.update_score()
-    print("\nUpdating team scores complete.")
 
     teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
 
-    print("\nBeginning to create scoreboard table...")
     # create header for scoreboard table
     header = ["Teams"]
     for e in events:
         header.append(e.name)
     header.append("Total Score")
-    print("Creating header complete.")
 
     scoreboard = [header]  # create scoreboard table with header row
 
     for team in teams:
-        print("Creating row for {}...".format(team.name))
         # loop generates a row with team name and scores from each event
         row = [team.name]  # generate a row with team name as first item
 
@@ -55,8 +50,6 @@ def home():
         row.append(team.score)
         scoreboard.append(row)
 
-    print("Creating table complete.")
-    print("Rendering template...")
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard)
 
 
