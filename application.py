@@ -51,7 +51,10 @@ def home():
         row.append(team.score)
         scoreboard.append(row)
 
-    dt = datetime.datetime.now()  # datetime object
+    flask.flash("This website was created by Lightning Labs!", "info")
+
+    # Show when the scores were last calculated
+    dt = datetime.datetime.now()
     dt = dt.strftime("%B %d, %H:%I")
     flashmsg = "Scores current as of " + dt
     flask.flash(flashmsg, "primary")
