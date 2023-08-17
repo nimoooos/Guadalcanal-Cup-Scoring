@@ -68,12 +68,13 @@ def login():
 
         if query.count() == 0:  # no match found, send back to login()
             print("Code '{}' not found".format(password))
-            flask.flash("Incorrect code presented.", "Error")
+            flask.flash("Error! Incorrect code presented.", "danger")
             return flask.redirect(flask.url_for('login'))
 
         else:  # match found, send to edit()
             query = models.User.query.filter_by(code=password)
             flask.session['event_id'] = query.first().events_id
+            flask.flash("Login successful!", "success")
             return flask.redirect(flask.url_for('edit'))
 
     return flask.render_template('login.html')
@@ -108,9 +109,9 @@ def submit():
             placement.place = db_submit[team_id]
             models.db.session.commit()
 
-        flask.flash("Submit successful!", "Success")
+        flask.flash("Submit successful!", "success")
     else:
-        flask.flash("Unknown error encountered.", "Error")
+        flask.flash("Unknown error encountered.", "danger")
     return flask.render_template('submit.html')
 
 
