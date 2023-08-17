@@ -5,6 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from env import DB_URI, FLASK_SECRETKEY
 import models
 from ordinalize import num_to_ordinal
+import datetime
 
 app = flask.Flask(__name__)
 
@@ -49,6 +50,11 @@ def home():
 
         row.append(team.score)
         scoreboard.append(row)
+
+    dt = datetime.datetime.now()  # datetime object
+    dt = dt.strftime("%B %d, %H:%I")
+    flashmsg = "Scores current as of " + dt
+    flask.flash(flashmsg, "primary")
 
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard)
 
