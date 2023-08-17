@@ -15,12 +15,22 @@
 <body>
     <br>
     <div class="container-md">
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            {% for message in messages %}
+            {% for category, message in messages %}
+                {% if category=="Error" %}
                 <div class="alert alert-danger">
-                    <strong>Error!</strong> {{ message }}
+                    <strong>{{ category }}!</strong> {{ message }}
                 </div>
+                {% elif category=="Success" %}
+                <div class="alert alert-success">
+                    <strong>{{ category }}!</strong> {{ message }}
+                </div>
+                {% else %}
+                <div class="alert alert-primary">
+                    <strong>{{ category }}!</strong> {{ message }}
+                </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -35,5 +45,3 @@
     </div>
 </body>
 </html>
-
-<!--TODO: extend this to other htmls-->
