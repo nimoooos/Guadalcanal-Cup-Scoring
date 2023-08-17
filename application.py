@@ -26,6 +26,7 @@ def welcome():
 
 @app.route('/home')
 def home():
+
     teams = models.Team.query.all()  # create a list of teams participating
     for t in teams:
         t.update_score()
