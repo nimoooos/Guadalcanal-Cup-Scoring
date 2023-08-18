@@ -20,13 +20,12 @@ models.db.create_all()
 
 @app.route('/')
 def welcome():
-    # todo: automatically go to home after a few seconds?
+    # Automatically goes to home() after 0.5 seconds
     return flask.render_template('Welcome.html')
 
 
 @app.route('/home')
 def home():
-
     teams = models.Team.query.all()  # create a list of teams participating
     for t in teams:
         t.update_score()
@@ -76,7 +75,6 @@ def login():
         query = models.User.query.filter_by(code=password)
 
         if query.count() == 0:  # no match found, send back to login()
-            print("Code '{}' not found".format(password))
             flask.flash("Error! Incorrect code presented.", "danger")
             return flask.redirect(flask.url_for('login'))
 
