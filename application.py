@@ -32,6 +32,7 @@ def home():
 
     teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
+    events.pop(0)  # remove admin from events
 
     # create header for scoreboard table
     header = ["Teams"]
