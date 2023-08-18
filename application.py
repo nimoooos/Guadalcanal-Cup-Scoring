@@ -79,13 +79,44 @@ def login():
             return flask.redirect(flask.url_for('login'))
 
         else:  # match found, send to edit()
-            query = models.User.query.filter_by(code=password)
-            flask.session['event_id'] = query.first().events_id
+            flask.session['user_code'] = password
             flask.flash("Login successful!", "success")
-            return flask.redirect(flask.url_for('edit'))
+            return flask.redirect(flask.url_for('account'))
 
     return flask.render_template('login.html')
 
+
+@app.route('/account', methods=['POST', 'GET'])
+def account():
+    if flask.request.method == 'POST':  # called when a form submit is clicked
+        event_id = flask.request.form['event_id']
+        if event_id == "-1":  # logout code
+            flask.flash("Logged Out","warning")
+            flask.session.pop('user_code', None)
+            return flask.redirect('home')
+
+        if event_id == "0":  # admin code
+            return flask.redirect('admin')
+        else:
+            flask.session['event_id'] = event_id
+            return flask.redirect('edit')
+
+    events_access = {}  # dictionary of events, and whether the user has access
+    events = models.Event.query.order_by(models.Event.id)
+    user_code = flask.session['user_code']
+    user_id = models.User.query.filter_by(code=user_code).first().id
+    access_list = models.Access.query.filter_by(user_id=user_id)
+
+    for access in access_list:
+        events_access.update({access.event_id: True})
+        # add all access to dictionary
+
+    return flask.render_template('account.html', user_code=user_code, events_access=events_access, events=events)
+
+
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    return "Admin page under construction"
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
