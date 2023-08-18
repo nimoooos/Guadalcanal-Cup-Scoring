@@ -92,7 +92,7 @@ def account():
     if flask.request.method == 'POST':  # called when a form submit is clicked
         event_id = flask.request.form['event_id']
         if event_id == "-1":  # logout code
-            flask.flash("Logged Out","warning")
+            flask.flash("Logged Out", "warning")
             flask.session.pop('user_code', None)
             return flask.redirect('home')
 
@@ -117,7 +117,9 @@ def account():
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
+    # TODO: admin should be able to view all users, create new users, and give different access to different users
     return "Admin page under construction"
+
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
