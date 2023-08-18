@@ -359,6 +359,8 @@ db.session.commit()
 
 # create permissions for user
 db.session.add(Access(user_id=1, event_id=0))
+db.session.add(Access(user_id=1, event_id=1))
+db.session.add(Access(user_id=1, event_id=11))
 db.session.commit()
 
 result = Team.query.all()
