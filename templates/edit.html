@@ -4,7 +4,10 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="container-md"><h4>Upload Scores for {{ event.name }}</h4></div>
+    <div class="container-md">
+        <h4>Upload Scores for {{ event.name }}</h4>
+        <h6>Logged in as {{user_code}}</h6>
+    </div>
     <hr>
     <div class="container-md">
         <form class="form-inline" action="{{ url_for('submit') }}" method="POST">
