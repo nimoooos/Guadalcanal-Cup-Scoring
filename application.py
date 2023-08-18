@@ -24,7 +24,7 @@ def welcome():
     return flask.render_template('Welcome.html')
 
 
-@app.route('/home')
+@app.route('/home', methods=['POST', 'GET'])
 def home():
     teams = models.Team.query.all()  # create a list of teams participating
     for t in teams:
@@ -90,13 +90,14 @@ def login():
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
     # TODO: pre-select placement for each team based on previous data entry
+    user_code = flask.session['user_code']
     event_id = flask.session['event_id']
     event = models.Event.query.filter_by(id=event_id).first()
     teams = models.Team.query.order_by(models.Team.id)
     placements = []
     for i in range(teams.count()):
         placements.append((i + 1, num_to_ordinal(i + 1)))
-    return flask.render_template('edit.html', event=event, teams=teams, placements=placements)
+    return flask.render_template('edit.html', user_code=user_code, event=event, teams=teams, placements=placements)
 
 
 @app.route('/submit', methods=['POST', 'GET'])
