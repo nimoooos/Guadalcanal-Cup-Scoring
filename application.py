@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
 import models
-from ordinalize import num_to_ordinal
+from proj_util import num_to_ordinal
 import datetime
 
 app = flask.Flask(__name__)

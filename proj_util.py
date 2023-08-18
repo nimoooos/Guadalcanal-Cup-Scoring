@@ -14,3 +14,11 @@ def num_to_ordinal(number):
     if last_digit == 2: return str(number) + "nd"
     if last_digit == 3: return str(number) + "rd"
     else: return str(number) + "th"
+
+
+def random_user_code():
+    import random
+    import string
+
+    x = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+    return x
