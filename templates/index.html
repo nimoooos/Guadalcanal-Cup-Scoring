@@ -13,7 +13,7 @@
             <h2>Current Leaderboard</h2>
             <ul class="container-fluid list-group text-center">
                 {% for team in teams %}
-                <li class="list-group-item">{{ team.name }}  -  {{ team.score }} Points</li>
+                <li class="list-group-item bg-secondary text-light">{{ team.name }}  -  {{ team.score }} Points</li>
                 {% endfor %}
             </ul>
         </div>
@@ -23,10 +23,10 @@
             <h2>Scoreboard</h2>
             <br>
             <div class="container-md row flex-nowrap overflow-auto">
-                <table class="table table-sm table-responsive-sm table-striped table-bordered text-center">
+                <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
                     {% for row in scoreboard %}
                         {% if row[0]=="Teams" %}
-                        <tr class="table-primary">
+                        <tr class="table-secondary text-dark">
                             {% for item in row %}
                             <th class="align-middle">{{ item }}</th>
                             {% endfor %}
@@ -43,7 +43,7 @@
             </div>
             <hr>
             <form action="{{url_for('login')}}">
-                <input type="submit" class="btn btn-dark" value="Update Scores">
+                <input type="submit" class="btn btn-info" value="Update Scores">
             </form>
         </div>
 
