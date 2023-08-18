@@ -1,13 +1,13 @@
-from models import db, Team, Event, Placement, User
+from models import db, Team, Event, Placement, User, Access
 from application import app
 
 app.app_context()
 
-# Create all tables
+# Drop all then recreate all tables
 db.drop_all()
 db.create_all()
 
-# adding unit information, sample
+# adding unit information
 
 db.session.add(Team(name="2-35 IN"))
 db.session.add(Team(name="HHBN"))
@@ -351,10 +351,12 @@ db.session.add(Placement(teams_id=19, events_id=15, place=0))
 
 db.session.commit()
 
-db.session.add(User(code='WHO1ST', events_id=1))
-db.session.add(User(code='FR1S83', events_id=2))
-db.session.add(User(code='FL4GFB', events_id=3))
-db.session.add(User(code='BST5QD', events_id=4))
+# creating user
+db.session.add(User(code='WHO1ST'))
+db.session.commit()
+
+# create permissions for user
+db.session.add(Access(user_id=1, event_id=0))
 db.session.commit()
 
 result = Team.query.all()

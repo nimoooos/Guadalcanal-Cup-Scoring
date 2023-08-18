@@ -88,5 +88,14 @@ class User(db.Model):
     """Stores user login information. Each code can access one event"""
     __tablename__ = 'users'
 
-    code = db.Column(db.Text, primary_key=True, nullable=False)
-    events_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    code = db.Column(db.Text, nullable=False)
+    # TODO: individualize personnel and keep track of changes
+        # Each user account is a randomly generated code, no username/password combo (avoid PII storage)
+
+
+class Access(db.Model):
+    """Stores info of what access user has"""
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
