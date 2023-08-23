@@ -165,4 +165,4 @@ def convert_to_id(string):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
