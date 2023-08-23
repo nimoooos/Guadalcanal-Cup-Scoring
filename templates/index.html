@@ -20,27 +20,27 @@
 
         <div class="container-md text-center">
             <hr>
-            <h2>Scoreboard</h2>
-            <br>
-            <div class="container-md row flex-nowrap overflow-auto">
-                <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
-                    {% for row in scoreboard %}
-                        {% if row[0]=="Teams" %}
-                        <tr class="table-secondary text-dark">
-                            {% for item in row %}
-                            <th class="align-middle">{{ item }}</th>
-                            {% endfor %}
-                        </tr>
-                        {% else %}
-                        <tr>
-                            {% for item in row %}
-                            <td class="align-middle">{{ item }}</td>
-                            {% endfor %}
-                        </tr>
-                        {% endif %}
-                    {% endfor %}
-                </table>
-            </div>
+<!--            <h2>Scoreboard</h2>-->
+<!--            <br>-->
+<!--            <div class="container-md row flex-nowrap overflow-auto">-->
+<!--                <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">-->
+<!--                    {% for row in scoreboard %}-->
+<!--                        {% if row[0]=="Teams" %}-->
+<!--                        <tr class="table-secondary text-dark">-->
+<!--                            {% for item in row %}-->
+<!--                            <th class="align-middle">{{ item }}</th>-->
+<!--                            {% endfor %}-->
+<!--                        </tr>-->
+<!--                        {% else %}-->
+<!--                        <tr>-->
+<!--                            {% for item in row %}-->
+<!--                            <td class="align-middle">{{ item }}</td>-->
+<!--                            {% endfor %}-->
+<!--                        </tr>-->
+<!--                        {% endif %}-->
+<!--                    {% endfor %}-->
+<!--                </table>-->
+<!--            </div>-->
             <hr>
             <form action="{{url_for('login')}}">
                 <input type="submit" class="btn btn-info" value="Update Scores">
