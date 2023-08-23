@@ -17,7 +17,6 @@ models.connect_db(app)
 app.app_context().push()
 models.db.create_all()
 
-
 @app.route('/')
 def welcome():
     # Automatically goes to home() after 0.5 seconds
@@ -35,6 +34,7 @@ def home():
     events.pop(0)  # remove admin from events
 
     # create header for scoreboard table
+
     header = ["Teams"]
     for e in events:
         header.append(e.name)
@@ -55,8 +55,8 @@ def home():
                 row.append(models.place_to_score(placement.place) *  # raw score from placement
                            models.Event.query.filter_by(id=placement.events_id).first().weight)  # weight from event
 
-        row.append(team.score)
-        scoreboard.append(row)
+        row.append(team.score)  # total score for each team at the end of row
+        scoreboard.append(row)  # add the created row to scoreboard
 
     flask.flash("This website was created by Lightning Labs!", "info")
 
