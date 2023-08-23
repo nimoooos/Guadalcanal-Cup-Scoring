@@ -12,6 +12,7 @@ app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config["SECRET_KEY"] = FLASK_SECRETKEY
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
+app.config['SQLALCHEMY_SESSION_OPTIONS'] = {"autoflush": False}
 debug = DebugToolbarExtension(app)
 
 models.connect_db(app)
