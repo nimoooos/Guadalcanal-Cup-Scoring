@@ -17,31 +17,22 @@ models.connect_db(app)
 app.app_context().push()
 models.db.create_all()
 
-@app.route('/')
-def welcome():
-    # Automatically goes to home() after 0.5 seconds
-    return flask.render_template('Welcome.html')
+scoreboard_global = []
 
 
-@app.route('/home', methods=['POST', 'GET'])
-def home():
-    teams = models.Team.query.all()  # create a list of teams participating
-    for t in teams:
-        t.update_score()
-
+def update_scoreboard():
+    """Update scoreboard_global which is stored in RAM"""
     teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
     events.pop(0)  # remove admin from events
 
     # create header for scoreboard table
-
     header = ["Teams"]
     for e in events:
         header.append(e.name)
     header.append("Total Score")
 
     scoreboard = [header]  # create scoreboard table with header row
-
     for team in teams:
         # loop generates a row with team name and scores from each event
         row = [team.name]  # generate a row with team name as first item
@@ -58,6 +49,27 @@ def home():
         row.append(team.score)  # total score for each team at the end of row
         scoreboard.append(row)  # add the created row to scoreboard
 
+    global scoreboard_global
+    scoreboard_global = scoreboard
+
+
+update_scoreboard()  # update scoreboard when first building
+
+
+@app.route('/')
+def welcome():
+    # Automatically goes to home() after 0.5 seconds
+    return flask.render_template('Welcome.html')
+
+
+@app.route('/home', methods=['POST', 'GET'])
+def home():
+    teams = models.Team.query.all()  # create a list of teams participating
+    for t in teams:
+        t.update_score()
+
+    scoreboard_render = scoreboard_global
+
     flask.flash("This website was created by Lightning Labs!", "info")
 
     # Show when the scores were last calculated
@@ -66,7 +78,7 @@ def home():
     flashmsg = "Scores current as of " + dt
     flask.flash(flashmsg, "primary")
 
-    return flask.render_template('index.html', teams=teams, scoreboard=scoreboard)
+    return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_render)
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -151,9 +163,11 @@ def submit():
             placement.place = db_submit[team_id]
             models.db.session.commit()
 
+        update_scoreboard()
         flask.flash("Submit successful!", "success")
     else:
         flask.flash("Unknown error encountered.", "danger")
+
     return flask.render_template('submit.html')
 
 
