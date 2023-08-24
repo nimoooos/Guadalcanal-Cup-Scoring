@@ -366,7 +366,6 @@ db.session.commit()
 result = Team.query.all()
 
 for r in result:
-    team = Team.query.filter_by(id=r.id).first()
-    team.update_score()
+    r.update_score()
     print()
 db.session.commit()
