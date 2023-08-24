@@ -24,9 +24,12 @@ scoreboard_global = []
 
 def update_scoreboard():
     """Update scoreboard_global which is stored in RAM"""
-    teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
+    teams = models.Team.query.all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
     events.pop(0)  # remove admin from events
+
+    for t in teams:
+        t.update_score()
 
     # create header for scoreboard table
     header = ["Teams"]
@@ -56,20 +59,18 @@ def update_scoreboard():
 
 
 update_scoreboard()  # update scoreboard when first building
+print("Initialization complete. http://127.0.0.1:5000")
 
 
 @app.route('/')
 def welcome():
+    print("Loading welcome page...")
     # Automatically goes to home() after 0.5 seconds
     return flask.render_template('Welcome.html')
 
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
-    teams = models.Team.query.all()  # create a list of teams participating
-    for t in teams:
-        t.update_score()
-
     scoreboard_render = scoreboard_global
 
     flask.flash("This website was created by Lightning Labs!", "info")
@@ -79,6 +80,7 @@ def home():
     dt = dt.strftime("%B %d, %H:%I")
     flashmsg = "Scores current as of " + dt
     flask.flash(flashmsg, "primary")
+    teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
 
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_render)
 

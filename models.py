@@ -44,7 +44,7 @@ class Team(db.Model):
             points = place_to_score(place)
             weighted = weight * points
 
-            print("{event}: {place}th place, {points} points, weighted score: {weighted}"
+            print("{event}: {place}th place, {points} raw, {weighted} weighted"
                   .format(event=event, place=place, points=points, weighted=weighted))
 
             total_score += weighted
