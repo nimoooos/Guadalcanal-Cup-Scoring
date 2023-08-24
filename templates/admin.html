@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container-md">
+    <h6>Logged in as {{user_code}}</h6>
+    <hr>
+
+    <form action="{{ url_for('admin') }}" method="POST">
+        <input type="hidden" name="request_code" value="UPDATE_SCOREBOARD">
+        <input class="btn btn-secondary" type="submit" value="Force Scoreboard Update">
+    </form>
+
+    <form action="{{ url_for('admin') }}" method="POST">
+        <input type="hidden" name="request_code" value="CREATE_NEW_USER">
+        <input class="btn btn-secondary" type="submit" value="Create New Login Code">
+    </form>
+
+
+    <hr>
+
+    <h6>Active accounts</h6>
+    <ul class="list-group">
+        {% for user in user_list %}
+        <li class="list-group-item">
+            <form action="{{ url_for('admin') }}" method="POST">
+                <!--TODO: change form url to url_for('view_user') after view_user function is built-->
+                <input type="hidden" name="request_code" value="VIEW_{{user.id}}">
+                <input class="btn btn-secondary" type="submit" value="{{user.code}}">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock %}

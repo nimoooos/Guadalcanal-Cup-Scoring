@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
 import models
-from proj_util import num_to_ordinal
+from proj_util import num_to_ordinal, random_user_code
 import datetime
 
 app = flask.Flask(__name__)
@@ -20,7 +20,8 @@ app.app_context().push()
 models.db.create_all()
 
 scoreboard_global = []
-
+print("Warning: Scoreboard is not yet initialized!")
+# need to load this up when program first runs
 
 def update_scoreboard():
     """Update scoreboard_global which is stored in RAM"""
@@ -129,8 +130,34 @@ def account():
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
+    user_list = models.User.query.all()  # initialize user_list
+    user_dict = {}
+    for user in user_list:
+        user_dict[user] = []
+
+    if flask.request.method == 'POST':  # called when a form submit is clicked
+        request_code = flask.request.form['request_code']
+
+        if request_code == "UPDATE_SCOREBOARD":
+            update_scoreboard()
+            flask.flash("Scoreboard is updated!", "info")
+            return flask.redirect('admin')
+
+        if request_code == "CREATE_NEW_USER":
+            new_user_code = random_user_code()
+            models.db.session.add(models.User(code=new_user_code))
+            models.db.session.commit()
+            flask.flash("New login code generated: {}".format(new_user_code))
+            return flask.redirect('admin')
+
+        if request_code.startswith("VIEW_"):
+            flask.flash("Under construction: request {} received".format(request_code), "info")
+            return flask.redirect('admin')
+
     # TODO: admin should be able to view all users, create new users, and give different access to different users
-    return "Admin page under construction.\nAdmin features will include: view all users, create new users, control permissions for users"
+    flask.flash("Admin page under construction.\nAdmin features will include: view all users, create new users, control permissions for users",'info')
+    flask.flash("This project cannot store PII such as Rank and Name. Contact Lightning Labs for more information.","danger")
+    return flask.render_template('admin.html', user_code=flask.session['user_code'], user_list=user_dict)
 
 
 @app.route('/edit', methods=['POST', 'GET'])
