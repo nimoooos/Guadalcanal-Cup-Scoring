@@ -13,7 +13,7 @@
             <h2>Current Leaderboard</h2>
             <ul class="container-fluid list-group text-center">
                 {% for team in teams %}
-                <li class="list-group-item bg-secondary text-light">{{ team.name }}  -  {{ team.score }} Points</li>
+                <li class="list-group-item bg-secondary text-light">{{ team["name"] }}  -  {{ team["score"] }} Points</li>
                 {% endfor %}
             </ul>
         </div>

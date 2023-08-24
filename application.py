@@ -77,7 +77,18 @@ def home():
 
     flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
 
-    teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
+    # extract team name and scores into an array of dictionaries
+    teams = []
+    for row in scoreboard_render:
+        row_element = {"name": row[0], "score": row[-1]}
+        teams.append(row_element)
+
+    # remove title row
+    if len(teams) > 0:
+        teams.pop(0)
+
+    # Sort list by score, descending
+    teams = sorted(teams, key=lambda x: -x["score"])
 
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_render)
 
