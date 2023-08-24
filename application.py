@@ -58,10 +58,6 @@ def update_scoreboard():
     scoreboard_global = scoreboard
 
 
-update_scoreboard()  # update scoreboard when first building
-print("Initialization complete. http://127.0.0.1:5000")
-
-
 @app.route('/')
 def welcome():
     print("Loading welcome page...")
@@ -167,7 +163,7 @@ def submit():
             placement.place = db_submit[team_id]
             models.db.session.commit()
 
-        update_scoreboard()
+        update_scoreboard()  # update score upon successful submission
         flask.flash("Submit successful!", "success")
     else:
         flask.flash("Unknown error encountered.", "danger")
