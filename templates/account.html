@@ -3,21 +3,24 @@
 {% block head %}
   {{ super() }}
 {% endblock %}
+
 {% block content %}
+<div class="container-md">
+    <h6>Logged in as {{user_code}}</h6>
 
-<h6>Logged in as {{user_code}}</h6>
+    <hr>
 
-<hr>
+    {% for event in events_access %}
+    <form action="{{ url_for('account') }}" method="POST">
+        <input type="hidden" name="event_id" value="{{event}}">
+        <input class="btn btn-secondary" type="submit" value="{{events[event].name}}">
+    </form>
+    {% endfor %}
 
-{% for event in events_access %}
-<form action="{{ url_for('account') }}" method="POST">
-  <input type="hidden" name="event_id" value="{{event}}">
-  <input type="submit" value="{{events[event].name}}">
-</form>
-{% endfor %}
+    <form action="{{ url_for('account') }}" method="POST">
+        <input type="hidden" name="event_id" value="-1">
+        <input class="btn btn-danger" type="submit" value="Log Out">
+    </form>
+</div>
 
-<form action="{{ url_for('account') }}" method="POST">
-  <input type="hidden" name="event_id" value="-1">
-  <input type="submit" value="Log Out">
-</form>
 {% endblock %}
