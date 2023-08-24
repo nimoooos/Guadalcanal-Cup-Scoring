@@ -12,7 +12,7 @@ app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config["SECRET_KEY"] = FLASK_SECRETKEY
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
-# TODO: set session option autoflush to false
+# TODO: set session option autoflush to false to fix SSL issue -- solved?
 debug = DebugToolbarExtension(app)
 
 models.connect_db(app)
@@ -20,8 +20,8 @@ app.app_context().push()
 models.db.create_all()
 
 scoreboard_global = []
+scoreboard_update_time = "Not Initialized"
 print("Warning: Scoreboard is not yet initialized!")
-# need to load this up when program first runs
 
 def update_scoreboard():
     """Update scoreboard_global which is stored in RAM"""
@@ -57,12 +57,17 @@ def update_scoreboard():
 
     global scoreboard_global
     scoreboard_global = scoreboard
+    global scoreboard_update_time
+    scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %Z"))
+    print(scoreboard_update_time)
+    flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
 
 
 @app.route('/')
 def welcome():
     print("Loading welcome page...")
     # Automatically goes to home() after 0.5 seconds
+    flask.flash("This website was created by Lightning Labs!", "info")
     return flask.render_template('Welcome.html')
 
 
@@ -70,13 +75,8 @@ def welcome():
 def home():
     scoreboard_render = scoreboard_global
 
-    flask.flash("This website was created by Lightning Labs!", "info")
+    flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
 
-    # Show when the scores were last calculated
-    dt = datetime.datetime.now()
-    dt = dt.strftime("%B %d, %H:%I")
-    flashmsg = "Scores current as of " + dt
-    flask.flash(flashmsg, "primary")
     teams = models.Team.query.order_by(-models.Team.score).all()  # list of teams, ordered by score (desc)
 
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_render)
@@ -147,7 +147,7 @@ def admin():
             new_user_code = random_user_code()
             models.db.session.add(models.User(code=new_user_code))
             models.db.session.commit()
-            flask.flash("New login code generated: {}".format(new_user_code))
+            flask.flash("New login code generated: {}".format(new_user_code), "success")
             return flask.redirect('admin')
 
         if request_code.startswith("VIEW_"):
