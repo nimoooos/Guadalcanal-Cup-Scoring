@@ -132,7 +132,7 @@ def account():
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
     # TODO: admin should be able to view all users, create new users, and give different access to different users
-    return "Admin page under construction"
+    return "Admin page under construction.\nAdmin features will include: view all users, create new users, control permissions for users"
 
 
 @app.route('/edit', methods=['POST', 'GET'])
