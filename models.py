@@ -90,7 +90,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.Text, nullable=False)
-    # TODO: individualize personnel and keep track of changes
+    # TODO: create log of who is editing what and when
         # Each user account is a randomly generated code, no username/password combo (avoid PII storage)
 
 
