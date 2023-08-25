@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
 import models
-from proj_util import num_to_ordinal, random_user_code
+from proj_util import num_to_ordinal, random_user_code, pivot_table
 import datetime
 
 app = flask.Flask(__name__)
@@ -20,8 +20,10 @@ app.app_context().push()
 models.db.create_all()
 
 scoreboard_global = []
+scoreboard_global_pivot = []
 scoreboard_update_time = "Not Initialized"
 print("Warning: Scoreboard is not yet initialized!")
+
 
 def update_scoreboard():
     """Update scoreboard_global which is stored in RAM"""
@@ -57,6 +59,8 @@ def update_scoreboard():
 
     global scoreboard_global
     scoreboard_global = scoreboard
+    global scoreboard_global_pivot
+    scoreboard_global_pivot = pivot_table(scoreboard_global)
     global scoreboard_update_time
     scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %Z"))
     print(scoreboard_update_time)
@@ -66,6 +70,7 @@ def update_scoreboard():
 @app.route('/')
 def welcome():
     print("Loading welcome page...")
+    update_scoreboard()  # DO NOT commit this line, this calls database for ~400 queries. debugging purposes only
     # Automatically goes to home() after 0.5 seconds
     flask.flash("This website was created by Lightning Labs!", "info")
     return flask.render_template('Welcome.html')
@@ -87,8 +92,14 @@ def home():
     if len(teams) > 0:
         teams.pop(0)
 
-    # Sort list by score, descending
-    teams = sorted(teams, key=lambda x: -x["score"])
+    print(scoreboard_render)
+    print(scoreboard_global_pivot)
+
+    teams = sorted(teams, key=lambda x: -x["score"])  # Sort teams list by score, descending
+
+    # make list of events
+    events = scoreboard_global[0]
+    events.pop(0)
 
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_render)
 
