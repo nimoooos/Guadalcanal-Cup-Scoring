@@ -164,7 +164,7 @@ def admin():
 
         if request_code == "UPDATE_SCOREBOARD":
             update_scoreboard()
-            flask.flash("Scoreboard is updated!", "info")
+            flask.flash("Scoreboard is updated!", "success")
             return flask.redirect('admin')
 
         if request_code == "CREATE_NEW_USER":

@@ -12,6 +12,7 @@
     <form action="{{ url_for('admin') }}" method="POST">
         <input type="hidden" name="request_code" value="UPDATE_SCOREBOARD">
         <input class="btn btn-secondary" type="submit" value="Force Scoreboard Update">
+        <label>Please only click this button once!</label>
     </form>
 
     <form action="{{ url_for('admin') }}" method="POST">
