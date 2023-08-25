@@ -22,18 +22,11 @@ models.db.create_all()
 scoreboard_global = []
 scoreboard_global_pivot = []
 scoreboard_update_time = "Not Initialized"
-scoreboard_updating = False
 print("Warning: Scoreboard is not yet initialized!")
 
 
 def update_scoreboard():
     """Update scoreboard_global which is stored in RAM"""
-    global scoreboard_updating
-    if scoreboard_updating:
-        flask.flash("Scoreboard is currently being updated.", "warning")
-        return
-    scoreboard_updating = True
-
     teams = models.Team.query.all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
     events.pop(0)  # remove admin from events
@@ -70,8 +63,8 @@ def update_scoreboard():
     scoreboard_global_pivot = pivot_table(scoreboard_global)
     global scoreboard_update_time
     scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %Z"))
+    print(scoreboard_update_time)
     flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
-    scoreboard_updating = False
 
 
 @app.route('/')
@@ -171,6 +164,7 @@ def admin():
 
         if request_code == "UPDATE_SCOREBOARD":
             update_scoreboard()
+            flask.flash("Scoreboard is updated!", "info")
             return flask.redirect('admin')
 
         if request_code == "CREATE_NEW_USER":
