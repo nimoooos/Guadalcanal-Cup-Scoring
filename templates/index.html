@@ -24,18 +24,10 @@
 
             <br>
 
-            <div class="container-flex">
-                {% for event in events %}
-                <button class="btn btn-secondary">{{event}}</button>
-                {% endfor %}
-            </div>
-
-            <br>
-
             <div class="container-md row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
                     {% for row in scoreboard %}
-                        {% if row[0]=="Teams" %}
+                        {% if row==scoreboard[0] %}
                         <tr class="table-secondary text-dark">
                             {% for item in row %}
                             <th class="align-middle">{{ item }}</th>
@@ -44,7 +36,19 @@
                         {% else %}
                         <tr>
                             {% for item in row %}
+
+                            {% if item==row[0] %}
+                            <td>
+                            <form action="{{ url_for('home') }}" method="POST">
+                                <input type="hidden" name="request_code" value="VIEW_{{item}}">
+                                <input class="btn btn-secondary" type="submit" value="{{item}}">
+                            </form>
+                            </td>
+
+                            {% else %}
                             <td class="align-middle">{{ item }}</td>
+                            {% endif %}
+
                             {% endfor %}
                         </tr>
                         {% endif %}
