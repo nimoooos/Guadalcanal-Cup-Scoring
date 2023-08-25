@@ -70,7 +70,7 @@ def update_scoreboard():
 @app.route('/')
 def welcome():
     print("Loading welcome page...")
-    update_scoreboard()  # DO NOT commit this line, this calls database for ~400 queries. debugging purposes only
+    # update_scoreboard()  # DO NOT commit this line, this calls database for ~400 queries. debugging purposes only
     # Automatically goes to home() after 0.5 seconds
     flask.flash("This website was created by Lightning Labs!", "info")
     return flask.render_template('Welcome.html')
