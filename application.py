@@ -98,8 +98,10 @@ def home():
     teams = sorted(teams, key=lambda x: -x["score"])  # Sort teams list by score, descending
 
     # make list of events
-    events = scoreboard_global[0]
-    events.pop(0)
+    events = []
+    if len(scoreboard_render) > 0:
+        events = scoreboard_render[0]
+        events.pop(0)
 
     return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_global_pivot, events=events)
 
