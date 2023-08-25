@@ -21,7 +21,17 @@
         <div class="container-md text-center">
             <hr>
             <h2>Scoreboard</h2>
+
             <br>
+
+            <div class="container-flex">
+                {% for event in events %}
+                <button class="btn btn-secondary">{{event}}</button>
+                {% endfor %}
+            </div>
+
+            <br>
+
             <div class="container-md row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
                     {% for row in scoreboard %}

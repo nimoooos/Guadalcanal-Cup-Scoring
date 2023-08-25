@@ -101,7 +101,7 @@ def home():
     events = scoreboard_global[0]
     events.pop(0)
 
-    return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_render)
+    return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_global_pivot, events=events)
 
 
 @app.route('/login', methods=['POST', 'GET'])
