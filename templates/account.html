@@ -15,6 +15,7 @@
         <input type="hidden" name="event_id" value="{{event}}">
         <input class="btn btn-secondary" type="submit" value="{{events[event].name}}">
     </form>
+    <br>
     {% endfor %}
 
     <form action="{{ url_for('account') }}" method="POST">

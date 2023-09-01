@@ -16,11 +16,11 @@ def num_to_ordinal(number):
     else: return str(number) + "th"
 
 
-def random_user_code():
+def random_user_code(length):
     import random
     import string
 
-    x = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
+    x = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
     return x
 
 
@@ -41,3 +41,55 @@ def pivot_table(old_table):
             new_table[index_new_row].append(old_table[index_new_column][index_new_row])
 
     return new_table
+
+
+def write_to_csv(directory, table_name, array_2d):
+    """
+    directory: string representation of directory
+    table_name: string representation of table name
+    array_2d: 2d array to be converted to csv
+    """
+    import csv
+    import os
+
+    backup_folder = directory  # name for backup directory
+
+    if not os.path.exists(backup_folder):  # make backup directory if it doesn't exist
+        os.makedirs(backup_folder)
+
+    filename = os.path.join(backup_folder, table_name)
+
+    with open(filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(array_2d)
+
+    return filename
+
+
+def zip_folder(input_directory):
+    """
+    dir: string representation of directory to zip
+    returns location of the .zip
+    """
+    from zipfile import ZipFile
+    import pathlib
+    import os
+
+    directory = pathlib.Path(input_directory)
+    zip_name = str(directory.parts[-1])+".zip"  # use name of the folder as the name of the zip
+
+    # if file already exists, delete file
+    if os.path.exists(zip_name):
+        os.remove(zip_name)
+
+    with ZipFile(zip_name, mode="w") as archive:
+        for file_path in directory.iterdir():
+            archive.write(file_path, arcname=file_path.name)
+
+    destination = os.path.join(directory.parent, zip_name)
+    if os.path.exists(destination):
+        os.remove(destination)
+
+    os.rename(zip_name, destination)
+
+    return destination

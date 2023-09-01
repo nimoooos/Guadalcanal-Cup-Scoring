@@ -12,14 +12,29 @@
     <form action="{{ url_for('admin') }}" method="POST">
         <input type="hidden" name="request_code" value="UPDATE_SCOREBOARD">
         <input class="btn btn-secondary" type="submit" value="Force Scoreboard Update">
-        <label>Please only click this button once!</label>
+        <label>Update the scoreboard display. This can take a while, please be patient!</label>
     </form>
+    <br>
 
     <form action="{{ url_for('admin') }}" method="POST">
         <input type="hidden" name="request_code" value="CREATE_NEW_USER">
         <input class="btn btn-secondary" type="submit" value="Create New Login Code">
+        <label>Generate a new login code for a user.</label>
     </form>
+    <br>
 
+    <form action="{{ url_for('admin') }}" method="POST">
+        <input type="hidden" name="request_code" value="BACKUP_SCOREBOARD">
+        <input class="btn btn-secondary" type="submit" value="Create Scoreboard Backup">
+        <label>Create a .csv backup of the scoreboard.</label>
+    </form>
+    <br>
+
+    <form action="{{ url_for('admin') }}" method="POST">
+        <input type="hidden" name="request_code" value="BACKUP_DATABASE">
+        <input class="btn btn-secondary" type="submit" value="Create Database Backup">
+        <Label>Create a backup of the entire database.</Label>
+    </form>
 
     <hr>
 

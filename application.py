@@ -4,8 +4,9 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
 import models
-from proj_util import num_to_ordinal, random_user_code, pivot_table
+from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder
 import datetime
+import os
 
 app = flask.Flask(__name__)
 
@@ -168,19 +169,35 @@ def admin():
             return flask.redirect('admin')
 
         if request_code == "CREATE_NEW_USER":
-            new_user_code = random_user_code()
+            new_user_code = random_user_code(8)
             models.db.session.add(models.User(code=new_user_code))
             models.db.session.commit()
             flask.flash("New login code generated: {}".format(new_user_code), "success")
             return flask.redirect('admin')
+
+        if request_code == "BACKUP_SCOREBOARD":
+            write_to_csv("backup","scoreboard.csv", scoreboard_global)
+            return flask.send_file(os.path.join("backup", "scoreboard.csv"), as_attachment=True)
+
+        if request_code == "BACKUP_DATABASE":
+            models.backup_table(models.Team)
+            models.backup_table(models.Event)
+            models.backup_table(models.Placement)
+            models.backup_table(models.User)
+            models.backup_table(models.Access)
+
+            zip_directory = zip_folder(os.path.join("backup", "database"))
+
+            flask.flash("Check backup/database folder", "success")
+            return flask.send_file(zip_directory, as_attachment=True)
 
         if request_code.startswith("VIEW_"):
             flask.flash("Under construction: request {} received".format(request_code), "info")
             return flask.redirect('admin')
 
     # TODO: admin should be able to view all users, create new users, and give different access to different users
-    flask.flash("Admin page under construction.\nAdmin features will include: view all users, create new users, control permissions for users",'info')
-    flask.flash("This project cannot store PII such as Rank and Name. Contact Lightning Labs for more information.","danger")
+    flask.flash("Admin page under construction.\nPending admin features: control permissions for users", 'info')
+    flask.flash("This project cannot store PII such as Rank and Name. Contact Lightning Labs for more information.", 'danger')
     return flask.render_template('admin.html', user_code=flask.session['user_code'], user_list=user_dict)
 
 

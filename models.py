@@ -18,6 +18,31 @@ def connect_db(app):
     return app
 
 
+def backup_table(table_class):
+    from proj_util import write_to_csv
+    from os import path
+
+    directory = path.join("backup", "database")
+    filename = "{}.csv".format(table_class.__tablename__)
+
+    query = table_class.query.all()  # TODO: convert this query into an array
+    array_2d = [[]]
+
+    for column in table_class.__table__.columns:  # create header with column names
+        array_2d[0].append(column.name)
+
+    for row in query:
+        to_append = []
+        for column in array_2d[0]:
+            to_append.append((vars(row)[column]))
+        array_2d.append(to_append)  # add new row into array
+
+    print("Creating {}...".format(filename))
+    print(array_2d)
+
+    write_to_csv(directory, filename, array_2d)
+
+
 class Team(db.Model):
     """Database model for competing teams (units, not individuals)"""
     __tablename__ = 'teams'
