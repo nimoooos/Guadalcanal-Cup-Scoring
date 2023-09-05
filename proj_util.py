@@ -17,6 +17,9 @@ def num_to_ordinal(number):
 
 
 def random_user_code(length):
+    """
+    Generate a random string with the given length (positive integer)
+    """
     import random
     import string
 
@@ -25,6 +28,10 @@ def random_user_code(length):
 
 
 def pivot_table(old_table):
+    """
+    Takes in a 2d array and outputs pivoted 2d array
+    old_table: input array to be pivoted
+    """
     new_table = []
     num_rows = len(old_table)
     num_cols = len(old_table[0])
@@ -93,3 +100,19 @@ def zip_folder(input_directory):
     os.rename(zip_name, destination)
 
     return destination
+
+
+def backup_table_all():
+    import models
+
+    models.backup_table(models.Team)
+    models.backup_table(models.Event)
+    models.backup_table(models.Placement)
+    models.backup_table(models.User)
+    models.backup_table(models.Access)
+
+def backup_table_scores():
+    import models
+    models.backup_table(models.Team)
+    models.backup_table(models.Event)
+    models.backup_table(models.Placement)

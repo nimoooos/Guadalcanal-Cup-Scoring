@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
 import models
-from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder
+from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder, backup_table_all, backup_table_scores
 import datetime
 import os
 
@@ -64,6 +64,7 @@ def update_scoreboard():
     scoreboard_global_pivot = pivot_table(scoreboard_global)
     global scoreboard_update_time
     scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %Z"))
+
     print(scoreboard_update_time)
     flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
 
@@ -180,11 +181,7 @@ def admin():
             return flask.send_file(os.path.join("backup", "scoreboard.csv"), as_attachment=True)
 
         if request_code == "BACKUP_DATABASE":
-            models.backup_table(models.Team)
-            models.backup_table(models.Event)
-            models.backup_table(models.Placement)
-            models.backup_table(models.User)
-            models.backup_table(models.Access)
+            backup_table_all()
 
             zip_directory = zip_folder(os.path.join("backup", "database"))
 
@@ -232,6 +229,7 @@ def submit():
             models.db.session.commit()
 
         update_scoreboard()  # update score upon successful submission
+        backup_table_scores()
         flask.flash("Submit successful!", "success")
     else:
         flask.flash("Unknown error encountered.", "danger")

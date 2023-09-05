@@ -25,8 +25,8 @@ def backup_table(table_class):
     directory = path.join("backup", "database")
     filename = "{}.csv".format(table_class.__tablename__)
 
-    query = table_class.query.all()  # TODO: convert this query into an array
-    array_2d = [[]]
+    query = table_class.query.all()
+    array_2d = [[]]  # store the query into an array
 
     for column in table_class.__table__.columns:  # create header with column names
         array_2d[0].append(column.name)
