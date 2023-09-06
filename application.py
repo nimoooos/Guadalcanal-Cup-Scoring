@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
 import models
-from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder, backup_table_all, backup_table_scores
+from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder, backup_table_all
 import datetime
 import os
 
@@ -81,6 +81,8 @@ def welcome():
 @app.route('/home', methods=['POST', 'GET'])
 def home():
     scoreboard_render = scoreboard_global
+    scoreboard_render_pivot = scoreboard_global_pivot
+    show_scoreboard = True
 
     flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
 
@@ -95,7 +97,7 @@ def home():
         teams.pop(0)
 
     print(scoreboard_render)
-    print(scoreboard_global_pivot)
+    print(scoreboard_render_pivot)
 
     teams = sorted(teams, key=lambda x: -x["score"])  # Sort teams list by score, descending
 
@@ -103,9 +105,52 @@ def home():
     events = []
     if len(scoreboard_render) > 0:
         events = scoreboard_render[0]
-        events.pop(0)
+        print(events)
 
-    return flask.render_template('index.html', teams=teams, scoreboard=scoreboard_global_pivot, events=events)
+        # TODO: only remove the first time!!
+
+    request_type = "NONE"
+    requested_info = {}
+    if flask.request.method == 'POST':  # if unit or event is selected
+        def req_code_parser(req_code):
+            return req_code.split("_")[1].replace("+", " ")  # removes header, and replaces "+" with " "
+
+        if flask.request.form['request_code'].startswith("TEAM_"):
+            show_scoreboard = False
+            request_type = "UNIT"
+            parsed = req_code_parser(flask.request.form['request_code'])
+
+            req_info = [scoreboard_render[0]]  # header
+            for row in scoreboard_render:
+                if row[0] == parsed:  # match found
+                    req_info.append(row)
+                    break
+
+            for index in range(len(req_info[0])):
+                requested_info[req_info[0][index]] = req_info[1][index]
+
+        if flask.request.form['request_code'].startswith("EVENT_"):
+            show_scoreboard = False
+            request_type = "EVENT"
+            parsed = req_code_parser(flask.request.form['request_code'])
+
+            req_info = [scoreboard_render_pivot[0]]  # header
+            for row in scoreboard_render_pivot:
+                if row[0] == parsed:  # match found
+                    req_info.append(row)
+                    break
+
+            for index in range(len(req_info[0])):
+                requested_info[req_info[0][index]] = req_info[1][index]
+
+    return flask.render_template(
+        'index.html',
+        teams=teams,
+        scoreboard=scoreboard_render_pivot,
+        events=events,
+        request_type=request_type,
+        requested_info=requested_info,
+        show_scoreboard=show_scoreboard)
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -177,7 +222,7 @@ def admin():
             return flask.redirect('admin')
 
         if request_code == "BACKUP_SCOREBOARD":
-            write_to_csv("backup","scoreboard.csv", scoreboard_global)
+            write_to_csv("backup", "scoreboard.csv", scoreboard_global)
             return flask.send_file(os.path.join("backup", "scoreboard.csv"), as_attachment=True)
 
         if request_code == "BACKUP_DATABASE":
@@ -214,6 +259,7 @@ def edit():
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     if flask.request.method == 'POST':
+
         db_submit = {}  # list to be stored in session
         for item in flask.request.form:
             key = convert_to_id(item)  # receiving team id as integer
@@ -229,7 +275,6 @@ def submit():
             models.db.session.commit()
 
         update_scoreboard()  # update score upon successful submission
-        backup_table_scores()
         flask.flash("Submit successful!", "success")
     else:
         flask.flash("Unknown error encountered.", "danger")

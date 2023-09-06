@@ -110,9 +110,3 @@ def backup_table_all():
     models.backup_table(models.Placement)
     models.backup_table(models.User)
     models.backup_table(models.Access)
-
-def backup_table_scores():
-    import models
-    models.backup_table(models.Team)
-    models.backup_table(models.Event)
-    models.backup_table(models.Placement)

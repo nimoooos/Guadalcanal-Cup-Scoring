@@ -23,14 +23,23 @@
             <h2>Scoreboard</h2>
 
             <br>
-
+            {% if show_scoreboard %}
             <div class="container-md row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
                     {% for row in scoreboard %}
                         {% if row==scoreboard[0] %}
                         <tr class="table-secondary text-dark">
                             {% for item in row %}
-                            <th class="align-middle">{{ item }}</th>
+                                {% if item==row[0] %}
+                                    <th class="align-middle"></th>
+                                {% else %}
+                                    <th class="align-middle">
+                                        <form action="{{ url_for('home') }}" method="POST">
+                                            <input type="hidden" name="request_code" value="TEAM_{{item}}">
+                                            <input class="btn btn-secondary" type="submit" value="{{item}}">
+                                        </form>
+                                    </th>
+                                {% endif %}
                             {% endfor %}
                         </tr>
                         {% else %}
@@ -40,7 +49,7 @@
                             {% if item==row[0] %}
                             <td>
                             <form action="{{ url_for('home') }}" method="POST">
-                                <input type="hidden" name="request_code" value="VIEW_{{item}}">
+                                <input type="hidden" name="request_code" value="EVENT_{{item}}">
                                 <input class="btn btn-secondary" type="submit" value="{{item}}">
                             </form>
                             </td>
@@ -55,6 +64,28 @@
                     {% endfor %}
                 </table>
             </div>
+            {% else %}
+
+            <div class="container-md row flex-nowrap overflow-auto">
+                <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
+                    {% for item in requested_info %}
+                    <tr class="table-secondary text-dark">
+                        <td>
+                            {{item}}
+                        </td>
+                        <td>
+                            {{requested_info[item]}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            {% endif %}
+
+            <form action="{{url_for('home')}}">
+                <input type="submit" class="btn btn-primary" value="Refresh Page">
+            </form>
             <hr>
             <form action="{{url_for('login')}}">
                 <input type="submit" class="btn btn-info" value="Update Scores">
