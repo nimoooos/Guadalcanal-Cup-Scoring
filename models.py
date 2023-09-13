@@ -115,6 +115,8 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.Text, nullable=False)
+
+    permissions = db.relationship('Access', backref='User')
     # TODO: create log of who is editing what and when
         # Each user account is a randomly generated code, no username/password combo (avoid PII storage)
 
@@ -124,3 +126,5 @@ class Access(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+
+    event = db.relationship('Event', backref='Access')

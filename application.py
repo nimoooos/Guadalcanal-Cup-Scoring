@@ -22,8 +22,8 @@ models.db.create_all()
 
 scoreboard_global = []
 scoreboard_global_pivot = []
-scoreboard_update_time = "Not Initialized"
-print("Warning: Scoreboard is not yet initialized!")
+scoreboard_update_time = "N/A"
+print("Scoreboard: ", scoreboard_update_time)
 
 
 def update_scoreboard():
@@ -63,7 +63,7 @@ def update_scoreboard():
     global scoreboard_global_pivot
     scoreboard_global_pivot = pivot_table(scoreboard_global)
     global scoreboard_update_time
-    scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %Z"))
+    scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %z"))
 
     print(scoreboard_update_time)
     flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
@@ -75,6 +75,8 @@ def welcome():
     # update_scoreboard()  # DO NOT commit this line, this calls database for ~400 queries. debugging purposes only
     # Automatically goes to home() after 0.5 seconds
     flask.flash("This website was created by Lightning Labs!", "info")
+    if scoreboard_update_time == "N/A": update_scoreboard()  # only update scoreboard if it hasn't been updated
+
     return flask.render_template('Welcome.html')
 
 
@@ -106,8 +108,6 @@ def home():
     if len(scoreboard_render) > 0:
         events = scoreboard_render[0]
         print(events)
-
-        # TODO: only remove the first time!!
 
     request_type = "NONE"
     requested_info = {}
@@ -235,6 +235,12 @@ def admin():
 
         if request_code.startswith("VIEW_"):
             flask.flash("Under construction: request {} received".format(request_code), "info")
+
+            def id_from_request_code(reqcode):
+                return reqcode.split("_")[1]
+
+            for user_permission in models.User.query.get(request_code.split("_")[1]).permissions:
+                flask.flash(str("Access to: "+user_permission.event.name), "warning")
             return flask.redirect('admin')
 
     # TODO: admin should be able to view all users, create new users, and give different access to different users
