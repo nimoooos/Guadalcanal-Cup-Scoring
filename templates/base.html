@@ -14,13 +14,13 @@
 </head>
 <body class="bg-dark text-light">
     <nav class="navbar navbar-expand-md bg-secondary fixed-top">
-        <a class="navbar-brand text-dark" href="{{url_for('home')}}">
-            <img src="static/Guadalcanal_Cup.png" width="35" height="35" alt="Guadalcanal Cup">Home
+        <a class="navbar-brand text-dark" href="{{url_for('info')}}">
+            <img src="static/Guadalcanal_Cup.png" width="35" height="35" alt="Guadalcanal Cup">TLW
         </a>
         <a class="navbar-brand text-dark" href="{{url_for('welcome')}}">
-            <img src="static/LL_Logo.png" width="35" height="35" alt="Lightning Labs">Careers
+            <img src="static/LL_Logo.png" width="35" height="35" alt="Lightning Labs">Lightning Labs
         </a>
-        <a class="navbar-brand text-dark" href="#">
+        <a class="navbar-brand text-dark" href="{{url_for('home')}}">
             <img src="static/25ID_Logo.png" width="35" height="35" alt="25th ID">Units
         </a>
     </nav>
@@ -42,8 +42,9 @@
     </div>
     {% block content %}
     {% endblock %}
-    <div class="container-md">
+    <div class="container-md bg-white text-dark">
         <hr>
+        <img src="static/LL_Logo.png" width="35" height="35" alt="Lightning Labs">
         <label>Created by Lightning Labs</label>
         <a href="mailto:usarmy.schofield.25-id.mbx.lightling-labs-innovations-mailbox@army.mil">Contact us</a>
     </div>

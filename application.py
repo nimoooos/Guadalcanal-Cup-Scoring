@@ -153,6 +153,11 @@ def home():
         show_scoreboard=show_scoreboard)
 
 
+@app.route('/info', methods=['POST', 'GET'])
+def info():
+    return flask.render_template('info.html')
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if flask.request.method == 'POST':  # called when login button redirects to login()
