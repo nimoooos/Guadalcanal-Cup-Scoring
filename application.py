@@ -26,7 +26,7 @@ scoreboard_update_time = "N/A"
 print("Scoreboard: ", scoreboard_update_time)
 
 
-def update_scoreboard():
+def update_scoreboard() -> None:
     """Update scoreboard_global which is stored in RAM"""
     teams = models.Team.query.all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
@@ -67,10 +67,14 @@ def update_scoreboard():
 
     print(scoreboard_update_time)
     flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
+    return None
 
 
 @app.route('/')
 def welcome():
+    """
+    Called by default. Flashes Lightning Labs logo then redirects to info page.
+    """
     print("Loading welcome page...")
     # update_scoreboard()  # DO NOT commit this line, this calls database for ~400 queries. debugging purposes only
     # Automatically goes to home() after 0.5 seconds
@@ -293,11 +297,15 @@ def submit():
     return flask.render_template('submit.html')
 
 
-def convert_to_id(string):
+def convert_to_id(string) -> int | None:
+    """
+    converts string "teamid_num" into integer num
+    """
     if string.startswith("teamid_"):
         return int(string.split("_")[1])
     if string.isnumeric:
         return int(string)
+    else: return None
 
 
 if __name__ == '__main__':

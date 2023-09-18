@@ -1,9 +1,13 @@
+import flask  # imported for type annotation
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 
-def place_to_score(place):
+def place_to_score(place: int) -> int:
+    """
+    Converts placement (int) to score (int). Used for calculating total score.
+    """
     if place == 1: return 10
     if place == 2: return 7
     if place == 3: return 5
@@ -11,14 +15,14 @@ def place_to_score(place):
     else: return 0
 
 
-def connect_db(app):
+def connect_db(app: flask.Flask) -> flask.Flask:
     """Wraps logic into a function connecting app to database"""
     db.app = app
     db.init_app(app)
     return app
 
 
-def backup_table(table_class):
+def backup_table(table_class: db.Model) -> None:
     from proj_util import write_to_csv
     from os import path
 
@@ -51,13 +55,13 @@ class Team(db.Model):
     name = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"<{self.__tablename__}: id={self.id}, name={self.name}, score={self.score}>"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
-    def update_score(self):
+    def update_score(self) -> None:
         """Updates, sets, and returns the total score for each team based on the team's places in different events"""
         results = Placement.query.filter_by(teams_id=self.id).all()
         total_score = 0
@@ -76,7 +80,7 @@ class Team(db.Model):
 
         print("Total score: {}".format(total_score))
         self.score = total_score
-        return total_score
+        return None
 
 
 class Event(db.Model):
@@ -87,10 +91,10 @@ class Event(db.Model):
     name = db.Column(db.Text, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"<{self.__tablename__}: id={self.id}, name={self.name}, weight={self.weight}>"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
 
@@ -102,10 +106,10 @@ class Placement(db.Model):
     events_id = db.Column(db.Integer, db.ForeignKey('events.id'), primary_key=True)
     place = db.Column(db.Integer, nullable=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"<{self.__tablename__}: teams_id={self.teams_id}, events_id={self.events_id}, place={self.place}>"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.__str__()
 
 
@@ -118,7 +122,7 @@ class User(db.Model):
 
     permissions = db.relationship('Access', backref='User')
     # TODO: create log of who is editing what and when
-        # Each user account is a randomly generated code, no username/password combo (avoid PII storage)
+    # Each user account is a randomly generated code, no username/password combo (avoid PII storage)
 
 
 class Access(db.Model):
