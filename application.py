@@ -81,7 +81,6 @@ def welcome():
     # update_scoreboard()  # DO NOT commit this line, this calls database for ~400 queries. debugging purposes only
     # Automatically goes to home() after 0.5 seconds
     flask.flash("This website was created by Lightning Labs!", "info")
-    if scoreboard_update_time == "N/A": update_scoreboard()  # only update scoreboard if it hasn't been updated
 
     return flask.render_template('Welcome.html')
 
@@ -91,6 +90,10 @@ def home():
     """
     This page displays scoreboard.
     """
+    if scoreboard_update_time == "N/A":
+        update_scoreboard()  # update scoreboard if it hasn't been updated
+        print("Updating Scoreboard...")
+
     scoreboard_render = scoreboard_global
     scoreboard_render_pivot = scoreboard_global_pivot
     show_scoreboard = True
@@ -107,16 +110,12 @@ def home():
     if len(teams) > 0:
         teams.pop(0)
 
-    print(scoreboard_render)
-    print(scoreboard_render_pivot)
-
     teams = sorted(teams, key=lambda x: -x["score"])  # Sort teams list by score, descending
 
     # make list of events
     events = []
     if len(scoreboard_render) > 0:
         events = scoreboard_render[0]
-        print(events)
 
     request_type = "NONE"
     requested_info = {}
