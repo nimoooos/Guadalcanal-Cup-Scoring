@@ -8,6 +8,7 @@ def place_to_score(place: int) -> int:
     """
     Converts placement (int) to score (int). Used for calculating total score.
     """
+    # TODO: update scores
     if place == 1: return 10
     if place == 2: return 7
     if place == 3: return 5
@@ -16,13 +17,18 @@ def place_to_score(place: int) -> int:
 
 
 def connect_db(app: flask.Flask) -> flask.Flask:
-    """Wraps logic into a function connecting app to database"""
+    """
+    Wraps logic into a function connecting app to database
+    """
     db.app = app
     db.init_app(app)
     return app
 
 
 def backup_table(table_class: db.Model) -> None:
+    """
+    Receives table class, creates .csv file in /backup/database
+    """
     from proj_util import write_to_csv
     from os import path
 
@@ -48,7 +54,9 @@ def backup_table(table_class: db.Model) -> None:
 
 
 class Team(db.Model):
-    """Database model for competing teams (units, not individuals)"""
+    """
+    Database model for competing teams (units, not individuals)
+    """
     __tablename__ = 'teams'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -62,7 +70,9 @@ class Team(db.Model):
         return self.__str__()
 
     def update_score(self) -> None:
-        """Updates, sets, and returns the total score for each team based on the team's places in different events"""
+        """
+        Updates, sets, and returns the total score for each team based on the team's places in different events
+        """
         results = Placement.query.filter_by(teams_id=self.id).all()
         total_score = 0
         print("\nUpdating total score for {}...".format(self.name))
@@ -99,7 +109,9 @@ class Event(db.Model):
 
 
 class Placement(db.Model):
-    """Linker between teams and events to show what team won what event"""
+    """
+    Linker table between teams and events to show what team won what event
+    """
     __tablename__ = 'placements'
 
     teams_id = db.Column(db.Integer, db.ForeignKey('teams.id'), primary_key=True)
@@ -114,7 +126,9 @@ class Placement(db.Model):
 
 
 class User(db.Model):
-    """Stores user login information. Each code can access one event"""
+    """
+    Stores user login information. Each code can have different access permissions depending on Access class.
+    """
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -126,7 +140,11 @@ class User(db.Model):
 
 
 class Access(db.Model):
-    """Stores info of what access user has"""
+    """
+    Stores info of what access a User has.
+    """
+    __tablename__ = 'accesses'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))

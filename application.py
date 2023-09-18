@@ -27,7 +27,9 @@ print("Scoreboard: ", scoreboard_update_time)
 
 
 def update_scoreboard() -> None:
-    """Update scoreboard_global which is stored in RAM"""
+    """
+    Update scoreboard_global which is stored in RAM. This prevents excessive database access.
+    """
     teams = models.Team.query.all()  # list of teams, ordered by score (desc)
     events = models.Event.query.order_by(models.Event.id).all()  # list of all events, ordered by id
     events.pop(0)  # remove admin from events
@@ -86,6 +88,9 @@ def welcome():
 
 @app.route('/home', methods=['POST', 'GET'])
 def home():
+    """
+    This page displays scoreboard.
+    """
     scoreboard_render = scoreboard_global
     scoreboard_render_pivot = scoreboard_global_pivot
     show_scoreboard = True
@@ -159,11 +164,19 @@ def home():
 
 @app.route('/info', methods=['POST', 'GET'])
 def info():
+    """
+    This page displays static images in directory "static/TLW PPT Slides"
+    """
+    # TODO: dynamically grab the list of files and send it through render_template.
     return flask.render_template('info.html')
 
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    """
+    Login page.
+    It's also a redirect destination for login POST request, which confirms if login info is correct.
+    """
     if flask.request.method == 'POST':  # called when login button redirects to login()
         password = flask.request.form['password'].upper()
         query = models.User.query.filter_by(code=password)
@@ -182,6 +195,9 @@ def login():
 
 @app.route('/account', methods=['POST', 'GET'])
 def account():
+    """
+    Account menu. Shows different options available to users.
+    """
     if flask.request.method == 'POST':  # called when a form submit is clicked
         event_id = flask.request.form['event_id']
         if event_id == "-1":  # logout code
@@ -210,6 +226,9 @@ def account():
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
+    """
+    Admin menu. Shows special actions available only to admin account holders.
+    """
     user_list = models.User.query.all()  # initialize user_list
     user_dict = {}
     for user in user_list:
@@ -252,7 +271,7 @@ def admin():
                 flask.flash(str("Access to: "+user_permission.event.name), "warning")
             return flask.redirect('admin')
 
-    # TODO: admin should be able to view all users, create new users, and give different access to different users
+    # TODO: HIGH PRIORITY admin should be able to view all users, create new users, and give different access to different users
     flask.flash("Admin page under construction.\nPending admin features: control permissions for users", 'info')
     flask.flash("This project cannot store PII such as Rank and Name. Contact Lightning Labs for more information.", 'danger')
     return flask.render_template('admin.html', user_code=flask.session['user_code'], user_list=user_dict)
@@ -260,7 +279,10 @@ def admin():
 
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
-    # TODO: pre-select placement for each team based on previous data entry
+    """
+    Score update menu.
+    """
+    # TODO: HIGH PRIORITY pre-select placement for each team based on previous data entry
     user_code = flask.session['user_code']
     event_id = flask.session['event_id']
     event = models.Event.query.filter_by(id=event_id).first()
@@ -273,6 +295,9 @@ def edit():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
+    """
+    Confirms that data has been entered.
+    """
     if flask.request.method == 'POST':
 
         db_submit = {}  # list to be stored in session
