@@ -284,7 +284,29 @@ def viewuser():
     """
     From admin, view a user account and modify details
     """
-    view_user = flask.session['view_user']
+    view_user = flask.session['view_user']  # grab user's id and login code
+
+    if flask.request.method == 'POST':
+        request_code = flask.request.form['request_code']
+
+        if request_code.startswith("ADD_"):  # create new access row
+            event_id = request_code.split("_")[1]
+            user_id = view_user["id"]
+
+            models.db.session.add(models.Access(event_id=event_id, user_id=user_id))
+            models.db.session.commit()
+            return flask.redirect(url_for('viewuser'))
+
+        if request_code.startswith("REMOVE_"):  # find the existing row and remove it
+            event_id = request_code.split("_")[1]
+            user_id = view_user["id"]
+            row = models.Access.query.filter_by(event_id=event_id, user_id=user_id).first()
+
+            models.db.session.remove(row)
+            models.db.session.commit()
+            return flask.redirect(url_for('viewuser'))
+
+
     permissions = models.User.query.filter_by(id=view_user["id"]).first().permissions
     all_events = models.Event.query.all()
 
