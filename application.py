@@ -1,5 +1,5 @@
 import flask
-from flask import url_for  # imported for use in frontend
+from flask import url_for  # DO NOT REMOVE: imported for use in frontend
 from flask_debugtoolbar import DebugToolbarExtension
 
 from env import DB_URI, FLASK_SECRETKEY
@@ -13,7 +13,7 @@ app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
 app.config["SECRET_KEY"] = FLASK_SECRETKEY
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
-# TODO: set session option autoflush to false to fix SSL issue -- solved?
+# TODO: set session option auto flush to false to fix SSL issue -- solved?
 debug = DebugToolbarExtension(app)
 
 models.connect_db(app)
@@ -182,12 +182,12 @@ def login():
 
         if query.count() == 0:  # no match found, send back to login()
             flask.flash("Error! Incorrect code presented.", "danger")
-            return flask.redirect(flask.url_for('login'))
+            return flask.redirect(url_for('login'))
 
         else:  # match found, send to edit()
             flask.session['user_code'] = password
             flask.flash("Login successful!", "success")
-            return flask.redirect(flask.url_for('account'))
+            return flask.redirect(url_for('account'))
 
     return flask.render_template('login.html')
 
@@ -197,6 +197,7 @@ def account():
     """
     Account menu. Shows different options available to users.
     """
+
     if flask.request.method == 'POST':  # called when a form submit is clicked
         event_id = flask.request.form['event_id']
         if event_id == "-1":  # logout code
@@ -228,6 +229,7 @@ def admin():
     """
     Admin menu. Shows special actions available only to admin account holders.
     """
+
     user_list = models.User.query.all()  # initialize user_list
     user_dict = {}
     for user in user_list:
@@ -260,20 +262,44 @@ def admin():
             flask.flash("Check backup/database folder", "success")
             return flask.send_file(zip_directory, as_attachment=True)
 
-        if request_code.startswith("VIEW_"):
-            flask.flash("Under construction: request {} received".format(request_code), "info")
+        if request_code.startswith("VIEWUSER_"):
+            """
+            call viewuser()
+            """
+            view_object = models.User.query.filter_by(id=request_code.split("_")[1]).first()  # grab the User with the correct id
 
-            def id_from_request_code(reqcode):
-                return reqcode.split("_")[1]
+            # load user info into sessions
+            view_user = {"id": view_object.id, "code": view_object.code}
+            flask.session['view_user'] = view_user
+            return flask.redirect(url_for('viewuser'))
 
-            for user_permission in models.User.query.get(request_code.split("_")[1]).permissions:
-                flask.flash(str("Access to: "+user_permission.event.name), "warning")
-            return flask.redirect('admin')
-
-    # TODO: HIGH PRIORITY admin should be able to view all users, create new users, and give different access to different users
+    # TODO: HIGH PRIORITY admin should be able to give and take away different access to different users
     flask.flash("Admin page under construction.\nPending admin features: control permissions for users", 'info')
     flask.flash("This project cannot store PII such as Rank and Name. Contact Lightning Labs for more information.", 'danger')
     return flask.render_template('admin.html', user_code=flask.session['user_code'], user_list=user_dict)
+
+
+@app.route('/admin/viewuser', methods=['POST', 'GET'])
+def viewuser():
+    """
+    From admin, view a user account and modify details
+    """
+    view_user = flask.session['view_user']
+    permissions = models.User.query.filter_by(id=view_user["id"]).first().permissions
+    all_events = models.Event.query.all()
+
+    # create a dictionary of all events.
+    event_dict = {}
+    for event in all_events:
+        event_dict[event.id] = {"event_name": event.name, "permission": False}
+
+    # set certain permissions to True
+    for access in permissions:
+        event_dict[access.event_id]["permission"] = True
+
+    print(event_dict)
+
+    return flask.render_template('viewuser.html', view_user=view_user, event_dict=event_dict)
 
 
 @app.route('/edit', methods=['POST', 'GET'])
@@ -329,7 +355,8 @@ def convert_to_id(string) -> int | None:
         return int(string.split("_")[1])
     if string.isnumeric:
         return int(string)
-    else: return None
+    else:
+        return None
 
 
 if __name__ == '__main__':

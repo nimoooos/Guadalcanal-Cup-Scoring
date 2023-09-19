@@ -143,7 +143,6 @@ class Access(db.Model):
     """
     Stores info of what access a User has.
     """
-    __tablename__ = 'accesses'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))

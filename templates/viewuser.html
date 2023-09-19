@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="container-md">
+        <label>Under Construction: View User</label>
+
+        <br>
+        {{view_user.code}}
+        <ul class="list-group">
+            {% for eventKey in event_dict %}
+            <li class="list-group-item">
+                {% if event_dict[eventKey]["permission"] %}
+                <button class="btn btn-success">{{event_dict[eventKey]["event_name"]}}</button>
+                {% else %}
+                <button class="btn btn-danger">{{event_dict[eventKey]["event_name"]}}</button>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}
