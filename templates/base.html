@@ -15,13 +15,16 @@
 <body class="bg-dark text-light">
     <nav class="navbar navbar-expand-md bg-secondary fixed-top">
         <a class="navbar-brand text-dark" href="{{url_for('info')}}">
-            <img src="static/Guadalcanal_Cup.png" width="35" height="35" alt="Guadalcanal Cup">TLW
-        </a>
-        <a class="navbar-brand text-dark" href="{{url_for('welcome')}}">
-            <img src="static/LL_Logo.png" width="35" height="35" alt="Lightning Labs">Lightning Labs
+            <button class="btn btn-info btn-sm"><img src="static/Guadalcanal_Cup.png" width="23" height="23" alt="Guadalcanal Cup Logo">TLW</button>
         </a>
         <a class="navbar-brand text-dark" href="{{url_for('home')}}">
-            <img src="static/25ID_Logo.png" width="35" height="35" alt="25th ID">Scoreboard
+            <button class="btn btn-info btn-sm"><img src="static/25ID_Logo.png" width="23" height="23" alt="25th ID Logo">Scores</button>
+        </a>
+        <a class="navbar-brand text-dark" href="{{url_for('welcome')}}">
+            <button class="btn btn-info btn-sm"><img src="static/LL_Logo.png" width="23" height="23" alt="Lightning Labs Logo">Labs</button>
+        </a>
+        <a class="navbar-brand text-dark" href="{{url_for('login')}}">
+            <button class="btn btn-info btn-sm">Log In</button>
         </a>
     </nav>
     <br>

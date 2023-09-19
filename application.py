@@ -273,8 +273,6 @@ def admin():
             flask.session['view_user'] = view_user
             return flask.redirect(url_for('viewuser'))
 
-    # TODO: HIGH PRIORITY admin should be able to give and take away different access to different users
-    flask.flash("Admin page under construction.\nPending admin features: control permissions for users", 'info')
     flask.flash("This project cannot store PII such as Rank and Name. Contact Lightning Labs for more information.", 'danger')
     return flask.render_template('admin.html', user_code=flask.session['user_code'], user_list=user_dict)
 
