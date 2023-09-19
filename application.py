@@ -304,7 +304,6 @@ def viewuser():
             models.db.session.commit()
             return flask.redirect(url_for('viewuser'))
 
-
     permissions = models.User.query.filter_by(id=view_user["id"]).first().permissions
     all_events = models.Event.query.all()
 
@@ -372,12 +371,9 @@ def submit():
         update_scoreboard()  # update score upon successful submission
         flask.flash("Submit successful!", "success")
     else:
-        flask.flash("Unknown error encountered.", "danger")
+        flask.flash("Unknown error encountered. No data submission received.", "danger")
 
     return flask.render_template('submit.html')
-
-
-
 
 
 if __name__ == '__main__':
