@@ -2,7 +2,7 @@ import flask
 from flask import url_for  # DO NOT REMOVE: imported for use in frontend
 from flask_debugtoolbar import DebugToolbarExtension
 
-from env import DB_URI, FLASK_SECRETKEY
+import env
 import models
 from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder, backup_table_all
 import datetime
@@ -10,8 +10,8 @@ import os
 
 app = flask.Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = DB_URI
-app.config["SECRET_KEY"] = FLASK_SECRETKEY
+app.config['SQLALCHEMY_DATABASE_URI'] = env.DB_URI
+app.config["SECRET_KEY"] = env.FLASK_SECRETKEY
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
 # TODO: set session option auto flush to false to fix SSL issue -- solved?
 debug = DebugToolbarExtension(app)
@@ -62,13 +62,15 @@ def update_scoreboard() -> None:
 
     global scoreboard_global
     scoreboard_global = scoreboard
+
     global scoreboard_global_pivot
     scoreboard_global_pivot = pivot_table(scoreboard_global)
-    global scoreboard_update_time
-    scoreboard_update_time = str(datetime.datetime.now().strftime("%B %d, %H:%M %z"))
 
-    print(scoreboard_update_time)
-    flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
+    global scoreboard_update_time
+    hst_adjustment = datetime.timedelta(hours=-10)
+    scoreboard_update_time = datetime.datetime.now(datetime.timezone.utc) + hst_adjustment
+    flask.flash("Scoreboard is current as of {}".format(scoreboard_update_time.strftime("%B %d, %H:%M")), "info")
+
     return None
 
 
@@ -97,8 +99,6 @@ def home():
     scoreboard_render = scoreboard_global
     scoreboard_render_pivot = scoreboard_global_pivot
     show_scoreboard = True
-
-    flask.flash("Scoreboard last updated: {}".format(scoreboard_update_time), "info")
 
     # extract team name and scores into an array of dictionaries
     teams = []
