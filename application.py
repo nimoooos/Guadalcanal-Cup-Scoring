@@ -324,6 +324,16 @@ def submit():
     Confirms that data has been entered.
     """
     if flask.request.method == 'POST':
+        def convert_to_id(string) -> int | None:
+            """
+            converts string "teamid_num" into integer num
+            """
+            if string.startswith("teamid_"):
+                return int(string.split("_")[1])
+            if string.isnumeric:
+                return int(string)
+            else:
+                return None
 
         db_submit = {}  # list to be stored in session
         for item in flask.request.form:
@@ -347,16 +357,7 @@ def submit():
     return flask.render_template('submit.html')
 
 
-def convert_to_id(string) -> int | None:
-    """
-    converts string "teamid_num" into integer num
-    """
-    if string.startswith("teamid_"):
-        return int(string.split("_")[1])
-    if string.isnumeric:
-        return int(string)
-    else:
-        return None
+
 
 
 if __name__ == '__main__':
