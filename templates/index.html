@@ -5,6 +5,8 @@
 {% endblock %}
 {% block content %}
     <div class="container-fluid">
+
+        {% if show_leaderboard %}
         <div class="container-md d-flex justify-content-center">
             <label class="display-4 text-center">Guadalcanal Cup 2023</label>
         </div>
@@ -17,6 +19,7 @@
                 {% endfor %}
             </ul>
         </div>
+        {% endif %}
 
         <div class="container-md text-center">
             <hr>
