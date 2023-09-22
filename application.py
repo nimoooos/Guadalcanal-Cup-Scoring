@@ -5,6 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import env
 import models
 from proj_util import num_to_ordinal, random_user_code, pivot_table, write_to_csv, zip_folder, backup_table_all
+
 import datetime
 import os
 
@@ -67,6 +68,7 @@ def update_scoreboard() -> None:
     global scoreboard_global_pivot
     scoreboard_global_pivot = pivot_table(scoreboard_global)
 
+    # update scoreboard_update_time with the current time in HST
     global scoreboard_update_time
     hst_adjustment = datetime.timedelta(hours=-10)
     scoreboard_update_time = datetime.datetime.now(datetime.timezone.utc) + hst_adjustment
@@ -201,8 +203,8 @@ def account():
     if flask.request.method == 'POST':  # called when a form submit is clicked
         event_id: str = flask.request.form['event_id']
 
-        logout_code = -1
-        admin_code = 0
+        logout_code = "-1"
+        admin_code = "0"
 
         if event_id == logout_code:
             flask.flash("Logged Out", "warning")
