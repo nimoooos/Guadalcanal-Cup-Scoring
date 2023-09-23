@@ -88,79 +88,79 @@ def welcome():
     return flask.render_template('Welcome.html')
 
 
-@app.route('/home', methods=['POST', 'GET'])
-def home():
-    """
-    This page displays scoreboard.
-    """
-    scoreboard_is_initialized = scoreboard_update_time.year == 1970
-    if scoreboard_is_initialized:
-        print("Updating Scoreboard...")
-        update_scoreboard()  # update scoreboard if it hasn't been updated
-        
-    scoreboard_render: list[list] = scoreboard_global  # import scoreboard_global to be rendered
-    scoreboard_render_pivot: list[list] = scoreboard_global_pivot
-    show_scoreboard: bool = True
-    show_leaderboard: bool = True
-
-    teams: list[dict] = []
-    for row in scoreboard_render:
-        row_element = {"name": row[0], "score": row[-1]}
-        teams.append(row_element)
-
-    # remove title row
-    if len(teams) > 0:
-        teams.pop(0)
-
-    # Sort teams list by score, descending
-    teams = sorted(teams, key=lambda x: -x["score"])
-
-    # make list of events
-    events: list = []
-    if len(scoreboard_render) > 0:
-        events = scoreboard_render[0]
-
-    scoreboard_mini: dict = {}
-    if flask.request.method == 'POST':  # if unit or event is selected
-        def req_code_parser(req_code) -> str:
-            """
-            Takes request code and converts it to unit or event name
-            """
-            return req_code.split("_")[1].replace("+", " ")
-
-        def make_scoreboard_mini(scoreboard):
-            table_name = req_code_parser(flask.request.form['request_code'])
-
-            # search for event or team name in scoreboard and insert info in to that row
-            req_info = [scoreboard[0]]
-            for scoreboard_row in scoreboard:
-                if scoreboard_row[0] == table_name:
-                    req_info.append(scoreboard_row)
-                    break
-
-            for index in range(len(req_info[0])):
-                scoreboard_mini[req_info[0][index]] = req_info[1][index]
-
-        if flask.request.form['request_code'].startswith("TEAM_"):
-            make_scoreboard_mini(scoreboard=scoreboard_render)
-            show_leaderboard = False
-            show_scoreboard = False
-
-        if flask.request.form['request_code'].startswith("EVENT_"):
-            make_scoreboard_mini(scoreboard=scoreboard_render_pivot)
-            show_leaderboard = False
-            show_scoreboard = False
-
-    scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {}".format(scoreboard_update_time_string), "info")
-    return flask.render_template(
-        'index.html',
-        teams=teams,
-        scoreboard=scoreboard_render_pivot,
-        events=events,
-        requested_info=scoreboard_mini,
-        show_scoreboard=show_scoreboard,
-        show_leaderboard=show_leaderboard)
+# @app.route('/home', methods=['POST', 'GET'])
+# def home():
+#     """
+#     This page displays scoreboard.
+#     """
+#     scoreboard_is_initialized = scoreboard_update_time.year == 1970
+#     if scoreboard_is_initialized:
+#         print("Updating Scoreboard...")
+#         update_scoreboard()  # update scoreboard if it hasn't been updated
+#
+#     scoreboard_render: list[list] = scoreboard_global  # import scoreboard_global to be rendered
+#     scoreboard_render_pivot: list[list] = scoreboard_global_pivot
+#     show_scoreboard: bool = True
+#     show_leaderboard: bool = True
+#
+#     teams: list[dict] = []
+#     for row in scoreboard_render:
+#         row_element = {"name": row[0], "score": row[-1]}
+#         teams.append(row_element)
+#
+#     # remove title row
+#     if len(teams) > 0:
+#         teams.pop(0)
+#
+#     # Sort teams list by score, descending
+#     teams = sorted(teams, key=lambda x: -x["score"])
+#
+#     # make list of events
+#     events: list = []
+#     if len(scoreboard_render) > 0:
+#         events = scoreboard_render[0]
+#
+#     scoreboard_mini: dict = {}
+#     if flask.request.method == 'POST':  # if unit or event is selected
+#         def req_code_parser(req_code) -> str:
+#             """
+#             Takes request code and converts it to unit or event name
+#             """
+#             return req_code.split("_")[1].replace("+", " ")
+#
+#         def make_scoreboard_mini(scoreboard):
+#             table_name = req_code_parser(flask.request.form['request_code'])
+#
+#             # search for event or team name in scoreboard and insert info in to that row
+#             req_info = [scoreboard[0]]
+#             for scoreboard_row in scoreboard:
+#                 if scoreboard_row[0] == table_name:
+#                     req_info.append(scoreboard_row)
+#                     break
+#
+#             for index in range(len(req_info[0])):
+#                 scoreboard_mini[req_info[0][index]] = req_info[1][index]
+#
+#         if flask.request.form['request_code'].startswith("TEAM_"):
+#             make_scoreboard_mini(scoreboard=scoreboard_render)
+#             show_leaderboard = False
+#             show_scoreboard = False
+#
+#         if flask.request.form['request_code'].startswith("EVENT_"):
+#             make_scoreboard_mini(scoreboard=scoreboard_render_pivot)
+#             show_leaderboard = False
+#             show_scoreboard = False
+#
+#     scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
+#     flask.flash("Scoreboard is current as of {}".format(scoreboard_update_time_string), "info")
+#     return flask.render_template(
+#         'index.html',
+#         teams=teams,
+#         scoreboard=scoreboard_render_pivot,
+#         events=events,
+#         requested_info=scoreboard_mini,
+#         show_scoreboard=show_scoreboard,
+#         show_leaderboard=show_leaderboard)
 
 
 @app.route('/info', methods=['POST', 'GET'])
@@ -367,7 +367,7 @@ def edit():
             return str(number) + "rd"
         else:
             return str(number) + "th"
-        
+
     # generate dropdown menu options for placement
     dropdown_options = []
     for i in range(teams.count()):
