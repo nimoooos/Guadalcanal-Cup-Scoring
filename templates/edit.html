@@ -19,7 +19,9 @@
                     <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="teamid_{{ team.id }}" name="teamid_{{ team.id }}">
                         <option value="0">Select placement</option>
                         {% for placement in placements %}
-                        <option value="{{placement[0]}}">{{placement[1]}}</option>
+                        <option value="{{placement[0]}}" {% if placement[0]==team_placements[team.id] %} selected {% endif %}>
+                            {{placement[1]}}
+                        </option>
                         {% endfor %}
                     </select>
                 </li>

@@ -341,6 +341,14 @@ def edit():
     event = models.Event.query.filter_by(id=event_id).first()
     teams = models.Team.query.order_by(models.Team.id)
 
+    team_placements = {}  # keeps track of what team scored how much
+    event_placements = models.Placement.query.filter_by(events_id=event_id).order_by(models.Placement.teams_id)
+    for event_placement in event_placements:
+        print(event_placement)
+        team_placements[event_placement.teams_id] = event_placement.place
+
+    print(team_placements)
+
     def num_to_ordinal(number):
         """
         Convert number to their ordinal value for placement purposes.
@@ -361,14 +369,18 @@ def edit():
             return str(number) + "th"
         
     # generate dropdown menu options for placement
-    placements = []
+    dropdown_options = []
     for i in range(teams.count()):
-        placements.append((i + 1, num_to_ordinal(i + 1)))
+        dropdown_options.append((i + 1, num_to_ordinal(i + 1)))  # option value is i+1, displayed value is ordinal
+
+    print(dropdown_options)
+
     return flask.render_template('edit.html',
                                  user_code=user_code,
                                  event=event,
                                  teams=teams,
-                                 placements=placements)
+                                 placements=dropdown_options,
+                                 team_placements=team_placements)
 
 
 @app.route('/submit', methods=['POST', 'GET'])
