@@ -4,8 +4,13 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="container-md">
+<!--TODO: pull from application.info() and loop through instead of manually displaying each image-->
+    <div class="container-md text-center">
         <label>Info Page Under Construction</label>
+        <img src="static/TLW PPT Slides/1.png" class="img-fluid"><hr>
+        <img src="static/TLW PPT Slides/2.png" class="img-fluid"><hr>
+        <img src="static/TLW PPT Slides/3.png" class="img-fluid"><hr>
+        <img src="static/TLW PPT Slides/4.png" class="img-fluid"><hr>
 <!--TODO: Add the rest of slides-->
         <hr>
         <form action="{{url_for('login')}}">
