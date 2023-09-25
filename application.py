@@ -166,10 +166,17 @@ def welcome():
 @app.route('/info', methods=['POST', 'GET'])
 def info():
     """
-    This page displays static images in directory "static/TLW PPT Slides"
+    This page displays static images in directory listed in folder_path
     """
-    # TODO: dynamically grab the list of files and send it through render_template.
-    return flask.render_template('info.html')
+
+    file_list: list = []
+    folder_path = os.path.join('static', 'TLW PPT Slides')
+    for root, dirs, files in os.walk(folder_path):
+        for file in files:
+            if file.endswith(".png"):
+                file_list.append(os.path.join(root, file))
+
+    return flask.render_template('info.html', files=file_list)
 
 
 @app.route('/login', methods=['POST', 'GET'])
