@@ -193,10 +193,13 @@ def login():
             flask.flash("Error! Incorrect code presented.", "danger")
             return flask.redirect(url_for('login'))
 
-        else:  # match found, send to edit()
+        else:  # match found, send to account()
             flask.session['user_code'] = password
             flask.flash("Login successful!", "success")
             return flask.redirect(url_for('account'))
+
+    else:
+        flask.flash("Warning! Access code is required to view the scoreboard.", "warning")
 
     return flask.render_template('login.html')
 
@@ -330,8 +333,6 @@ def viewuser():
     for access in permissions:
         event_dict[access.event_id]["permission"] = True
 
-    print(event_dict)
-
     return flask.render_template('viewuser.html',
                                  view_user=view_user,
                                  event_dict=event_dict)
@@ -351,10 +352,7 @@ def edit():
     team_placements = {}  # keeps track of what team scored how much
     event_placements = models.Placement.query.filter_by(events_id=event_id).order_by(models.Placement.teams_id)
     for event_placement in event_placements:
-        print(event_placement)
         team_placements[event_placement.teams_id] = event_placement.place
-
-    print(team_placements)
 
     def num_to_ordinal(number):
         """
@@ -379,8 +377,6 @@ def edit():
     dropdown_options = []
     for i in range(teams.count()):
         dropdown_options.append((i + 1, num_to_ordinal(i + 1)))  # option value is i+1, displayed value is ordinal
-
-    print(dropdown_options)
 
     return flask.render_template('edit.html',
                                  user_code=user_code,
