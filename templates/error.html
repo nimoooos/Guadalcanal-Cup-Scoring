@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="container-md">
+        <label>Error {{code}}: {{msg}}</label>
+    </div>
+    <script>
+        setTimeout(function() {
+        window.location.href = '/';
+        },1500);
+    </script>
+{% endblock %}

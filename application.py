@@ -4,7 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 import env
 import models
-from proj_util import random_user_code, pivot_table, write_to_csv, zip_folder, backup_table_all
+from proj_util import random_user_code, pivot_table, write_to_csv, zip_folder, authorized
 
 import datetime
 import os
@@ -78,6 +78,20 @@ def update_scoreboard() -> None:
     return None
 
 
+def check_401(event_name="HAS_ACCOUNT") -> bool:
+    """
+    Check if login info exists, or if user is authorized
+    Returns true if error should be thrown
+    """
+    if 'user_code' not in flask.session.keys():
+        return True
+
+    if not authorized(login_code=flask.session['user_code'], event_name=event_name):
+        print("Authorized!")
+        return True
+
+    return False
+
 @app.route('/')
 def welcome():
     """
@@ -93,6 +107,8 @@ def scores():
     """
     This page displays scoreboard.
     """
+    if check_401("Admin"): return flask.render_template("error.html", code=401, msg="Unauthorized")
+
     scoreboard_is_initialized = scoreboard_update_time.year == 1970
     if scoreboard_is_initialized:
         print("Updating Scoreboard...")
@@ -188,16 +204,15 @@ def login():
 
     if flask.request.method == 'POST':  # called when login button redirects to login()
         password = flask.request.form['password'].upper()
-        query = models.User.query.filter_by(code=password)
 
-        if query.count() == 0:  # no match found, send back to login()
-            flask.flash("Error! Incorrect code presented.", "danger")
-            return flask.redirect(url_for('login'))
-
-        else:  # match found, send to account()
+        if authorized(password):
             flask.session['user_code'] = password
             flask.flash("Login successful!", "success")
             return flask.redirect(url_for('account'))
+
+        else:  # match found, send to account()
+            flask.flash("Error! Incorrect code presented.", "danger")
+            return flask.redirect(url_for('login'))
 
     else:
         flask.flash("Warning! Access code is required to view the scoreboard.", "warning")
@@ -210,6 +225,7 @@ def account():
     """
     Account menu. Shows different options available to users.
     """
+    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
 
     if flask.request.method == 'POST':  # called when a form submit is clicked
         event_id: str = flask.request.form['event_id']
@@ -249,6 +265,7 @@ def admin():
     """
     Admin menu. Shows special actions available only to admin account holders.
     """
+    if check_401("Admin"): return flask.render_template("error.html", code=401, msg="Unauthorized")
 
     # initialize user_dict
     user_list = models.User.query.all()
@@ -301,6 +318,7 @@ def viewuser():
     """
     From admin, view a user account and modify details
     """
+    if check_401("Admin"): return flask.render_template("error.html", code=401, msg="Unauthorized")
     view_user = flask.session['view_user']  # grab user's id and login code
 
     if flask.request.method == 'POST':
@@ -345,11 +363,14 @@ def edit():
     """
     Score update menu.
     """
-    # TODO: HIGH PRIORITY pre-select placement for each team based on previous data entry
+    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
+
     user_code = flask.session['user_code']
     event_id = flask.session['event_id']
     event = models.Event.query.filter_by(id=event_id).first()
     teams = models.Team.query.order_by(models.Team.id)
+
+    if check_401(event.name): return flask.render_template("error.html", code=401, msg="Unauthorized")
 
     team_placements = {}  # keeps track of what team scored how much
     event_placements = models.Placement.query.filter_by(events_id=event_id).order_by(models.Placement.teams_id)
@@ -393,6 +414,8 @@ def submit():
     """
     Confirms that data has been entered.
     """
+    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
+
     if flask.request.method == 'POST':
         def convert_to_id(string) -> int | None:
             """

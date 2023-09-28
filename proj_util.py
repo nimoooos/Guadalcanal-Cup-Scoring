@@ -84,5 +84,27 @@ def zip_folder(input_directory):
     return destination
 
 
+def authorized(login_code, event_name="HAS_ACCOUNT") -> bool:
+    """
+    confirms if user is authorized access for this page
+    """
     import models
 
+    # search for user with the code
+    user = models.User.query.filter_by(code=login_code).first()
+
+    # if event name is not provided, check if the user has an account
+    if event_name == "HAS_ACCOUNT":
+        if user is None:
+            return False
+        return True
+
+    # if event name is provided, search for event id
+    event_id = models.Event.query.filter_by(name=event_name).first().id
+
+    # using user id and event id, check if the user is authorized access to event
+    access_list = models.Access.query.filter_by(user_id=user.id, event_id=event_id)
+
+    if access_list is None:
+        return False
+    return True
