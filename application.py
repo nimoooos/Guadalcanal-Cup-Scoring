@@ -228,6 +228,7 @@ def account():
     Account menu. Shows different options available to users.
     """
     if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
+    if 'event_id' in flask.session.keys(): flask.session.pop('event_id', None)
 
     if flask.request.method == 'POST':  # called when a form submit is clicked
         event_id: str = flask.request.form['event_id']
@@ -366,6 +367,8 @@ def edit():
     Score update menu.
     """
     if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
+    if 'event_id' not in flask.session.keys():
+        return flask.redirect(url_for('account'))
 
     user_code = flask.session['user_code']
     event_id = flask.session['event_id']
