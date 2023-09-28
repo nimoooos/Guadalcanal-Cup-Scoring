@@ -53,6 +53,14 @@ def backup_table(table_class: db.Model) -> None:
     write_to_csv(directory, filename, array_2d)
 
 
+def backup_tables_all() -> None:
+    backup_table(Team)
+    backup_table(Event)
+    backup_table(Placement)
+    backup_table(User)
+    backup_table(Access)
+
+
 class Team(db.Model):
     """
     Database model for competing teams (units, not individuals)

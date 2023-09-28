@@ -277,7 +277,7 @@ def admin():
             return flask.send_file(backup_scoreboard, as_attachment=True)
 
         if request_code == "BACKUP_DATABASE":
-            backup_table_all()
+            models.backup_tables_all()
             backup_zip = zip_folder(os.path.join("backup", "database"))
             return flask.send_file(backup_zip, as_attachment=True)
 

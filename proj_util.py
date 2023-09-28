@@ -84,11 +84,5 @@ def zip_folder(input_directory):
     return destination
 
 
-def backup_table_all():
     import models
 
-    models.backup_table(models.Team)
-    models.backup_table(models.Event)
-    models.backup_table(models.Placement)
-    models.backup_table(models.User)
-    models.backup_table(models.Access)
