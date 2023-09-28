@@ -14,7 +14,6 @@ app = flask.Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = env.DB_URI
 app.config["SECRET_KEY"] = env.FLASK_SECRETKEY
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
-# TODO: set session option auto flush to false to fix SSL issue -- solved?
 debug = DebugToolbarExtension(app)
 
 models.connect_db(app)
@@ -91,6 +90,7 @@ def check_401(event_name="HAS_ACCOUNT") -> bool:
         return True
 
     return False
+
 
 @app.route('/')
 def welcome():
@@ -201,6 +201,8 @@ def login():
     Login page.
     It's also a redirect destination for login POST request, which confirms if login info is correct.
     """
+    if not check_401():
+        return flask.redirect(url_for('account'))
 
     if flask.request.method == 'POST':  # called when login button redirects to login()
         password = flask.request.form['password'].upper()
@@ -236,7 +238,7 @@ def account():
         if event_id == logout_code:
             flask.flash("Logged Out", "warning")
             flask.session.pop('user_code', None)
-            return flask.redirect('scores')
+            return flask.redirect('login')
 
         if event_id == admin_code:
             return flask.redirect('admin')
