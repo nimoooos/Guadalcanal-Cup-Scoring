@@ -6,6 +6,7 @@ app.app_context()
 # Drop all then recreate all tables
 db.drop_all()
 db.create_all()
+db.session.commit()
 
 # adding unit information
 
@@ -36,10 +37,10 @@ db.session.add(Event(id=0, name="Admin", weight=0))
 
 db.session.add(Event(id=1,  weight=1, name="Flag Football"))
 db.session.add(Event(id=2,  weight=1, name="Softball"))
-db.session.add(Event(id=3,  weight=1, name="Weightlifting"))
+db.session.add(Event(id=3,  weight=2, name="Weightlifting"))
 db.session.add(Event(id=4,  weight=1, name="Basketball"))
 db.session.add(Event(id=5,  weight=1, name="Video Game"))
-db.session.add(Event(id=6,  weight=1, name="Combatives"))
+db.session.add(Event(id=6,  weight=2, name="Combatives"))
 db.session.add(Event(id=7,  weight=1, name="Ultimate Frisbee"))
 db.session.add(Event(id=8,  weight=1, name="Surf"))
 db.session.add(Event(id=9,  weight=1, name="TL Got Talent"))
@@ -48,7 +49,7 @@ db.session.add(Event(id=11, weight=1, name="Golf"))
 db.session.add(Event(id=12, weight=1, name="Volleyball"))
 db.session.add(Event(id=13, weight=1, name="Lightning Chef Cook Off"))
 db.session.add(Event(id=14, weight=1, name="Swimming Relay"))
-db.session.add(Event(id=15, weight=1, name="Best Team"))
+db.session.add(Event(id=15, weight=2, name="Best Team"))
 db.session.commit()
 
 
