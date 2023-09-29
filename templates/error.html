@@ -5,7 +5,9 @@
 {% endblock %}
 {% block content %}
     <div class="container-md">
-        <label>Error {{code}}: {{msg}}</label>
+        <h1>Error {{code}}</h1>
+        <h2>{{msg}}</h2>
+        <p>{{detail}} You will be redirected to the main page.</p>
     </div>
     <script>
         setTimeout(function() {

@@ -1,6 +1,7 @@
 import flask
 from flask import url_for  # DO NOT REMOVE: imported for use in frontend
 from flask_debugtoolbar import DebugToolbarExtension
+import werkzeug.exceptions
 
 import env
 import models
@@ -90,6 +91,16 @@ def check_401(event_name="HAS_ACCOUNT") -> bool:
         return True
 
     return False
+
+
+@app.errorhandler(werkzeug.exceptions.NotFound)
+def error_handle_not_found(e):
+    return flask.render_template('error.html', code=404, msg="Page not found")
+
+
+@app.errorhandler(werkzeug.exceptions.InternalServerError)
+def error_handle_internal_server_error(e):
+    return flask.render_template('error.html', code=500, msg="Internal server error")
 
 
 @app.route('/')
