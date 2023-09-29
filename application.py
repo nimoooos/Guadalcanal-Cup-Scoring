@@ -103,6 +103,11 @@ def error_handle_internal_server_error(e):
     return flask.render_template('error.html', code=500, msg="Internal server error")
 
 
+@app.errorhandler(werkzeug.exceptions.HTTPException)
+def error_handle_http_exception(e):
+    return flask.render_template('error.html', code="", msg="Unknown error")
+
+
 @app.route('/')
 def welcome():
     """
