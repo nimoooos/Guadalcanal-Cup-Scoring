@@ -105,6 +105,11 @@ def error_handle_internal_server_error(e):
 
 @app.errorhandler(werkzeug.exceptions.HTTPException)
 def error_handle_http_exception(e):
+    """
+    Catch-all error handler for other issues
+    """
+    print(e)
+    print(e.get_response)
     return flask.render_template('error.html', code="", msg="Unknown error")
 
 
@@ -346,9 +351,13 @@ def viewuser():
         if request_code.startswith("ADD_"):  # create new access row
             event_id = request_code.split("_")[1]
             user_id = view_user["id"]
+            row = models.Access(event_id=event_id, user_id=user_id)
 
-            models.db.session.add(models.Access(event_id=event_id, user_id=user_id))
+            models.db.session.add(row)
             models.db.session.commit()
+
+            event_name = row.event.name
+            flask.flash("Access to {} successfully added".format(event_name), "success")
             return flask.redirect(url_for('viewuser'))
 
         if request_code.startswith("REMOVE_"):  # find the existing row and remove it
@@ -356,9 +365,27 @@ def viewuser():
             user_id = view_user["id"]
             row = models.Access.query.filter_by(event_id=event_id, user_id=user_id).first()
 
-            models.db.session.remove(row)
+            event_name = row.event.name
+            models.db.session.delete(row)
             models.db.session.commit()
+
+            flask.flash("Access to {} successfully removed".format(event_name), "warning")
             return flask.redirect(url_for('viewuser'))
+
+        if request_code.startswith("DROPUSER_"):  # remove user account
+            user_id = request_code.split("_")[1]
+            permissions = models.Access.query.filter_by(user_id=user_id).all()
+            for permission in permissions:
+                models.db.session.delete(permission)
+            models.db.session.commit()
+
+            user = models.User.query.filter_by(id=user_id).first()
+            user_code = user.code
+            models.db.session.delete(user)
+            models.db.session.commit()
+
+            flask.flash("{} was successfully deleted.".format(user_code), "success")
+            return flask.redirect(url_for('admin'))
 
     permissions = models.User.query.filter_by(id=view_user["id"]).first().permissions
     all_events = models.Event.query.all()

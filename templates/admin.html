@@ -24,13 +24,6 @@
     <br>
 
     <form action="{{ url_for('admin') }}" method="POST">
-        <input type="hidden" name="request_code" value="CREATE_NEW_USER">
-        <input class="btn btn-secondary" type="submit" value="Create New Login Code">
-        <label>Generate a new login code for a user.</label>
-    </form>
-    <br>
-
-    <form action="{{ url_for('admin') }}" method="POST">
         <input type="hidden" name="request_code" value="BACKUP_SCOREBOARD">
         <input class="btn btn-secondary" type="submit" value="Create Scoreboard Backup">
         <label>Create a .csv backup of the scoreboard.</label>
@@ -42,6 +35,14 @@
         <input class="btn btn-secondary" type="submit" value="Create Database Backup">
         <Label>Create a backup of the entire database.</Label>
     </form>
+    <br>
+
+        <form action="{{ url_for('admin') }}" method="POST">
+        <input type="hidden" name="request_code" value="CREATE_NEW_USER">
+        <input class="btn btn-secondary" type="submit" value="Create New Login Code">
+        <label>Generate a new login code for a user.</label>
+    </form>
+    <br>
 
     <hr>
 
