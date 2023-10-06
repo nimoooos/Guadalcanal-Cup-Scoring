@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+    {% if mode=="EDIT" %}
+    <div class="container-md">
+        <h4>Upload Scores for {{ event.name }}</h4>
+        <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
+    </div>
+    <hr>
+    <div class="container-md">
+        <form class="form-inline" action="{{ url_for('edit2') }}" method="POST">
+            <ul class="container-md list-group text-center">
+                <li class="list-group-item bg-secondary border border-dark">
+                    <label class="mr-sm-2" for="place1">1st Place</label>
+                    <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place1" name="place1">
+                        {% for option in dropdown %}
+                        <option value="{{option}}">{{dropdown[option]}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+            </ul>
+            <ul class="container-md list-group text-center">
+                <li class="list-group-item bg-secondary border border-dark">
+                    <label class="mr-sm-2" for="place2">2nd Place</label>
+                    <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place2" name="place2">
+                        {% for option in dropdown %}
+                        <option value="{{option}}">{{dropdown[option]}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+            </ul>
+            <ul class="container-md list-group text-center">
+                <li class="list-group-item bg-secondary border border-dark">
+                    <label class="mr-sm-2" for="place3">3rd Place</label>
+                    <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place3" name="place3">
+                        {% for option in dropdown %}
+                        <option value="{{option}}">{{dropdown[option]}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+            </ul>
+            <ul class="container-md list-group text-center">
+                <li class="list-group-item bg-secondary border border-dark">
+                    <label class="mr-sm-2" for="place4">4th Place</label>
+                    <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place4" name="place4">
+                        {% for option in dropdown %}
+                        <option value="{{option}}">{{dropdown[option]}}</option>
+                        {% endfor %}
+                    </select>
+                </li>
+            </ul>
+            <br>
+            <input type="hidden" name="request_code" value="CONFIRM">
+            <input type="submit" class="btn btn-success" value="Submit score for {{event.name}}">
+        </form>
+    </div>
+    {% endif %}
+
+    {% if mode=="CONFIRM" %}
+    <div class="container-md">
+        <h4>Upload Scores for {{ event.name }}</h4>
+        <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
+        <form action="{{ url_for('edit2') }}" method="POST"><input type="submit" class="btn btn-secondary" value="Back to edit"></form>
+    </div>
+    <hr>
+    <div class="container-md">
+        <ul class="container-md list-group text-center">
+            <li class="list-group-item bg-secondary border border-dark">
+                <label class="mr-sm-2" for="place1">1st Place</label>
+                <select class="form-control form-control-sm form-control mb-2 mr-sm-2" disabled>
+                    <option value="{{placements[1]}}" selected>{{dropdown[1]}}</option>
+                </select>
+            </li>
+
+            <li class="list-group-item bg-secondary border border-dark">
+                <label class="mr-sm-2" for="place2">2nd Place</label>
+                <select class="form-control form-control-sm form-control mb-2 mr-sm-2" disabled>
+                    <option value="{{placements[2]}}" selected>{{dropdown[2]}}</option>
+                </select>
+            </li>
+
+            <li class="list-group-item bg-secondary border border-dark">
+                <label class="mr-sm-2" for="place3">3rd Place</label>
+                <select class="form-control form-control-sm form-control mb-2 mr-sm-2" disabled>
+                    <option value="{{placements[3]}}" selected>{{dropdown[3]}}</option>
+                </select>
+            </li>
+
+            <li class="list-group-item bg-secondary border border-dark">
+                <label class="mr-sm-2" for="place4">4th Place</label>
+                <select class="form-control form-control-sm form-control mb-2 mr-sm-2" disabled>
+                    <option value="{{placements[4]}}" selected>{{dropdown[4]}}</option>
+                </select>
+            </li>
+        </ul>
+        <form action="{{ url_for('edit2') }}" method="POST">
+            <input type="hidden" name="request_code" value="SUBMIT">
+            <input type="hidden" name="place1" value="{{placements[1]}}">
+            <input type="hidden" name="place2" value="{{placements[2]}}">
+            <input type="hidden" name="place3" value="{{placements[3]}}">
+            <input type="hidden" name="place4" value="{{placements[4]}}">
+            <input type="submit" class="btn btn-success" value="Confirm submission">
+        </form>
+    </div>
+    {% endif %}
+
+    {% if mode=="SUBMIT" %}
+    <div class="container-md">
+        <h4>Upload Scores for {{ event.name }}</h4>
+        <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
+    </div>
+    {% endif %}
+
+
+{% endblock %}

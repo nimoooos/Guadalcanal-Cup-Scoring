@@ -7,10 +7,10 @@
 {% block content %}
 <div class="container-md">
     <h6>Logged in as {{user_code}}</h6>
-    <form action="{{ url_for('account') }}"><input type="submit" class="btn btn-secondary" value="Back"></form>
+    <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-secondary" value="Back"></form>
     <hr>
 
-    <form action="{{ url_for('scores') }}">
+    <form action="{{ url_for('scores') }}" method="POST">
         <input class="btn btn-secondary" type="submit" value="Display Scoreboard">
     </form>
     <br>
