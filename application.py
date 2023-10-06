@@ -267,7 +267,7 @@ def account():
 
         else:
             flask.session['event_id'] = event_id
-            return flask.redirect('edit')
+            return flask.redirect('edit2')
 
     # see what access the user has and only display relevant buttons
     events_access = {}
@@ -455,6 +455,91 @@ def edit():
                                  teams=teams,
                                  placements=dropdown_options,
                                  team_placements=team_placements)
+
+
+@app.route('/edit2', methods=['POST', 'GET'])
+def edit2():
+    """
+    Score update menu, version 2
+    Score update is only for 1-4th place
+    0th place is N/A, 5th place is eliminated
+    """
+    # check authorization
+    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
+    if 'event_id' not in flask.session.keys(): return flask.redirect(url_for('account'))
+
+    event_id = flask.session['event_id']
+    event = models.Event.query.filter_by(id=event_id).first()
+    teams = models.Team.query.order_by(models.Team.id).all()
+
+    if check_401(event.name): return flask.render_template("error.html", code=401, msg="Unauthorized")
+
+    # initialize page
+    display_mode = "EDIT"
+    placements_scored = {1: 0,
+                         2: 0,
+                         3: 0,
+                         4: 0}
+    for place in placements_scored:
+        team = models.Placement.query.filter_by(events_id=event_id, place=place).first()
+        if team is None: break
+        else: placements_scored[place] = team.teams_id
+    print(placements_scored)
+
+    dropdown_options = {0: "None"}
+    for team in teams:
+        dropdown_options[team.id] = team.name
+    print(dropdown_options)
+
+    # handle POST request
+    if flask.request.method == 'POST':
+        request_code = flask.request.form['request_code']
+
+        if request_code == 'CONFIRM':
+            display_mode = 'CONFIRM'
+            placements_scored = {1: flask.request.form['place1'],
+                                 2: flask.request.form['place2'],
+                                 3: flask.request.form['place3'],
+                                 4: flask.request.form['place4']}
+            print(placements_scored)  # this is team ID
+
+            dropdown_options = {1: "None",
+                                2: "None",
+                                3: "None",
+                                4: "None"}
+            for place in dropdown_options:
+                if not placements_scored[place] == "0":
+                    dropdown_options[place] = models.Team.query.filter_by(id=placements_scored[place]).first().name
+                else: pass
+            print(dropdown_options)  # this is team name
+
+        if request_code == 'SUBMIT':
+            flask.flash("Scores submitted!", "success")
+            display_mode = 'SUBMIT'
+            placements_scored = {1: flask.request.form['place1'],
+                                 2: flask.request.form['place2'],
+                                 3: flask.request.form['place3'],
+                                 4: flask.request.form['place4']}
+
+            placements = models.Placement.query.filter_by(events_id=event_id).all()
+            for placement in placements:
+                if placement.teams_id == int(placements_scored[1]):
+                    placement.place = 1
+                elif placement.teams_id == int(placements_scored[2]):
+                    placement.place = 2
+                elif placement.teams_id == int(placements_scored[3]):
+                    placement.place = 3
+                elif placement.teams_id == int(placements_scored[4]):
+                    placement.place = 4
+                else:
+                    placement.place = 5
+                models.db.session.commit()
+
+    return flask.render_template("edit2.html",
+                                 event=event,
+                                 mode=display_mode,
+                                 placements=placements_scored,
+                                 dropdown=dropdown_options)
 
 
 @app.route('/submit', methods=['POST', 'GET'])
