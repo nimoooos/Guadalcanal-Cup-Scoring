@@ -81,7 +81,7 @@ def update_scoreboard() -> None:
 def check_401(event_name="HAS_ACCOUNT") -> bool:
     """
     Check if login info exists, or if user is authorized
-    Returns true if error should be thrown
+    Returns true if error should be thrown, returns false if authorized
     """
     if 'user_code' not in flask.session.keys():
         return True
