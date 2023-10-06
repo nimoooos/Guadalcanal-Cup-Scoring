@@ -8,7 +8,7 @@
     {% if mode=="EDIT" %}
     <div class="container-md">
         <h4>Upload Scores for {{ event.name }}</h4>
-        <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
+        <form action="{{ url_for('account') }}"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
     </div>
     <hr>
     <div class="container-md">
@@ -63,8 +63,8 @@
     {% if mode=="CONFIRM" %}
     <div class="container-md">
         <h4>Upload Scores for {{ event.name }}</h4>
-        <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
-        <form action="{{ url_for('edit2') }}" method="POST"><input type="submit" class="btn btn-secondary" value="Back to edit"></form>
+        <form action="{{ url_for('account') }}"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
+        <form action="{{ url_for('edit2') }}"><input type="submit" class="btn btn-secondary" value="Back to edit"></form>
     </div>
     <hr>
     <div class="container-md">
@@ -111,7 +111,7 @@
     {% if mode=="SUBMIT" %}
     <div class="container-md">
         <h4>Upload Scores for {{ event.name }}</h4>
-        <form action="{{ url_for('account') }}" method="POST"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
+        <form action="{{ url_for('account') }}"><input type="submit" class="btn btn-primary" value="Back to menu"></form>
     </div>
     {% endif %}
 
