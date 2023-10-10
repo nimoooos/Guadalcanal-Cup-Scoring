@@ -1,6 +1,5 @@
 from models import db, Team, Event, Placement, User, Access
 from application import app
-import time
 
 app.app_context()
 
@@ -43,7 +42,6 @@ for team in team_list:
     db.session.add(Team(id=team["id"], name=team["name"], score=0))
     current += 1
     print("\rJob {current}/{total} staged...".format(current=current, total=total), end="")
-    time.sleep(0.1)  # TODO: remove sleep
 db.session.commit()
 print("\nPopulating table 'Team' successful!")
 
@@ -76,7 +74,6 @@ for event in event_list:
     db.session.add(Event(id=event[id], weight=event["weight"], name=event["name"]))
     current += 1
     print("\rJob {current}/{total} staged...".format(current=current, total=total), end="")
-    time.sleep(0.11)  # TODO: remove sleep
 db.session.commit()
 print("\nPopulating table 'Event' successful!")
 
@@ -91,7 +88,6 @@ for team_id in range(1, 20):  # range 1-19
         db.session.add(Placement(teams_id=team_id, events_id=event_id, place=0))
         current += 1
         print("\rJob {current}/{total} staged...".format(current=current, total=total), end="")
-        time.sleep(0.011)  # TODO: remove sleep
     db.session.commit()
 print("\nPopulating table 'Placement' successful!")
 
