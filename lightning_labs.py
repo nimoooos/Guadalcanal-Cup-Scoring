@@ -31,7 +31,7 @@ image = ("                                                                      
          "                                   ^%*##*%***                                    \n"
          "                                       **                                        \n"
          "                                                                                 \n"
-         "                    +   S P A R K   I N N O V A T I O N S   +                    \n"
+         "                     +   S P A R K   I N N O V A T I O N   +                     \n"
          "                                                                                 \n")
 
 
