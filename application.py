@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import werkzeug.exceptions
 
 import env
+import lightning_labs
 import models
 from proj_util import random_user_code, pivot_table, write_to_csv, zip_folder, authorized
 
@@ -81,7 +82,7 @@ def update_scoreboard() -> None:
 def check_401(event_name="HAS_ACCOUNT") -> bool:
     """
     Check if login info exists, or if user is authorized
-    Returns true if error should be thrown
+    Returns true if error should be thrown, returns false if authorized
     """
     if 'user_code' not in flask.session.keys():
         return True
@@ -207,7 +208,7 @@ def info():
     """
 
     file_list: list = []
-    folder_path = os.path.join('static', 'TLW PPT Slides')
+    folder_path = os.path.join('static', 'TLW PPT Slides')  # TODO: update file location
     for root, dirs, files in os.walk(folder_path):
         for file in files:
             if file.endswith(".png"):
@@ -407,54 +408,86 @@ def viewuser():
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
     """
-    Score update menu.
+    Score update menu, version 2
+    Score update is only for 1-4th place
+    0th place is N/A, 5th place is eliminated
     """
+    # check authorization
     if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
-    if 'event_id' not in flask.session.keys():
-        return flask.redirect(url_for('account'))
+    if 'event_id' not in flask.session.keys(): return flask.redirect(url_for('account'))
 
-    user_code = flask.session['user_code']
     event_id = flask.session['event_id']
     event = models.Event.query.filter_by(id=event_id).first()
-    teams = models.Team.query.order_by(models.Team.id)
+    teams = models.Team.query.order_by(models.Team.id).all()
 
     if check_401(event.name): return flask.render_template("error.html", code=401, msg="Unauthorized")
 
-    team_placements = {}  # keeps track of what team scored how much
-    event_placements = models.Placement.query.filter_by(events_id=event_id).order_by(models.Placement.teams_id)
-    for event_placement in event_placements:
-        team_placements[event_placement.teams_id] = event_placement.place
+    # initialize page
+    display_mode = "EDIT"
+    placements_scored = {1: 0,
+                         2: 0,
+                         3: 0,
+                         4: 0}
+    for place in placements_scored:
+        team = models.Placement.query.filter_by(events_id=event_id, place=place).first()
+        if team is None: break
+        else: placements_scored[place] = team.teams_id
+    print(placements_scored)
 
-    def num_to_ordinal(number):
-        """
-        Convert number to their ordinal value for placement purposes.
-        Functions improperly if number>100, and will return "101th", "102th", etc.
-        """
-        last_digit = number % 10
-        if number == 1: return str("🥇")
-        if number == 2: return str("🥈")
-        if number == 3: return str("🥉")
+    dropdown_options = {0: "None"}
+    for team in teams:
+        dropdown_options[team.id] = team.name
+    print(dropdown_options)
 
-        if number <= 20: return str(number) + "th"
+    # handle POST request
+    if flask.request.method == 'POST':
+        request_code = flask.request.form['request_code']
 
-        if last_digit == 1: return str(number) + "st"
-        if last_digit == 2: return str(number) + "nd"
-        if last_digit == 3:
-            return str(number) + "rd"
-        else:
-            return str(number) + "th"
+        if request_code == 'CONFIRM':
+            display_mode = 'CONFIRM'
+            placements_scored = {1: flask.request.form['place1'],
+                                 2: flask.request.form['place2'],
+                                 3: flask.request.form['place3'],
+                                 4: flask.request.form['place4']}
+            print(placements_scored)  # this is team ID
 
-    # generate dropdown menu options for placement
-    dropdown_options = []
-    for i in range(teams.count()):
-        dropdown_options.append((i + 1, num_to_ordinal(i + 1)))  # option value is i+1, displayed value is ordinal
+            dropdown_options = {1: "None",
+                                2: "None",
+                                3: "None",
+                                4: "None"}
+            for place in dropdown_options:
+                if not placements_scored[place] == "0":
+                    dropdown_options[place] = models.Team.query.filter_by(id=placements_scored[place]).first().name
+                else: pass
+            print(dropdown_options)  # this is team name
 
-    return flask.render_template('edit.html',
-                                 user_code=user_code,
+        if request_code == 'SUBMIT':
+            flask.flash("Scores submitted!", "success")
+            display_mode = 'SUBMIT'
+            placements_scored = {1: flask.request.form['place1'],
+                                 2: flask.request.form['place2'],
+                                 3: flask.request.form['place3'],
+                                 4: flask.request.form['place4']}
+
+            placements = models.Placement.query.filter_by(events_id=event_id).all()
+            for placement in placements:
+                if placement.teams_id == int(placements_scored[1]):
+                    placement.place = 1
+                elif placement.teams_id == int(placements_scored[2]):
+                    placement.place = 2
+                elif placement.teams_id == int(placements_scored[3]):
+                    placement.place = 3
+                elif placement.teams_id == int(placements_scored[4]):
+                    placement.place = 4
+                else:
+                    placement.place = 5
+                models.db.session.commit()
+
+    return flask.render_template("edit.html",
                                  event=event,
-                                 teams=teams,
-                                 placements=dropdown_options,
-                                 team_placements=team_placements)
+                                 mode=display_mode,
+                                 placements=placements_scored,
+                                 dropdown=dropdown_options)
 
 
 @app.route('/submit', methods=['POST', 'GET'])
@@ -499,4 +532,5 @@ def submit():
 
 
 if __name__ == '__main__':
+    lightning_labs.print_logo()
     app.run(host="0.0.0.0", debug=env.DEBUG)
