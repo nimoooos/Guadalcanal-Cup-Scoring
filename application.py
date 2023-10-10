@@ -208,7 +208,7 @@ def info():
     """
 
     file_list: list = []
-    folder_path = os.path.join('static', 'TLW PPT Slides')
+    folder_path = os.path.join('static', 'TLW PPT Slides')  # TODO: update file location
     for root, dirs, files in os.walk(folder_path):
         for file in files:
             if file.endswith(".png"):
