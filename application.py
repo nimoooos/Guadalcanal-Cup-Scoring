@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import werkzeug.exceptions
 
 import env
+import lightning_labs
 import models
 from proj_util import random_user_code, pivot_table, write_to_csv, zip_folder, authorized
 
@@ -584,4 +585,5 @@ def submit():
 
 
 if __name__ == '__main__':
+    lightning_labs.print_logo()
     app.run(host="0.0.0.0", debug=env.DEBUG)
