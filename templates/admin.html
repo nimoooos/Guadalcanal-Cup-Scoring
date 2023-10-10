@@ -51,7 +51,6 @@
         {% for user in user_list %}
         <li class="list-group-item">
             <form action="{{ url_for('admin') }}" method="POST">
-                <!--TODO: change form url to url_for('view_user') after view_user function is built-->
                 <input type="hidden" name="request_code" value="VIEWUSER_{{user.id}}">
                 <input class="btn btn-secondary" type="submit" value="{{user.code}}">
             </form>

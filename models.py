@@ -8,11 +8,10 @@ def place_to_score(place: int) -> int:
     """
     Converts placement (int) to score (int). Used for calculating total score.
     """
-    # TODO: update scores
     if place == 1: return 10
-    if place == 2: return 7
-    if place == 3: return 5
-    if place == 4: return 3
+    if place == 2: return 8
+    if place == 3: return 6
+    if place == 4: return 4
     else: return 0
 
 
