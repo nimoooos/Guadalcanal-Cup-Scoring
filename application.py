@@ -268,7 +268,7 @@ def account():
 
         else:
             flask.session['event_id'] = event_id
-            return flask.redirect('edit2')
+            return flask.redirect('edit')
 
     # see what access the user has and only display relevant buttons
     events_access = {}
@@ -408,59 +408,6 @@ def viewuser():
 @app.route('/edit', methods=['POST', 'GET'])
 def edit():
     """
-    Score update menu.
-    """
-    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
-    if 'event_id' not in flask.session.keys():
-        return flask.redirect(url_for('account'))
-
-    user_code = flask.session['user_code']
-    event_id = flask.session['event_id']
-    event = models.Event.query.filter_by(id=event_id).first()
-    teams = models.Team.query.order_by(models.Team.id)
-
-    if check_401(event.name): return flask.render_template("error.html", code=401, msg="Unauthorized")
-
-    team_placements = {}  # keeps track of what team scored how much
-    event_placements = models.Placement.query.filter_by(events_id=event_id).order_by(models.Placement.teams_id)
-    for event_placement in event_placements:
-        team_placements[event_placement.teams_id] = event_placement.place
-
-    def num_to_ordinal(number):
-        """
-        Convert number to their ordinal value for placement purposes.
-        Functions improperly if number>100, and will return "101th", "102th", etc.
-        """
-        last_digit = number % 10
-        if number == 1: return str("🥇")
-        if number == 2: return str("🥈")
-        if number == 3: return str("🥉")
-
-        if number <= 20: return str(number) + "th"
-
-        if last_digit == 1: return str(number) + "st"
-        if last_digit == 2: return str(number) + "nd"
-        if last_digit == 3:
-            return str(number) + "rd"
-        else:
-            return str(number) + "th"
-
-    # generate dropdown menu options for placement
-    dropdown_options = []
-    for i in range(teams.count()):
-        dropdown_options.append((i + 1, num_to_ordinal(i + 1)))  # option value is i+1, displayed value is ordinal
-
-    return flask.render_template('edit.html',
-                                 user_code=user_code,
-                                 event=event,
-                                 teams=teams,
-                                 placements=dropdown_options,
-                                 team_placements=team_placements)
-
-
-@app.route('/edit2', methods=['POST', 'GET'])
-def edit2():
-    """
     Score update menu, version 2
     Score update is only for 1-4th place
     0th place is N/A, 5th place is eliminated
@@ -536,7 +483,7 @@ def edit2():
                     placement.place = 5
                 models.db.session.commit()
 
-    return flask.render_template("edit2.html",
+    return flask.render_template("edit.html",
                                  event=event,
                                  mode=display_mode,
                                  placements=placements_scored,
