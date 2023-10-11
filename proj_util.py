@@ -1,4 +1,4 @@
-def random_user_code(length):
+def random_code(length):
     """
     Generate a random string with the given length (positive integer)
     """
@@ -108,3 +108,18 @@ def authorized(login_code, event_name="HAS_ACCOUNT") -> bool:
     if access_list is None:
         return False
     return True
+
+
+def now_hst(return_type="datetime"):
+    """
+    returns current HST as datetime or string
+    """
+
+    import datetime
+    hst_adjustment = datetime.timedelta(hours=-10)
+    time_datetime = datetime.datetime.now(datetime.timezone.utc) + hst_adjustment
+    time_string = time_datetime.strftime("%B %d, %H:%M HST")
+
+    match type:
+        case "datetime": return time_datetime
+        case "string": return time_string

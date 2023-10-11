@@ -6,7 +6,7 @@ import werkzeug.exceptions
 import env
 import lightning_labs as LL
 import models
-from proj_util import random_user_code, pivot_table, write_to_csv, zip_folder, authorized
+from proj_util import random_code, pivot_table, write_to_csv, zip_folder, authorized, now_hst
 
 import datetime
 import os
@@ -71,8 +71,7 @@ def update_scoreboard() -> None:
 
     # update scoreboard_update_time with the current time in HST
     global scoreboard_update_time
-    hst_adjustment = datetime.timedelta(hours=-10)
-    scoreboard_update_time = datetime.datetime.now(datetime.timezone.utc) + hst_adjustment
+    scoreboard_update_time = now_hst()
     update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
     flask.flash("Scoreboard is current as of {}".format(update_time_string), "info")
 
@@ -307,7 +306,7 @@ def admin():
             return flask.redirect('admin')
 
         if request_code == "CREATE_NEW_USER":
-            new_user_code = random_user_code(8)
+            new_user_code = random_code(8)
             models.db.session.add(models.User(code=new_user_code))
             models.db.session.commit()
             flask.flash("New login code generated: {}".format(new_user_code), "success")
