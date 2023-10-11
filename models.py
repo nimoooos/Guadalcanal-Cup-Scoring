@@ -82,20 +82,15 @@ class Team(db.Model):
         """
         results = Placement.query.filter_by(teams_id=self.id).all()
         total_score = 0
-        print("\nUpdating total score for {}...".format(self.name))
+        print("Updating total score for {}...".format(self.name), end="")
         for r in results:
-            event = Event.query.filter_by(id=r.events_id).first().name
             place = Placement.query.filter_by(place=r.place).first().place
             weight = Event.query.filter_by(id=r.events_id).first().weight
             points = place_to_score(place)
             weighted = weight * points
-
-            print("{event}: {place}th place, {points} raw, {weighted} weighted"
-                  .format(event=event, place=place, points=points, weighted=weighted))
-
             total_score += weighted
 
-        print("Total score: {}".format(total_score))
+        print("\r{} score: {}".format(self.name, total_score))
         self.score = total_score
         return None
 
