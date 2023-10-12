@@ -120,6 +120,6 @@ def now_hst(return_type="datetime"):
     time_datetime = datetime.datetime.now(datetime.timezone.utc) + hst_adjustment
     time_string = time_datetime.strftime("%B %d, %H:%M HST")
 
-    match type:
+    match return_type:
         case "datetime": return time_datetime
         case "string": return time_string
