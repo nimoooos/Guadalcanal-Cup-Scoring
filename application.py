@@ -10,6 +10,14 @@ from proj_util import random_code, pivot_table, write_to_csv, zip_folder, author
 
 import datetime
 import os
+import logging
+
+if env.DEBUG:
+    logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+else:
+    logging.basicConfig(level=logging.INFO, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+
+logging.info("Application started!")
 
 app = flask.Flask(__name__)
 
