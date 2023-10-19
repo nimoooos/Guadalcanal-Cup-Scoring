@@ -35,34 +35,43 @@ image = ("                                                                      
          "                                                                                 \n")
 
 
-def print_logo(time: float= 0, matrix_mode: bool = False):
+def print_logo(time: float = 0, mode: str = "COLOR"):
+    """
+    mode can be BASIC, COLOR, or MATRIX
+    """
     from time import sleep
-    IMAGE_LENGTH = 1207  # not counting blank space
+    IMAGE_LENGTH = 82*33
     SPEED = time/IMAGE_LENGTH
 
-    for pixel in image:
-        speed = SPEED
-        match pixel:
-            case "*": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "(": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "/": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "&": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "%": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "^": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "#": print(Style.RESET_ALL+Back.BLACK+Fore.RED+Style.BRIGHT, end="")
-            case "+": print(Style.RESET_ALL+Back.BLACK+Fore.RED, end="")
-            case "@": print(Style.RESET_ALL+Back.BLACK+Fore.LIGHTBLACK_EX, end="")
-            case " ":
-                print(Style.RESET_ALL+Back.BLACK, end="")
-                speed = 0
-            case "\n": print(Style.RESET_ALL, end="")
-            case default: print(Style.RESET_ALL+Back.BLACK, end="")
-        if matrix_mode and pixel != "\n": print(Back.BLACK + Fore.LIGHTGREEN_EX, end="")
-        print(pixel, end="")
-        sleep(speed)
+    if mode == "BASIC":
+        for pixel in image:
+            sleep(SPEED)
+            print(pixel, end="")
+
+    elif mode == "MATRIX":
+        for pixel in image:
+            sleep(SPEED)
+            if pixel == "\n": print(Style.RESET_ALL)
+            else: print(Back.BLACK + Fore.LIGHTGREEN_EX + pixel, end="")
+
+    elif mode == "COLOR":
+        for pixel in image:
+            sleep(SPEED)
+            match pixel:
+                case "*": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "(": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "/": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "&": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "%": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "^": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "#": print(Style.RESET_ALL+Back.BLACK+Fore.RED+Style.BRIGHT, end="")
+                case "+": print(Style.RESET_ALL+Back.BLACK+Fore.RED, end="")
+                case "@": print(Style.RESET_ALL+Back.BLACK+Fore.LIGHTBLACK_EX, end="")
+                case " ": print(Style.RESET_ALL+Back.BLACK, end="")
+                case "\n": print(Style.RESET_ALL, end="")
+            print(pixel, end="")
     return None
 
 
 if __name__ == '__main__':
     print_logo()
-    print_logo(time=10, matrix_mode=True)
