@@ -35,20 +35,43 @@ image = ("                                                                      
          "                                                                                 \n")
 
 
-def print_logo():
-    for pixel in image:
-        match pixel:
-            case "*": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "(": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "/": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "&": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "%": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "^": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
-            case "#": print(Style.RESET_ALL+Back.BLACK+Fore.RED+Style.BRIGHT, end="")
-            case "+": print(Style.RESET_ALL+Back.BLACK+Fore.RED, end="")
-            case "@": print(Style.RESET_ALL+Back.BLACK+Fore.LIGHTBLACK_EX, end="")
-            case " ": print(Style.RESET_ALL+Back.BLACK, end="")
-            case "\n": print(Style.RESET_ALL, end="")
-            case default: print(Style.RESET_ALL+Back.BLACK, end="")
-        print(pixel, end="")
+def print_logo(time: float = 0, mode: str = "COLOR"):
+    """
+    mode can be BASIC, COLOR, or MATRIX
+    """
+    from time import sleep
+    IMAGE_LENGTH = 82*33
+    SPEED = time/IMAGE_LENGTH
+
+    if mode == "BASIC":
+        for pixel in image:
+            sleep(SPEED)
+            print(pixel, end="")
+
+    elif mode == "MATRIX":
+        for pixel in image:
+            sleep(SPEED)
+            if pixel == "\n": print(Style.RESET_ALL)
+            else: print(Back.BLACK + Fore.LIGHTGREEN_EX + pixel, end="")
+
+    elif mode == "COLOR":
+        for pixel in image:
+            sleep(SPEED)
+            match pixel:
+                case "*": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "(": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "/": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "&": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "%": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "^": print(Style.RESET_ALL+Back.YELLOW+Fore.LIGHTYELLOW_EX, end="")
+                case "#": print(Style.RESET_ALL+Back.BLACK+Fore.RED+Style.BRIGHT, end="")
+                case "+": print(Style.RESET_ALL+Back.BLACK+Fore.RED, end="")
+                case "@": print(Style.RESET_ALL+Back.BLACK+Fore.LIGHTBLACK_EX, end="")
+                case " ": print(Style.RESET_ALL+Back.BLACK, end="")
+                case "\n": print(Style.RESET_ALL, end="")
+            print(pixel, end="")
     return None
+
+
+if __name__ == '__main__':
+    print_logo()

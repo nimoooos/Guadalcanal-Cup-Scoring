@@ -10,6 +10,14 @@ from proj_util import random_code, pivot_table, write_to_csv, zip_folder, author
 
 import datetime
 import os
+import logging
+
+if env.DEBUG:
+    logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+else:
+    logging.basicConfig(level=logging.INFO, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+
+logging.info("Application started!")
 
 app = flask.Flask(__name__)
 
@@ -533,6 +541,7 @@ def submit():
 
 if __name__ == '__main__':
     LL.print_logo()
+    if env.DEBUG: print("Running on localhost: http://127.0.0.1:5000")
     from waitress import serve
     serve(app, host="0.0.0.0", port=5000)
     # app.run(host="0.0.0.0", debug=env.DEBUG)
