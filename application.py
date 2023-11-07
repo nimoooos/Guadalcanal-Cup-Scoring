@@ -11,6 +11,7 @@ from proj_util import random_code, pivot_table, write_to_csv, zip_folder, author
 import datetime
 import os
 import logging
+import json
 
 if env.DEBUG:
     logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
@@ -214,6 +215,7 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
+    panels: list = []
 
     file_list: list = []
     folder_path = os.path.join('static', 'display')  # TODO: update file location
@@ -222,7 +224,19 @@ def info():
             if file.endswith(".png"):
                 file_list.append(os.path.join(root, file))
 
-    return flask.render_template('info.html', files=file_list)
+    for file in file_list:
+        json_directory = file.replace(".png", ".json")
+        with open(json_directory) as json_file:
+            json_data = json.load(json_file)
+
+        panel: dict = {"order": json_data['order'], "title": json_data['title'], "filepath": file, "content": json_data['content']}
+        panels.append(panel)
+
+
+    # sort panels by order set
+    sorted_panels = sorted(panels, key=lambda x: x['order'])
+
+    return flask.render_template('info.html', panels=sorted_panels)
 
 
 @app.route('/login', methods=['POST', 'GET'])
