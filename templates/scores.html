@@ -5,9 +5,6 @@
 {% endblock %}
 {% block content %}
     <div class="container-md">
-    <form action="{{ url_for('admin') }}">
-        <input class="btn btn-primary" type="submit" value="Back">
-    </form>
         {% if show_leaderboard %}
         <div class="container-md text-center">
             <hr>
@@ -23,8 +20,6 @@
         <div class="container-md text-center">
             <hr>
             <h2>Scoreboard</h2>
-
-            <br>
             {% if show_scoreboard %}
             <div class="container-md row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
@@ -67,6 +62,9 @@
                 </table>
             </div>
             {% else %}
+            <form action="{{ url_for('scores') }}">
+                <input class="btn btn-primary my-3" type="submit" value="Refresh">
+            </form>
 
             <div class="container-md row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
