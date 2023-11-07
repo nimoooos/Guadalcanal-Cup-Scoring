@@ -51,20 +51,22 @@ db.session.add(Event(id=0, name="Admin", weight=0))
 db.session.commit()
 
 event_list = [
-    {id: 1,  "weight": 1, "name": "Flag Football"},
-    {id: 2,  "weight": 1, "name": "Softball"},
-    {id: 3,  "weight": 2, "name": "Weightlifting"},
-    {id: 4,  "weight": 1, "name": "Basketball"},
-    {id: 5,  "weight": 1, "name": "Video Game"},
-    {id: 6,  "weight": 2, "name": "Combatives"},
-    {id: 7,  "weight": 1, "name": "Ultimate Frisbee"},
-    {id: 8,  "weight": 1, "name": "Surf"},
-    {id: 9,  "weight": 1, "name": "TL Got Talent"},
+    {id:  1, "weight": 1, "name": "Softball Tournament"},
+    {id:  2, "weight": 1, "name": "Ultimate Frisbee"},
+    {id:  3, "weight": 1, "name": "Flag Football"},
+    {id:  4, "weight": 1, "name": "Tug-O-War"},
+    {id:  5, "weight": 1, "name": "Basketball"},
+    {id:  6, "weight": 1, "name": "Video Game Tourney"},
+    {id:  7, "weight": 1, "name": "Surf Competition"},
+    {id:  8, "weight": 1, "name": "TL Got Talent"},
+    {id:  9, "weight": 1, "name": "Volleyball"},
     {id: 10, "weight": 1, "name": "Bowling"},
-    {id: 11, "weight": 1, "name": "Volleyball"},
-    {id: 12, "weight": 1, "name": "Lightning Chef Cook Off"},
-    {id: 13, "weight": 1, "name": "Swimming Relay"},
-    {id: 14, "weight": 2, "name": "Best Team"}
+    {id: 11, "weight": 1, "name": "10K Race"},
+    {id: 12, "weight": 1, "name": "Swimming Relay"},
+    {id: 13, "weight": 1, "name": "TL Cook-off"},
+    {id: 14, "weight": 2, "name": "Weightlifting"},
+    {id: 15, "weight": 2, "name": "Combatives"},
+    {id: 16, "weight": 2, "name": "Stress Shoot"}
 ]
 
 current = 0
@@ -84,7 +86,7 @@ current = 0
 total = len(team_list)*len(event_list)
 
 for team_id in range(1, 20):  # range 1-19
-    for event_id in range(1, 15):  # range 1-14
+    for event_id in range(1, 17):  # range 1-16
         db.session.add(Placement(teams_id=team_id, events_id=event_id, place=0))
         current += 1
         print("\rJob {current}/{total} staged...".format(current=current, total=total), end="")
