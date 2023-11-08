@@ -215,7 +215,7 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
-    panels: list = []
+    panels: list[dict] = []
 
     # add all .png file directories into file_list
     file_list: list = []
@@ -233,7 +233,6 @@ def info():
 
         panel: dict = {"order": json_data['order'], "title": json_data['title'], "filepath": file, "content": json_data['content']}
         panels.append(panel)
-
 
     # sort panels by order set
     sorted_panels = sorted(panels, key=lambda x: x['order'])
