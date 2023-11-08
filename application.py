@@ -6,7 +6,7 @@ import werkzeug.exceptions
 import env
 import lightning_labs as LL
 import models
-from proj_util import random_code, pivot_table, write_to_csv, zip_folder, authorized, now_hst
+import proj_util
 
 import datetime
 import os
@@ -14,9 +14,9 @@ import logging
 import json
 
 if env.DEBUG:
-    logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+    logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(proj_util.now_hst("string")), filename="log.log", filemode='a')
 else:
-    logging.basicConfig(level=logging.INFO, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+    logging.basicConfig(level=logging.INFO, format='{} - %(levelname)s: %(message)s'.format(proj_util.now_hst("string")), filename="log.log", filemode='a')
 
 logging.info("Application started!")
 
@@ -37,6 +37,7 @@ scoreboard_global_pivot: list[list] = []
 scoreboard_update_time: datetime.datetime = datetime.datetime(year=1970, month=1, day=1)  # using 1970 to align with unix time 0
 
 
+@proj_util.timer
 def update_scoreboard() -> None:
     """
     Update scoreboard_global which is stored in RAM. This prevents excessive database access.
@@ -76,11 +77,11 @@ def update_scoreboard() -> None:
     scoreboard_global = scoreboard
 
     global scoreboard_global_pivot
-    scoreboard_global_pivot = pivot_table(scoreboard_global)
+    scoreboard_global_pivot = proj_util.pivot_table(scoreboard_global)
 
     # update scoreboard_update_time with the current time in HST
     global scoreboard_update_time
-    scoreboard_update_time = now_hst()
+    scoreboard_update_time = proj_util.now_hst()
     update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
     flask.flash("Scoreboard is current as of {}".format(update_time_string), "info")
 
@@ -95,7 +96,7 @@ def check_401(event_name="HAS_ACCOUNT") -> bool:
     if 'user_code' not in flask.session.keys():
         return True
 
-    if not authorized(login_code=flask.session['user_code'], event_name=event_name):
+    if not proj_util.authorized(login_code=flask.session['user_code'], event_name=event_name):
         print("Authorized!")
         return True
 
@@ -252,7 +253,7 @@ def login():
     if flask.request.method == 'POST':  # called when login button redirects to login()
         password = flask.request.form['password'].upper()
 
-        if authorized(password):
+        if proj_util.authorized(password):
             flask.session['user_code'] = password
             flask.flash("Login successful!", "success")
             return flask.redirect(url_for('account'))
@@ -330,20 +331,20 @@ def admin():
             return flask.redirect('admin')
 
         if request_code == "CREATE_NEW_USER":
-            new_user_code = random_code(8)
+            new_user_code = proj_util.random_code(8)
             models.db.session.add(models.User(code=new_user_code))
             models.db.session.commit()
             flask.flash("New login code generated: {}".format(new_user_code), "success")
             return flask.redirect('admin')
 
         if request_code == "BACKUP_SCOREBOARD":
-            write_to_csv("backup", "scoreboard.csv", scoreboard_global)
+            proj_util.write_to_csv("backup", "scoreboard.csv", scoreboard_global)
             backup_scoreboard = os.path.join("backup", "scoreboard.csv")
             return flask.send_file(backup_scoreboard, as_attachment=True)
 
         if request_code == "BACKUP_DATABASE":
             models.backup_tables_all()
-            backup_zip = zip_folder(os.path.join("backup", "database"))
+            backup_zip = proj_util.zip_folder(os.path.join("backup", "database"))
             return flask.send_file(backup_zip, as_attachment=True)
 
         if request_code.startswith("VIEWUSER_"):
