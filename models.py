@@ -1,5 +1,6 @@
 import flask  # imported for type annotation
 from flask_sqlalchemy import SQLAlchemy
+from proj_util import timer
 
 db = SQLAlchemy()
 
@@ -76,6 +77,7 @@ class Team(db.Model):
     def __repr__(self) -> str:
         return self.__str__()
 
+    @timer
     def update_score(self) -> None:
         """
         Updates, sets, and returns the total score for each team based on the team's places in different events
@@ -89,6 +91,29 @@ class Team(db.Model):
             points = place_to_score(place)
             weighted = weight * points
             total_score += weighted
+
+        print("\r{} score: {}".format(self.name, total_score))
+        self.score = total_score
+        return None
+
+    @timer
+    def update_score_v2(self) -> None:
+        """
+        New version of update_score, using join functionality to reduce the number of database requests
+        """
+        team_name = self.name
+        print("Updating total score for {team_name}...".format(team_name=team_name, end=""))
+
+        # grab placement and weight
+        query = db.session.query(
+            Placement.place,
+            Event.weight
+        ).join(Event, Placement.events_id == Event.id).all()
+
+        total_score = 0
+        for q in query:
+            # q[0] = Placement.place, q[1] = Event.weight
+            total_score += place_to_score(q[0])*q[1]
 
         print("\r{} score: {}".format(self.name, total_score))
         self.score = total_score

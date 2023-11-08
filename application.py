@@ -47,7 +47,7 @@ def update_scoreboard() -> None:
     events.pop(0)  # remove admin from events
 
     for team in teams:
-        team.update_score()
+        team.update_score_v2()
 
     # create header for scoreboard table
     header: list[str] = ["Teams"]
