@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -10,7 +10,7 @@
     </div>
 
     {% for panel in panels %}
-    <div class="container-md text-center border border-secondary rounded my-3 py-3">
+    <div class="container-md text-center my-3 py-3">
         <h1>{{panel['title']}}</h1>
         <img src="{{panel['filepath']}}" class="img-fluid"><br><br>
         <p>{{panel['content']}}</p>
