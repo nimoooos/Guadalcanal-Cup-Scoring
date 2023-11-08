@@ -504,6 +504,7 @@ def edit():
                 else:
                     placement.place = 5
                 models.db.session.commit()
+            update_scoreboard()
 
     return flask.render_template("edit.html",
                                  event=event,
