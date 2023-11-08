@@ -261,7 +261,7 @@ def login():
             return flask.redirect(url_for('login'))
 
     else:
-        flask.flash("Warning! Access code is required to view the scoreboard.", "warning")
+        pass
 
     return flask.render_template('login.html')
 
