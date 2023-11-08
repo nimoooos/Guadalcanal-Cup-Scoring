@@ -101,19 +101,23 @@ class Team(db.Model):
         """
         New version of update_score, using join functionality to reduce the number of database requests
         """
-        team_name = self.name
-        print("Updating total score for {team_name}...".format(team_name=team_name, end=""))
+        self_name = self.name
+        self_id = self.id
+        print("Updating total score for {team_name}...".format(team_name=self_name, end=""))
 
-        # grab placement and weight
+        # grab all placement rows with the associated weight
         query = db.session.query(
             Placement.place,
-            Event.weight
+            Event.weight,
+            Placement.teams_id
         ).join(Event, Placement.events_id == Event.id).all()
 
         total_score = 0
         for q in query:
-            # q[0] = Placement.place, q[1] = Event.weight
-            total_score += place_to_score(q[0])*q[1]
+            # q[0] = Placement.place, q[1] = Event.weight, q[2] = Placement.teams_id
+            if q[2] == self_id:  # filtering done in python to reduce database load
+                total_score += place_to_score(q[0])*q[1]
+            else: pass
 
         print("\r{} score: {}".format(self.name, total_score))
         self.score = total_score
