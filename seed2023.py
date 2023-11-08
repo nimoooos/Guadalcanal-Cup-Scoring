@@ -85,8 +85,8 @@ print("Populating table 'Placement'...")
 current = 0
 total = len(team_list)*len(event_list)
 
-for team_id in range(1, 20):  # range 1-19, corresponds to team id
-    for event_id in range(1, 17):  # range 1-16, corresponds to the event id
+for team_id in range(1, len(team_list)+1):  # corresponds to every team id
+    for event_id in range(1, len(event_list)+1):  # corresponds to every event id
         db.session.add(Placement(teams_id=team_id, events_id=event_id, place=0))
         current += 1
         print("\rJob {current}/{total} staged...".format(current=current, total=total), end="")

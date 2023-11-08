@@ -217,6 +217,7 @@ def info():
     """
     panels: list = []
 
+    # add all .png file directories into file_list
     file_list: list = []
     folder_path = os.path.join('static', 'display')  # TODO: update file location
     for root, dirs, files in os.walk(folder_path):
@@ -224,6 +225,7 @@ def info():
             if file.endswith(".png"):
                 file_list.append(os.path.join(root, file))
 
+    # look for associated .json files with .png
     for file in file_list:
         json_directory = file.replace(".png", ".json")
         with open(json_directory) as json_file:
