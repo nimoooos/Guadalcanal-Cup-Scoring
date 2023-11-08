@@ -11,7 +11,10 @@
             <h2>Leaderboard - Total Scores</h2>
             <ul class="container-fluid list-group text-center">
                 {% for team in teams %}
-                <li class="list-group-item bg-secondary text-light">{{ team["name"] }}  -  {{ team["score"] }} Points</li>
+                <li class="list-group-item bg-secondary text-light">
+                    <img src="static/insignia/{{team['name']}}.png" height="50">
+                    {{ team["name"] }}  -  {{ team["score"] }} Points
+                </li>
                 {% endfor %}
             </ul>
         </div>

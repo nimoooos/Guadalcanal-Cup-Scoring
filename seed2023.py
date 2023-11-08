@@ -22,7 +22,7 @@ team_list = [
     {"id": 5,  "name": "1-27 IN"},
     {"id": 6,  "name": "65 BEB"},
     {"id": 7,  "name": "3-7 FA"},
-    {"id": 8,  "name": "2/14 CAV"},
+    {"id": 8,  "name": "2-14 CAV"},
     {"id": 9,  "name": "524 CSSB"},
     {"id": 10, "name": "225 BSB"},
     {"id": 11, "name": "3-25 AVN"},
@@ -32,7 +32,7 @@ team_list = [
     {"id": 15, "name": "2-6 CAV"},
     {"id": 16, "name": "2-27 IN"},
     {"id": 17, "name": "25th STB"},
-    {"id": 18, "name": "3/4 CAV"},
+    {"id": 18, "name": "3-4 CAV"},
     {"id": 19, "name": "209th ASB"}
 ]
 current = 0
@@ -85,8 +85,8 @@ print("Populating table 'Placement'...")
 current = 0
 total = len(team_list)*len(event_list)
 
-for team_id in range(1, 20):  # range 1-19
-    for event_id in range(1, 17):  # range 1-16
+for team_id in range(1, 20):  # range 1-19, corresponds to team id
+    for event_id in range(1, 17):  # range 1-16, corresponds to the event id
         db.session.add(Placement(teams_id=team_id, events_id=event_id, place=0))
         current += 1
         print("\rJob {current}/{total} staged...".format(current=current, total=total), end="")
