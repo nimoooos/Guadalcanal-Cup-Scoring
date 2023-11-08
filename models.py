@@ -80,25 +80,6 @@ class Team(db.Model):
     @timer
     def update_score(self) -> None:
         """
-        Updates, sets, and returns the total score for each team based on the team's places in different events
-        """
-        results = Placement.query.filter_by(teams_id=self.id).all()
-        total_score = 0
-        print("Updating total score for {team_name}...".format(team_name=self.name), end="")
-        for r in results:
-            place = Placement.query.filter_by(place=r.place).first().place
-            weight = Event.query.filter_by(id=r.events_id).first().weight
-            points = place_to_score(place)
-            weighted = weight * points
-            total_score += weighted
-
-        print("\r{} score: {}".format(self.name, total_score))
-        self.score = total_score
-        return None
-
-    @timer
-    def update_score_v2(self) -> None:
-        """
         New version of update_score, using join functionality to reduce the number of database requests
         """
         self_name = self.name
