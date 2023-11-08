@@ -554,6 +554,11 @@ def submit():
     return flask.render_template('submit.html')
 
 
+@app.route('/labs', methods=['POST', 'GET'])
+def labs():
+    return flask.render_template("labs.html")
+
+
 if __name__ == '__main__':
     LL.print_logo()
     if env.DEBUG: print("Running on localhost: http://127.0.0.1:5000")
