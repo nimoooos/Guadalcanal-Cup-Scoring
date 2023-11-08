@@ -33,7 +33,8 @@ team_list = [
     {"id": 16, "name": "2-27 IN"},
     {"id": 17, "name": "25th STB"},
     {"id": 18, "name": "3-4 CAV"},
-    {"id": 19, "name": "209th ASB"}
+    {"id": 19, "name": "209th ASB"},
+    {"id": 20, "name": "125th IEW"}
 ]
 current = 0
 total = len(team_list)
@@ -64,9 +65,11 @@ event_list = [
     {id: 11, "weight": 1, "name": "10K Race"},
     {id: 12, "weight": 1, "name": "Swimming Relay"},
     {id: 13, "weight": 1, "name": "TL Cook-off"},
-    {id: 14, "weight": 2, "name": "Weightlifting"},
-    {id: 15, "weight": 2, "name": "Combatives"},
-    {id: 16, "weight": 2, "name": "Stress Shoot"}
+    {id: 14, "weight": 1, "name": "Field Feeding Cook-off"},
+    {id: 15, "weight": 1, "name": "Drone Race"},
+    {id: 16, "weight": 2, "name": "Weightlifting"},
+    {id: 17, "weight": 2, "name": "Combatives"},
+    {id: 18, "weight": 2, "name": "Stress Shoot"}
 ]
 
 current = 0

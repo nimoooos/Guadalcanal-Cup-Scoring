@@ -366,6 +366,6 @@ db.session.commit()
 result = Team.query.all()
 
 for r in result:
-    r.update_score_v2()
+    r.update_score()
     print()
 db.session.commit()
