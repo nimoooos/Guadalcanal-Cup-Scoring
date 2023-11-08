@@ -340,6 +340,9 @@ def admin():
             return flask.redirect('admin')
 
         if request_code == "BACKUP_SCOREBOARD":
+            if not scoreboard_global:
+                update_scoreboard()
+                flask.flash("Scoreboard is updated!", "success")
             proj_util.write_to_csv("backup", "scoreboard.csv", scoreboard_global)
             backup_scoreboard = os.path.join("backup", "scoreboard.csv")
             return flask.send_file(backup_scoreboard, as_attachment=True)
