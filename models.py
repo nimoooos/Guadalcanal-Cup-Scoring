@@ -33,7 +33,7 @@ def backup_table(table_class: db.Model) -> None:
     from os import path
 
     directory = path.join("backup", "database")
-    filename = "{}.csv".format(table_class.__tablename__)
+    filename = "{table_name}.csv".format(table_name=table_class.__tablename__)
 
     query = table_class.query.all()
     array_2d = [[]]  # store the query into an array
@@ -47,7 +47,7 @@ def backup_table(table_class: db.Model) -> None:
             to_append.append((vars(row)[column]))
         array_2d.append(to_append)  # add new row into array
 
-    print("Creating {}...".format(filename))
+    print("Creating {file_name}...".format(file_name=filename))
     print(array_2d)
 
     write_to_csv(directory, filename, array_2d)
@@ -82,8 +82,10 @@ class Team(db.Model):
         """
         New version of update_score, using join functionality to reduce the number of database requests
         """
+        # storing values to minimize database calls
         self_name = self.name
         self_id = self.id
+
         print("Updating total score for {team_name}...".format(team_name=self_name, end=""))
 
         # grab all placement rows with the associated weight
@@ -100,7 +102,7 @@ class Team(db.Model):
                 total_score += place_to_score(q[0])*q[1]
             else: pass
 
-        print("\r{} score: {}".format(self.name, total_score))
+        print("\r{team_name} score: {total_score}".format(team_name=self_name, total_score=total_score))
         self.score = total_score
         return None
 

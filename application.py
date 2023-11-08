@@ -14,9 +14,9 @@ import logging
 import json
 
 if env.DEBUG:
-    logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(proj_util.now_hst("string")), filename="log.log", filemode='a')
+    logging.basicConfig(level=logging.DEBUG, format='{time} - %(levelname)s: %(message)s'.format(time=proj_util.now_hst("string")), filename="log.log", filemode='a')
 else:
-    logging.basicConfig(level=logging.INFO, format='{} - %(levelname)s: %(message)s'.format(proj_util.now_hst("string")), filename="log.log", filemode='a')
+    logging.basicConfig(level=logging.INFO, format='{time} - %(levelname)s: %(message)s'.format(time=proj_util.now_hst("string")), filename="log.log", filemode='a')
 
 logging.info("Application started!")
 
@@ -47,7 +47,7 @@ def update_scoreboard() -> None:
     events.pop(0)  # remove admin from events
 
     for team in teams:
-        team.update_score_v2()
+        team.update_score()
 
     # create header for scoreboard table
     header: list[str] = ["Teams"]
@@ -83,7 +83,7 @@ def update_scoreboard() -> None:
     global scoreboard_update_time
     scoreboard_update_time = proj_util.now_hst()
     update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {}".format(update_time_string), "info")
+    flask.flash("Scoreboard is current as of {time}".format(time=update_time_string), "info")
 
     return None
 
@@ -202,7 +202,7 @@ def scores():
             show_scoreboard = False
 
     scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {}".format(scoreboard_update_time_string), "info")
+    flask.flash("Scoreboard is current as of {time}".format(time=scoreboard_update_time_string), "info")
     return flask.render_template(
         'scores.html',
         teams=teams,
@@ -336,7 +336,7 @@ def admin():
             new_user_code = proj_util.random_code(8)
             models.db.session.add(models.User(code=new_user_code))
             models.db.session.commit()
-            flask.flash("New login code generated: {}".format(new_user_code), "success")
+            flask.flash("New login code generated: {new_code}".format(new_code=new_user_code), "success")
             return flask.redirect('admin')
 
         if request_code == "BACKUP_SCOREBOARD":
@@ -387,7 +387,7 @@ def viewuser():
             models.db.session.commit()
 
             event_name = row.event.name
-            flask.flash("Access to {} successfully added".format(event_name), "success")
+            flask.flash("Access to {event_name} successfully added".format(event_name=event_name), "success")
             return flask.redirect(url_for('viewuser'))
 
         if request_code.startswith("REMOVE_"):  # find the existing row and remove it
@@ -399,7 +399,7 @@ def viewuser():
             models.db.session.delete(row)
             models.db.session.commit()
 
-            flask.flash("Access to {} successfully removed".format(event_name), "warning")
+            flask.flash("Access to {event_name} successfully removed".format(event_name=event_name), "warning")
             return flask.redirect(url_for('viewuser'))
 
         if request_code.startswith("DROPUSER_"):  # remove user account
@@ -414,7 +414,7 @@ def viewuser():
             models.db.session.delete(user)
             models.db.session.commit()
 
-            flask.flash("{} was successfully deleted.".format(user_code), "success")
+            flask.flash("{user_code} was successfully deleted.".format(user_code=user_code), "success")
             return flask.redirect(url_for('admin'))
 
     permissions = models.User.query.filter_by(id=view_user["id"]).first().permissions
