@@ -13,7 +13,7 @@ def place_to_score(place: int) -> int:
     if place == 2: return 8
     if place == 3: return 6
     if place == 4: return 4
-    else: return 0
+    return 0
 
 
 def connect_db(app: flask.Flask) -> flask.Flask:
