@@ -105,11 +105,13 @@ def check_401(event_name="HAS_ACCOUNT") -> bool:
 
 @app.errorhandler(werkzeug.exceptions.NotFound)
 def error_handle_not_found(e):
+    logging.info("Error 404")
     return flask.render_template('error.html', code=404, msg="Page not found")
 
 
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 def error_handle_internal_server_error(e):
+    logging.info("Error 500")
     return flask.render_template('error.html', code=500, msg="Internal server error")
 
 
@@ -456,12 +458,10 @@ def edit():
         team = models.Placement.query.filter_by(events_id=event_id, place=place).first()
         if team is None: break
         else: placements_scored[place] = team.teams_id
-    print(placements_scored)
 
     dropdown_options = {0: "None"}
     for team in teams:
         dropdown_options[team.id] = team.name
-    print(dropdown_options)
 
     # handle POST request
     if flask.request.method == 'POST':
@@ -473,7 +473,6 @@ def edit():
                                  2: flask.request.form['place2'],
                                  3: flask.request.form['place3'],
                                  4: flask.request.form['place4']}
-            print(placements_scored)  # this is team ID
 
             dropdown_options = {1: "None",
                                 2: "None",
@@ -483,7 +482,6 @@ def edit():
                 if not placements_scored[place] == "0":
                     dropdown_options[place] = models.Team.query.filter_by(id=placements_scored[place]).first().name
                 else: pass
-            print(dropdown_options)  # this is team name
 
         if request_code == 'SUBMIT':
             flask.flash("Scores submitted!", "success")
@@ -512,47 +510,6 @@ def edit():
                                  mode=display_mode,
                                  placements=placements_scored,
                                  dropdown=dropdown_options)
-
-
-@app.route('/submit', methods=['POST', 'GET'])
-def submit():
-    """
-    Confirms that data has been entered.
-    """
-    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
-
-    if flask.request.method == 'POST':
-        def convert_to_id(string) -> int | None:
-            """
-            converts string "teamid_num" into integer num
-            """
-            if string.startswith("teamid_"):
-                return int(string.split("_")[1])
-            if string.isnumeric:
-                return int(string)
-            else:
-                return None
-
-        db_submit = {}  # list to be stored in session
-        for item in flask.request.form:
-            key = convert_to_id(item)  # receiving team id as integer
-            value = convert_to_id(flask.request.form[item])  # receiving team placement as integer
-            db_submit[key] = value
-        flask.session['db_submit'] = db_submit  # loaded into submit for future feature (confirmation page)
-
-        # this loops through all the submission and updates record
-        event_id = flask.session['event_id']
-        for team_id in db_submit:
-            placement = models.Placement.query.get((team_id, event_id))
-            placement.place = db_submit[team_id]
-            models.db.session.commit()
-
-        update_scoreboard()  # update score upon successful submission
-        flask.flash("Submit successful!", "success")
-    else:
-        flask.flash("Unknown error encountered. No data submission received.", "danger")
-
-    return flask.render_template('submit.html')
 
 
 @app.route('/labs', methods=['POST', 'GET'])
