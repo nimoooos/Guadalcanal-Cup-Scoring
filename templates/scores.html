@@ -4,7 +4,7 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
-    <div class="container-md">
+    <div class="container-flex">
         {% if show_leaderboard %}
         <div class="container-md text-center">
             <hr>
@@ -20,11 +20,11 @@
         </div>
         {% endif %}
 
-        <div class="container-md text-center">
+        <div class="container-flex text-center">
             <hr>
             <h2>Scoreboard</h2>
             {% if show_scoreboard %}
-            <div class="container-md row flex-nowrap overflow-auto">
+            <div class="container-flex row flex-nowrap overflow-auto">
                 <table class="table table-sm table-responsive-sm table-dark table-bordered bg-light text-center">
                     {% for row in scoreboard %}
                         {% if row==scoreboard[0] %}
