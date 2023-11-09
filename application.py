@@ -218,6 +218,8 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
+    return flask.render_template('info2.html')
+
     panels: list[dict] = []
 
     # add all .png file directories into file_list
