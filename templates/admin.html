@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -9,12 +9,6 @@
     <h6>Logged in as {{user_code}}</h6>
     <form action="{{ url_for('account') }}"><input type="submit" class="btn btn-secondary" value="Back"></form>
     <hr>
-
-    <form action="{{ url_for('scores') }}">
-        <input class="btn btn-secondary" type="submit" value="Display Scoreboard">
-    </form>
-    <br>
-
 
     <form action="{{ url_for('admin') }}" method="POST">
         <input type="hidden" name="request_code" value="UPDATE_SCOREBOARD">

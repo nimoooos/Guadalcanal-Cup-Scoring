@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Guadalcanal Cup 2023{% endblock %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
 {% block head %}
   {{ super() }}
 {% endblock %}
@@ -25,7 +25,7 @@
             <h2>Scoreboard</h2>
             {% if show_scoreboard %}
             <div class="container-md row flex-nowrap overflow-auto">
-                <table class="table table-sm table-responsive-sm table-dark table-bordered text-center">
+                <table class="table table-sm table-responsive-sm table-dark table-bordered bg-light text-center">
                     {% for row in scoreboard %}
                         {% if row==scoreboard[0] %}
                         <tr class="table-secondary text-dark">
@@ -55,7 +55,7 @@
                             </td>
 
                             {% else %}
-                            <td class="align-middle">{{ item }}</td>
+                            <td class="align-middle text-dark">{{ item }}</td>
                             {% endif %}
 
                             {% endfor %}

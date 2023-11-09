@@ -6,7 +6,7 @@ import werkzeug.exceptions
 import env
 import lightning_labs as LL
 import models
-from proj_util import random_code, pivot_table, write_to_csv, zip_folder, authorized, now_hst
+import proj_util
 
 import datetime
 import os
@@ -14,9 +14,9 @@ import logging
 import json
 
 if env.DEBUG:
-    logging.basicConfig(level=logging.DEBUG, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+    logging.basicConfig(level=logging.DEBUG, format='{time} - %(levelname)s: %(message)s'.format(time=proj_util.now_hst("string")), filename="log.log", filemode='a')
 else:
-    logging.basicConfig(level=logging.INFO, format='{} - %(levelname)s: %(message)s'.format(now_hst("string")), filename="log.log", filemode='a')
+    logging.basicConfig(level=logging.INFO, format='{time} - %(levelname)s: %(message)s'.format(time=proj_util.now_hst("string")), filename="log.log", filemode='a')
 
 logging.info("Application started!")
 
@@ -37,6 +37,7 @@ scoreboard_global_pivot: list[list] = []
 scoreboard_update_time: datetime.datetime = datetime.datetime(year=1970, month=1, day=1)  # using 1970 to align with unix time 0
 
 
+@proj_util.timer
 def update_scoreboard() -> None:
     """
     Update scoreboard_global which is stored in RAM. This prevents excessive database access.
@@ -76,13 +77,13 @@ def update_scoreboard() -> None:
     scoreboard_global = scoreboard
 
     global scoreboard_global_pivot
-    scoreboard_global_pivot = pivot_table(scoreboard_global)
+    scoreboard_global_pivot = proj_util.pivot_table(scoreboard_global)
 
     # update scoreboard_update_time with the current time in HST
     global scoreboard_update_time
-    scoreboard_update_time = now_hst()
+    scoreboard_update_time = proj_util.now_hst()
     update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {}".format(update_time_string), "info")
+    flask.flash("Scoreboard is current as of {time}".format(time=update_time_string), "info")
 
     return None
 
@@ -95,7 +96,7 @@ def check_401(event_name="HAS_ACCOUNT") -> bool:
     if 'user_code' not in flask.session.keys():
         return True
 
-    if not authorized(login_code=flask.session['user_code'], event_name=event_name):
+    if not proj_util.authorized(login_code=flask.session['user_code'], event_name=event_name):
         print("Authorized!")
         return True
 
@@ -104,11 +105,13 @@ def check_401(event_name="HAS_ACCOUNT") -> bool:
 
 @app.errorhandler(werkzeug.exceptions.NotFound)
 def error_handle_not_found(e):
+    logging.info("Error 404")
     return flask.render_template('error.html', code=404, msg="Page not found")
 
 
 @app.errorhandler(werkzeug.exceptions.InternalServerError)
 def error_handle_internal_server_error(e):
+    logging.info("Error 500")
     return flask.render_template('error.html', code=500, msg="Internal server error")
 
 
@@ -199,7 +202,7 @@ def scores():
             show_scoreboard = False
 
     scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {}".format(scoreboard_update_time_string), "info")
+    flask.flash("Scoreboard is current as of {time}".format(time=scoreboard_update_time_string), "info")
     return flask.render_template(
         'scores.html',
         teams=teams,
@@ -215,8 +218,11 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
-    panels: list = []
+    return flask.render_template('info2.html')
 
+    panels: list[dict] = []
+
+    # add all .png file directories into file_list
     file_list: list = []
     folder_path = os.path.join('static', 'display')  # TODO: update file location
     for root, dirs, files in os.walk(folder_path):
@@ -224,6 +230,7 @@ def info():
             if file.endswith(".png"):
                 file_list.append(os.path.join(root, file))
 
+    # look for associated .json files with .png
     for file in file_list:
         json_directory = file.replace(".png", ".json")
         with open(json_directory) as json_file:
@@ -231,7 +238,6 @@ def info():
 
         panel: dict = {"order": json_data['order'], "title": json_data['title'], "filepath": file, "content": json_data['content']}
         panels.append(panel)
-
 
     # sort panels by order set
     sorted_panels = sorted(panels, key=lambda x: x['order'])
@@ -251,7 +257,7 @@ def login():
     if flask.request.method == 'POST':  # called when login button redirects to login()
         password = flask.request.form['password'].upper()
 
-        if authorized(password):
+        if proj_util.authorized(password):
             flask.session['user_code'] = password
             flask.flash("Login successful!", "success")
             return flask.redirect(url_for('account'))
@@ -261,7 +267,7 @@ def login():
             return flask.redirect(url_for('login'))
 
     else:
-        flask.flash("Warning! Access code is required to view the scoreboard.", "warning")
+        pass
 
     return flask.render_template('login.html')
 
@@ -329,20 +335,23 @@ def admin():
             return flask.redirect('admin')
 
         if request_code == "CREATE_NEW_USER":
-            new_user_code = random_code(8)
+            new_user_code = proj_util.random_code(8)
             models.db.session.add(models.User(code=new_user_code))
             models.db.session.commit()
-            flask.flash("New login code generated: {}".format(new_user_code), "success")
+            flask.flash("New login code generated: {new_code}".format(new_code=new_user_code), "success")
             return flask.redirect('admin')
 
         if request_code == "BACKUP_SCOREBOARD":
-            write_to_csv("backup", "scoreboard.csv", scoreboard_global)
+            if not scoreboard_global:
+                update_scoreboard()
+                flask.flash("Scoreboard is updated!", "success")
+            proj_util.write_to_csv("backup", "scoreboard.csv", scoreboard_global)
             backup_scoreboard = os.path.join("backup", "scoreboard.csv")
             return flask.send_file(backup_scoreboard, as_attachment=True)
 
         if request_code == "BACKUP_DATABASE":
             models.backup_tables_all()
-            backup_zip = zip_folder(os.path.join("backup", "database"))
+            backup_zip = proj_util.zip_folder(os.path.join("backup", "database"))
             return flask.send_file(backup_zip, as_attachment=True)
 
         if request_code.startswith("VIEWUSER_"):
@@ -380,7 +389,7 @@ def viewuser():
             models.db.session.commit()
 
             event_name = row.event.name
-            flask.flash("Access to {} successfully added".format(event_name), "success")
+            flask.flash("Access to {event_name} successfully added".format(event_name=event_name), "success")
             return flask.redirect(url_for('viewuser'))
 
         if request_code.startswith("REMOVE_"):  # find the existing row and remove it
@@ -392,7 +401,7 @@ def viewuser():
             models.db.session.delete(row)
             models.db.session.commit()
 
-            flask.flash("Access to {} successfully removed".format(event_name), "warning")
+            flask.flash("Access to {event_name} successfully removed".format(event_name=event_name), "warning")
             return flask.redirect(url_for('viewuser'))
 
         if request_code.startswith("DROPUSER_"):  # remove user account
@@ -407,7 +416,7 @@ def viewuser():
             models.db.session.delete(user)
             models.db.session.commit()
 
-            flask.flash("{} was successfully deleted.".format(user_code), "success")
+            flask.flash("{user_code} was successfully deleted.".format(user_code=user_code), "success")
             return flask.redirect(url_for('admin'))
 
     permissions = models.User.query.filter_by(id=view_user["id"]).first().permissions
@@ -454,12 +463,10 @@ def edit():
         team = models.Placement.query.filter_by(events_id=event_id, place=place).first()
         if team is None: break
         else: placements_scored[place] = team.teams_id
-    print(placements_scored)
 
     dropdown_options = {0: "None"}
     for team in teams:
         dropdown_options[team.id] = team.name
-    print(dropdown_options)
 
     # handle POST request
     if flask.request.method == 'POST':
@@ -471,7 +478,6 @@ def edit():
                                  2: flask.request.form['place2'],
                                  3: flask.request.form['place3'],
                                  4: flask.request.form['place4']}
-            print(placements_scored)  # this is team ID
 
             dropdown_options = {1: "None",
                                 2: "None",
@@ -481,7 +487,6 @@ def edit():
                 if not placements_scored[place] == "0":
                     dropdown_options[place] = models.Team.query.filter_by(id=placements_scored[place]).first().name
                 else: pass
-            print(dropdown_options)  # this is team name
 
         if request_code == 'SUBMIT':
             flask.flash("Scores submitted!", "success")
@@ -504,6 +509,7 @@ def edit():
                 else:
                     placement.place = 5
                 models.db.session.commit()
+            update_scoreboard()
 
     return flask.render_template("edit.html",
                                  event=event,
@@ -512,45 +518,9 @@ def edit():
                                  dropdown=dropdown_options)
 
 
-@app.route('/submit', methods=['POST', 'GET'])
-def submit():
-    """
-    Confirms that data has been entered.
-    """
-    if check_401(): return flask.render_template("error.html", code=401, msg="Unauthorized")
-
-    if flask.request.method == 'POST':
-        def convert_to_id(string) -> int | None:
-            """
-            converts string "teamid_num" into integer num
-            """
-            if string.startswith("teamid_"):
-                return int(string.split("_")[1])
-            if string.isnumeric:
-                return int(string)
-            else:
-                return None
-
-        db_submit = {}  # list to be stored in session
-        for item in flask.request.form:
-            key = convert_to_id(item)  # receiving team id as integer
-            value = convert_to_id(flask.request.form[item])  # receiving team placement as integer
-            db_submit[key] = value
-        flask.session['db_submit'] = db_submit  # loaded into submit for future feature (confirmation page)
-
-        # this loops through all the submission and updates record
-        event_id = flask.session['event_id']
-        for team_id in db_submit:
-            placement = models.Placement.query.get((team_id, event_id))
-            placement.place = db_submit[team_id]
-            models.db.session.commit()
-
-        update_scoreboard()  # update score upon successful submission
-        flask.flash("Submit successful!", "success")
-    else:
-        flask.flash("Unknown error encountered. No data submission received.", "danger")
-
-    return flask.render_template('submit.html')
+@app.route('/labs', methods=['POST', 'GET'])
+def labs():
+    return flask.render_template("labs.html")
 
 
 if __name__ == '__main__':

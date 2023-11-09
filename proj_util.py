@@ -123,3 +123,27 @@ def now_hst(return_type="datetime"):
     match return_type:
         case "datetime": return time_datetime
         case "string": return time_string
+
+
+def timer(func):
+    """
+    This is a decorator to measure how long a function takes.
+    """
+    from time import time
+
+    def inner(*args, **kwargs):
+        start_time = time()
+
+        func(*args, **kwargs)
+
+        end_time = time()
+
+        duration = end_time-start_time
+        if duration < 1:
+            duration_str = str(int((end_time-start_time)*1000))+"ms"
+        else:
+            duration_str = str(round((end_time-start_time), 3))+"s"
+
+        print("Time spent in {function_name}(): {duration}".format(function_name=func.__name__, duration=duration_str))
+
+    return inner

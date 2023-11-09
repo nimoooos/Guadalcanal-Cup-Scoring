@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+<div class="container-flex" style="background-image: url(/static/display/banner2.png); background-size: cover; background-repeat: no-repeat;">
+        <div class="container-md text-center">
+            <h1>Tropic Lightning Week 2023</h1>
+            <h4>Honoring Our Legacy. Relentless Pursuit of Excellence.</h4>
+            <p>28 November - 1 December 2023<br>Schofield Barracks, Hawaii</p>
+        </div>
+        <div class="container-md text-left">
+            <p>The 25th Infantry Division was formed on 1 October 1941 at Schofield Barracks from its antecedent, the Hawaiian
+                Division. One year following the 7 December 1941 Japanese attack on Oahu, the Division went into action at
+                Guadalcanal where it earned the nickname ‘Tropic Lightning’ for its quick defeat of the enemy. America’s Pacific
+                Division will celebrate its 82nd birthday with a four-day series of events called ‘Tropic Lightning Week’.</p>
+            <p>This four-day event will result in one Battalion being named the Guadalcanal Cup Champion.</p>
+        </div>
+        <div class="container-md text-left">
+            <h6><b>Location</b></h6>
+            <p>Schofield Barracks</p>
+        </div>
+        <div class="container-md text-left">
+            <h6><b>Date & Time</b></h6>
+            <p>November 28 - December 1, 2023<br>6:30 AM - 5:00 PM</p>
+        </div>
+</div>
+
+<div class="container-flex">
+    <img src="static/display/placeholder_banner.png" width="100%" class="img-responsive">
+</div>
+<hr>
+
+<div class="container-md text-left">
+    <h2>Schedule</h2>
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingTuesday">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTuesday" aria-expanded="false" aria-controls="collapseTuesday">
+                  <strong>Tuesday, 28 November 2023</strong>
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseTuesday" class="collapse" aria-labelledby="headingTuesday" data-parent="#accordion">
+                <div class="card-body text-dark">
+                    <h4>6:30 AM</h4>
+                    <h5><strong>Division Run</strong></h5>
+                    <p>Weyand Field</p>
+                    <h4>9:00 AM</h4>
+                    <h5><strong>Competitive Events</strong></h5>
+                    <p>
+                        CPT Riley Pitts Softball Tournament [Stoneman Sports Complex]<br>
+                        T4 Laverne Parrish Ultimate Frisbee Tournament [Leaders Field]<br>
+                        CPL Benito Martinez Tug-O-War Tournament [Stoneman Sports Complex]<br>
+                        CPT Robert Foley Basketball Tournament [A Quad]<br>
+                        MSG Charles McGaha Video Game Tournament [Tropics Recreation Center]<br>
+                        SP4 Ardie Copas Weightlifting Tournament [Martinez Gym]<br>
+                        CPT Lewis Millett Combatives Tournament [Martinez Gym]
+                    </p>
+                    <h4>1:00 PM</h4>
+                    <h5><strong>Bob Hope Talent Show</strong></h5>
+                    <p>SGT Smith Theater</p>
+                    <h4>4:00 PM</h4>
+                    <h5><strong>Medal of Honor Plaque Unveiling</strong></h5>
+                    <p>Tropic Lightning Memorial</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingWednesday">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseWednesday" aria-expanded="false" aria-controls="collapseWednesday">
+                  <strong>Wednesday, 29 November 2023</strong>
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseWednesday" class="collapse" aria-labelledby="headingWednesday" data-parent="#accordion">
+                <div class="card-body text-dark">
+                    <h4>9:00 AM</h4>
+                    <h5><strong>Competitive Events</strong></h5>
+                    <p>
+                        CPT Riley Pitts Softball Tournament [Stoneman Sports Complex]<br>
+                        T4 Laverne Parrish Ultimate Frisbee Tournament [Leaders Field]<br>
+                        CPT Reginald Desiderio Football Tournament [Stoneman Sports Complex]<br>
+                        PFC William Thompson Volleyball Tournament [Tropics Recreation Center]<br>
+                        SP4 Daniel Fernandez Bowling Competition [Schofield Bowling Center]<br>
+                        MSG Charles McGaha Video Game Tournament [Tropics Recreation Center]<br>
+                        CPT Ronald Ray Cook-Off [Culinary Lab]<br>
+                        PFC Bryant Womack Surf Competition [Whiteplains Beach]<br>
+                        SP4 Ardie Copas Weightlifting Tournament [Martinez Gym]<br>
+                        CPT Lewis Millett Combatives Tournament [Martinez Gym]<br>
+                        Field Feeding Cook-Off [Weyand Field]
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThursday">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThursday" aria-expanded="false" aria-controls="collapseThursday">
+                  <strong>Thursday, 30 November 2023</strong>
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseThursday" class="collapse" aria-labelledby="headingThursday" data-parent="#accordion">
+                <div class="card-body text-dark">
+                    <h4>6:30 AM</h4>
+                    <h5><strong>SSG Raymond Cooley 10K Race</strong></h5>
+                    <p>Weyand Field</p>
+
+                    <h4>9:00 AM</h4>
+                    <h5><strong>Competitive Events</strong></h5>
+                    <p>
+                        CPT Riley Pitts Softball Tournament [Stoneman Sports Complex]<br>
+                        T4 Laverne Parrish Ultimate Frisbee Tournament [Leaders Field]<br>
+                        CPT Reginald Desiderio Football Tournament [Stoneman Sports Complex]<br>
+                        MSG Charles McGaha Video Game Tournament [Tropics Recreation Center]<br>
+                        CPT Ronald Ray Cook-Off [Culinary Lab]<br>
+                        PFC Bryant Womack Surf Competition [White Plains Beach]<br>
+                        SP4 Ardie Copas Weightlifting Tournament [Martinez Gym]<br>
+                        CPT Lewis Millett Combatives Tournament [Martinez Gym]<br>
+                        1LT John Warren Drone Competition [A Quad]
+                    </p>
+
+                    <h4>4:00 PM</h4>
+                    <h5><strong>Tropic Lightning Foundation Induction Ceremony</strong></h5>
+                    <p>Tropic Lightning Memorial</p>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingFriday">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseFriday" aria-expanded="false" aria-controls="collapseFriday">
+                  <strong>Friday, 1 December 2023</strong>
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseFriday" class="collapse" aria-labelledby="headingFriday" data-parent="#accordion">
+                <div class="card-body text-dark">
+                    <h4>10:30 AM</h4>
+                    <h5><strong>Closing Ceremony</strong></h5>
+                    <p>Weyand Field</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="container-md text-center">
+    <h1>Join us on November 28</h1>
+</div>
+{% endblock %}

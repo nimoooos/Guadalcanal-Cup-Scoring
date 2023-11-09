@@ -1,5 +1,6 @@
 import flask  # imported for type annotation
 from flask_sqlalchemy import SQLAlchemy
+from proj_util import timer
 
 db = SQLAlchemy()
 
@@ -12,7 +13,7 @@ def place_to_score(place: int) -> int:
     if place == 2: return 8
     if place == 3: return 6
     if place == 4: return 4
-    else: return 0
+    return 0
 
 
 def connect_db(app: flask.Flask) -> flask.Flask:
@@ -32,7 +33,7 @@ def backup_table(table_class: db.Model) -> None:
     from os import path
 
     directory = path.join("backup", "database")
-    filename = "{}.csv".format(table_class.__tablename__)
+    filename = "{table_name}.csv".format(table_name=table_class.__tablename__)
 
     query = table_class.query.all()
     array_2d = [[]]  # store the query into an array
@@ -46,7 +47,7 @@ def backup_table(table_class: db.Model) -> None:
             to_append.append((vars(row)[column]))
         array_2d.append(to_append)  # add new row into array
 
-    print("Creating {}...".format(filename))
+    print("Creating {file_name}...".format(file_name=filename))
     print(array_2d)
 
     write_to_csv(directory, filename, array_2d)
@@ -76,21 +77,32 @@ class Team(db.Model):
     def __repr__(self) -> str:
         return self.__str__()
 
+    @timer
     def update_score(self) -> None:
         """
-        Updates, sets, and returns the total score for each team based on the team's places in different events
+        New version of update_score, using join functionality to reduce the number of database requests
         """
-        results = Placement.query.filter_by(teams_id=self.id).all()
-        total_score = 0
-        print("Updating total score for {}...".format(self.name), end="")
-        for r in results:
-            place = Placement.query.filter_by(place=r.place).first().place
-            weight = Event.query.filter_by(id=r.events_id).first().weight
-            points = place_to_score(place)
-            weighted = weight * points
-            total_score += weighted
+        # storing values to minimize database calls
+        self_name = self.name
+        self_id = self.id
 
-        print("\r{} score: {}".format(self.name, total_score))
+        print("Updating total score for {team_name}...".format(team_name=self_name, end=""))
+
+        # grab all placement rows with the associated weight
+        query = db.session.query(
+            Placement.place,
+            Event.weight,
+            Placement.teams_id
+        ).join(Event, Placement.events_id == Event.id).all()
+
+        total_score = 0
+        for q in query:
+            # q[0] = Placement.place, q[1] = Event.weight, q[2] = Placement.teams_id
+            if q[2] == self_id:  # filtering done in python to reduce database load
+                total_score += place_to_score(q[0])*q[1]
+            else: pass
+
+        print("\r{team_name} score: {total_score}".format(team_name=self_name, total_score=total_score))
         self.score = total_score
         return None
 
