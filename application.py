@@ -218,7 +218,7 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
-    return flask.render_template('info2.html')
+    return flask.render_template('info2.html', GMAP=env.GMAP_KEY)
 
     panels: list[dict] = []
 
