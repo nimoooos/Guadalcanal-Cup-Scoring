@@ -86,3 +86,7 @@ Users can select the teams that placed in the top 4, and the
 score submission sets ``placement`` as ``5`` for all other teams.
 When ``placement == 0``, it displays as ``N/A`` on scoreboard,
 and when ``placement == 5``, it displays as ``0`` on scoreboard.
+
+
+## Database Structure
+See [models.py](models.py) for details.
