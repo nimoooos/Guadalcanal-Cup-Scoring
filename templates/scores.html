@@ -62,6 +62,16 @@
                         </tr>
                         {% endif %}
                     {% endfor %}
+                        <tr class="table-secondary text-dark">
+                            {% for column in scoreboard[0] %}
+                            <td>
+                                {{column}}
+                            </td>
+
+
+                            {% endfor %}
+                        </tr>
+
                 </table>
             </div>
             {% else %}

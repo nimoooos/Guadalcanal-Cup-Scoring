@@ -23,7 +23,7 @@ team_list = [
     {"id": 6,  "name": "65 BEB"},
     {"id": 7,  "name": "3-7 FA"},
     {"id": 8,  "name": "2-14 CAV"},
-    {"id": 9,  "name": "524 CSSB"},
+    {"id": 9,  "name": "524 DSSB"},
     {"id": 10, "name": "225 BSB"},
     {"id": 11, "name": "3-25 AVN"},
     {"id": 12, "name": "29 BEB"},

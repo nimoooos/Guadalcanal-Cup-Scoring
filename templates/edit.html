@@ -14,8 +14,8 @@
     <div class="container-md">
         <form class="form-inline" action="{{ url_for('edit') }}" method="POST">
             <ul class="container-md list-group text-center">
-                <li class="list-group-item bg-secondary border border-dark">
-                    <label class="mr-sm-2" for="place1">1st Place</label>
+                <li class="list-group-item bg-dark text-light border border-dark">
+                    <label class="mr-sm-2" for="place1"><b>1st Place</b></label>
                     <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place1" name="place1">
                         {% for option in dropdown %}
                         <option value="{{option}}">{{dropdown[option]}}</option>
@@ -24,8 +24,8 @@
                 </li>
             </ul>
             <ul class="container-md list-group text-center">
-                <li class="list-group-item bg-secondary border border-dark">
-                    <label class="mr-sm-2" for="place2">2nd Place</label>
+                <li class="list-group-item bg-dark text-light border border-dark">
+                    <label class="mr-sm-2" for="place2"><b>2nd Place</b></label>
                     <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place2" name="place2">
                         {% for option in dropdown %}
                         <option value="{{option}}">{{dropdown[option]}}</option>
@@ -34,8 +34,8 @@
                 </li>
             </ul>
             <ul class="container-md list-group text-center">
-                <li class="list-group-item bg-secondary border border-dark">
-                    <label class="mr-sm-2" for="place3">3rd Place</label>
+                <li class="list-group-item bg-dark text-light border border-dark">
+                    <label class="mr-sm-2" for="place3"><b>3rd Place</b></label>
                     <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place3" name="place3">
                         {% for option in dropdown %}
                         <option value="{{option}}">{{dropdown[option]}}</option>
@@ -44,8 +44,8 @@
                 </li>
             </ul>
             <ul class="container-md list-group text-center">
-                <li class="list-group-item bg-secondary border border-dark">
-                    <label class="mr-sm-2" for="place4">4th Place</label>
+                <li class="list-group-item bg-dark text-light border border-dark">
+                    <label class="mr-sm-2" for="place4"><b>4th Place</b></label>
                     <select class="form-control form-control-sm form-control mb-2 mr-sm-2" id="place4" name="place4">
                         {% for option in dropdown %}
                         <option value="{{option}}">{{dropdown[option]}}</option>
