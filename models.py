@@ -69,7 +69,7 @@ class Team(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False)
-    score = db.Column(db.Integer)
+    score = db.Column(db.Integer)  # this is calculated with update_score()
 
     def __str__(self) -> str:
         return f"<{self.__tablename__}: id={self.id}, name={self.name}, score={self.score}>"
@@ -113,7 +113,7 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False)
-    weight = db.Column(db.Integer, nullable=False)
+    weight = db.Column(db.Integer, nullable=False)  # 1 for normal events, 2 for combat related
 
     def __str__(self) -> str:
         return f"<{self.__tablename__}: id={self.id}, name={self.name}, weight={self.weight}>"
