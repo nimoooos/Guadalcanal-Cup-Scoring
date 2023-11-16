@@ -1,5 +1,5 @@
 from models import db, Team, Event, Placement, User, Access
-from application import app
+from app import app
 
 app.app_context()
 
