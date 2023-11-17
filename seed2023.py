@@ -65,8 +65,8 @@ event_list = [
     {id: 11, "weight": 1, "name": "10K Race"},
     {id: 12, "weight": 1, "name": "Swimming Relay"},
     {id: 13, "weight": 1, "name": "TL Cook-off"},
-    {id: 14, "weight": 1, "name": "Field Feeding Cook-off"},
-    {id: 15, "weight": 1, "name": "Drone Race"},
+    {id: 14, "weight": 0, "name": "Field Feeding Cook-off"},
+    {id: 15, "weight": 0, "name": "Drone Race"},
     {id: 16, "weight": 2, "name": "Weightlifting"},
     {id: 17, "weight": 2, "name": "Combatives"},
     {id: 18, "weight": 2, "name": "Stress Shoot"}
