@@ -1,5 +1,6 @@
 import flask
 from flask import url_for  # DO NOT REMOVE: imported for use in frontend
+from flask import flash
 from flask_debugtoolbar import DebugToolbarExtension
 import werkzeug.exceptions
 
@@ -82,8 +83,8 @@ def update_scoreboard() -> None:
     # update scoreboard_update_time with the current time in HST
     global scoreboard_update_time
     scoreboard_update_time = proj_util.now_hst()
-    update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {time}".format(time=update_time_string), "info")
+    # update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
+    # flask.flash("Scoreboard is current as of {time}".format(time=update_time_string), "info")
 
     return None
 
@@ -202,8 +203,8 @@ def scores():
             show_scoreboard = False
 
     scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {time}".format(time=scoreboard_update_time_string), "info")
-    
+    flask.flash("Scoreboard is current as of {time}. Scores not final until Closing Ceremony.".format(time=scoreboard_update_time_string), "info")
+
     return flask.render_template(
         'scores.html',
         teams=teams,
@@ -521,6 +522,7 @@ def edit():
 
 @app.route('/labs', methods=['POST', 'GET'])
 def labs():
+    flash("HIRING NOW! MOS, RANK Immaterial!", 'danger')
     return flask.render_template("labs.html")
 
 
