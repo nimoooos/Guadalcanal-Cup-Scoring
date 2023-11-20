@@ -525,6 +525,12 @@ def labs():
     flash("HIRING NOW! MOS, RANK Immaterial!", 'danger')
     return flask.render_template("labs.html")
 
+@app.route('/bracket/<event_id>')
+def bracket(event_id):
+    
+    return flask.render_template('bracket/{event_id}.html'.format(event_id=event_id))
+
+
 
 if __name__ == '__main__':
     LL.print_logo()
