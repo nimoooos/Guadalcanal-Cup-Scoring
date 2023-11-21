@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/womack.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    PRIVATE FIRST CLASS BRYANT E. WOMACK
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Private First Class Bryant Womack, Medical Company, 14th Infantry
+                    Regiment, distinguished himself by conspicuous gallantry above and beyond
+                    the call of duty in action against the enemy near Sokso-ri, Korea on 12
+                    March 1952. Private Womack was the only medical aid man attached to a
+                    night combat patrol when sudden contact with a numerically superior enemy
+                    produced numerous casualties. Private Womack went immediately to their
+                    aid, although this necessitated exposing himself to a devastating hail of
+                    enemy fire, during which he was seriously wounded. Refusing medical aid
+                    for himself, he continued moving among his comrades to administer aid.
+                    While he was aiding 1 man, he was again struck by enemy mortar fire, this
+                    time suffering the loss of his right arm. Although he knew the
+                    consequences should immediate aid not be administered, he still refused
+                    aid and insisted that all efforts be made for the benefit of others that
+                    were wounded. Although unable to perform the task himself, he remained on
+                    the scene and directed others in first aid techniques. The last man to
+                    withdraw, he walked until he collapsed from loss of blood, and died a few
+                    minutes later while being carried by his comrades. The extraordinary
+                    heroism, outstanding courage, and unswerving devotion to his duties
+                    displayed by Private Womack reflect the utmost distinction upon himself
+                    and uphold the esteemed traditions of the United States Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

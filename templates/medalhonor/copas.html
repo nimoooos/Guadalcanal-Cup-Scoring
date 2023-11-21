@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/copas.jpeg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    Specialist Four Ardie R. Copas
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Citation: For conspicuous gallantry and intrepidity at the risk of his life above and 
+                    beyond the call of duty. Specialist Four Ardie R. Copas distinguished himself by acts of
+                    gallantry and intrepidity above and beyond the call of duty while serving as a
+                    Machinegunner in Company C, 1st Battalion (Mechanized), 5th Infantry Regiment, 25th
+                    Infantry Division during combat operations against an armed enemy near Ph Romeas
+                    Hek, Cambodia on May 12, 1970. That morning, Specialist Four Copas’ company was
+                    suddenly attacked by a large hostile force firing recoilless rifles, rocket-propelled
+                    grenades, and automatic weapons. As Specialist Four Copas began returning fire, his
+                    armored car was struck by an enemy recoilless round, knocking him to the ground and
+                    injuring four American Soldiers beside the vehicle. Ignoring his own wounds, Specialist
+                    Four Copas quickly remounted the burning vehicle and commenced firing his
+                    machinegun at the belligerents. Braving the hostile fire directed at him and the possible
+                    detonation of the mortar rounds inside the track, Specialist Four Copas maintained a
+                    heavy volume of suppressive fire on the foe while the wounded Americans were safely
+                    evacuated. Undaunted, Specialist Four Copas continued to place devastating volleys of
+                    fire upon the adversary until he was mortally wounded when another enemy round hit
+                    his vehicle. Specialist Four Copas’ extraordinary heroism and selflessness at the cost of
+                    his own life are in keeping with the highest traditions of military service and reflect great
+                    credit upon himself, his unit and the United States Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

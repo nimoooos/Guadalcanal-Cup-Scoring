@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/fournier.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    SERGEANT WILLIAM G. FOURNIER
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Sergeant William G. Fournier, Company M, 35th Infantry, 25th Infantry
+                    Division, distinguished himself for conspicuous gallantry and intrepidity
+                    in action at the risk of his life above and beyond the call of duty. On 10
+                    January 1943, Mount Austen, Guadalcanal, Solomon Islands, Sergeant
+                    Fournier was leader of a machine-gun section charged with the protection
+                    of other battalion units, his group was attacked by a superior number of
+                    Japanese, his gunner killed, his assistant gunner wounded, and an
+                    adjoining guncrew put out of action. Ordered to withdraw from this
+                    hazardous position, Sergeant Fournier refused to retire but rushed forward
+                    to the idle gun and, with the aid of another soldier who joined him, held
+                    up the machinegun by the tripod to increase its field action. They opened
+                    fire and inflicted heavy casualties upon the enemy. While so engaged both
+                    these gallant soldiers were killed, but their sturdy defensive was a
+                    decisive factor in the following success of the attacking battalion.
+                    Sergeant Fournier’s selfless concern for his comrades, and intrepidity at
+                    the cost of his own life above and beyond the call of duty are in keeping
+                    with the highest traditions of the military service and reflect great
+                    credit upon himself, his unit, and the United States Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

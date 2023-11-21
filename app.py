@@ -220,6 +220,7 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
+    flash("TLW final conditions check begins today!", 'info')
     return flask.render_template('info2.html', GMAP=env.GMAP_KEY)
 
     panels: list[dict] = []
@@ -529,6 +530,11 @@ def labs():
 def bracket(event_id):
     
     return flask.render_template('bracket/{event_id}.html'.format(event_id=event_id))
+
+@app.route('/medalhonor/<hero>')
+def medalhonor(hero):
+    
+    return flask.render_template('medalhonor/{hero}.html'.format(hero=hero))
 
 
 

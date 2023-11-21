@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/parrish.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    TECHNICIAN FOURTH CLASS LAVERNE PARRISH
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Technician Fourth class Laverne Parrish, Medical Detachment, 161st
+                    Infantry, 25th Infantry Division, distinguished himself for conspicuous
+                    gallantry and intrepidity in action at the risk of his life above and
+                    beyond the call of duty. Technician Parrish was medical aid man with
+                    Company C during the fighting in Binalonan, Luzon, Philippine Islands. On
+                    18 January 1945, he observed two wounded men under enemy fire and
+                    immediately went to their rescue. After moving one to cover, he crossed 25
+                    yards of open ground to administer aid to the second. In the early hours
+                    of the 24th, his company, crossing an open field near San Manuel,
+                    encountered intense enemy fire and was ordered to withdraw to the cover of
+                    a ditch. While treating the casualties, Technician Parrish observed two
+                    wounded still in the field. Without hesitation he left the ditch, crawled
+                    forward under enemy fire, and in two successive trips brought both men to
+                    safety. He next administered aid to 12 casualties in the same field,
+                    crossing and re-crossing the open area raked by hostile fire. Making
+                    successive trips, he then brought three wounded in to cover. After
+                    treating nearly all of the 37 casualties suffered by his company, he was
+                    mortally wounded by mortar fire, and shortly after was killed. The
+                    indomitable spirit, intrepidity, and gallantry of Technician Parrish saved
+                    many lives at the cost of his own. Technician Parrish’s selfless concern
+                    for his comrades, and intrepidity at the cost of his own life above and
+                    beyond the call of duty are in keeping with the highest traditions of the
+                    military service and reflect great credit upon himself, his unit, and the
+                    United States Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

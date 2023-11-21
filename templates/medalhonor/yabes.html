@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/yabes.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863, act of 9 July 1963),
+                    the Medal of Honor for conspicuous gallantry and intrepidity at the risk
+                    of life above and beyond the call of duty is awarded posthumously by the
+                    Department of the Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    FIRST SERGEANT MAXIMO YABES
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Rank and organization: First Sergeant, U.S. Army, Company A, 4th
+                    Battalion, 9th Infantry, 25th Infantry Division. Place and date: Near Phu
+                    Hoa Dong, Republic of Vietnam, 26 February 1967. Entered service at:
+                    Eugene, Oreg. Born: 29 January 1932, Lodi, Calif. Citation: For
+                    conspicuous gallantry and intrepidity at the risk of his life above and
+                    beyond the call of duty. 1st Sgt. Yabes distinguished himself with Company
+                    A, which was providing security for a land clearing operation. Early in
+                    the morning the company suddenly came under intense automatic weapons and
+                    mortar fire followed by a battalion sized assault from 3 sides.
+                    Penetrating the defensive perimeter the enemy advanced on the company
+                    command post bunker. The command post received increasingly heavy fire and
+                    was in danger of being overwhelmed. When several enemy grenades landed
+                    within the command post, 1st Sgt. Yabes shouted a warning and used his
+                    body as a shield to protect others in the bunker. Although painfully
+                    wounded by numerous grenade fragments, and despite the vicious enemy fire
+                    on the bunker, he remained there to provide covering fire and enable the
+                    others in the command group to relocate. When the command group had
+                    reached a new position, 1st Sgt. Yabes moved through a withering hail of
+                    enemy fire to another bunker 50 meters away. There he secured a grenade
+                    launcher from a fallen comrade and fired point blank into the attacking
+                    Viet Cong stopping further penetration of the perimeter. Noting 2 wounded
+                    men helpless in the fire swept area, he moved them to a safer position
+                    where they could be given medical treatment. He resumed his accurate and
+                    effective fire killing several enemy soldiers and forcing others to
+                    withdraw from the vicinity of the command post. As the battle continued,
+                    he observed an enemy machinegun within the perimeter which threatened the
+                    whole position. On his own, he dashed across the exposed area, assaulted
+                    the machinegun, killed the crew, destroyed the weapon, and fell mortally
+                    wounded. 1st Sgt. Yabes’ valiant and selfless actions saved the lives of
+                    many of his fellow soldiers and inspired his comrades to effectively repel
+                    the enemy assault. His indomitable fighting spirit, extraordinary courage
+                    and intrepidity at the cost of his life are in the highest military
+                    traditions and reflect great credit upon himself and the Armed Forces of
+                    his country.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

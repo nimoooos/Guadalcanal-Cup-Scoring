@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/warren.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    FIRST LIEUTENANT JOHN WARREN
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>For conspicuous gallantry and intrepidity in action at the risk of his life
+                    above and beyond the call of duty. 1st Lt. Warren, distinguished himself at
+                    the cost of his life while serving as a platoon leader with Company C. While
+                    moving through a rubber plantation to reinforce another friendly unit, Company C
+                    came under intense fire from a well-fortified enemy force. Disregarding his safety,
+                    1st Lt. Warren with several of his men began maneuvering through the hail of enemy
+                    fire toward the hostile positions. When he had come to within 6 feet of one of the
+                    enemy bunkers and was preparing to toss a hand grenade into it, an enemy grenade was
+                    suddenly thrown into the middle of his small group. Thinking only of his men, 1st Lt.
+                    Warren fell in the direction of the grenade, thus shielding those around him from the
+                    blast. His action, performed at the cost of his life, saved 3 men from serious or mortal
+                    injury. First Lt. Warren's ultimate action of sacrifice to save the lives of his men was
+                    in keeping with the highest traditions of the military service and reflects great credit
+                    on him, his unit, and the U.S. Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
