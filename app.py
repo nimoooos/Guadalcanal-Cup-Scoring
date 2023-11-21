@@ -220,6 +220,7 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
+    flash("TLW final conditions check begins today!", 'info')
     return flask.render_template('info2.html', GMAP=env.GMAP_KEY)
 
     panels: list[dict] = []
