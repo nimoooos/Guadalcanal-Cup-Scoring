@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/fernandez.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of
+                    Congress approved 12 July 1862 (amended by act 3 March 1863, act of 9 July
+                    1963), the Medal of Honor for conspicuous gallantry and intrepidity at the
+                    risk of life above and beyond the call of duty is awarded posthumously by
+                    the Department of the Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    SPECIALIST FOURTH CLASS DANIEL FERNANDEZ
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Specialist Fourth Class Daniel Fernandez, Company C, 1st Battalion, 5th
+                    Infantry (Mechanized), 25th Infantry Division, distinguished himself by
+                    conspicuous gallantry and intrepidity above and beyond the call of duty.
+                    Specialist Fernandez demonstrated indomitable courage on 18 February 1966
+                    at Cu chi, Hau Nghia Province, Republic of Vietnam. His patrol was
+                    ambushed by a Viet Cong rifle company and driven back by the intense enemy
+                    automatic weapons fire before it could evacuate an American soldier who
+                    had been wounded in the Viet Cong attack. Specialist Fernandez, a sergeant
+                    and two other volunteers immediately fought their way through devastating
+                    fire and exploding grenades to reach the fallen soldier. Upon reaching
+                    their fallen comrade the sergeant was struck in the knee by machine gun
+                    fire and immobilized. Specialist Fernandez took charge, rallied the left
+                    flank of his patrol and began to assist in the recovery of the wounded
+                    sergeant. While first aid was being administered to the wounded man, a
+                    sudden increase in the accuracy and intensity of enemy fire forced the
+                    volunteer group to take cover. As they did, an enemy grenade landed in the
+                    midst of the group, although some men did not see it. Realizing there was
+                    no time for the wounded sergeant or the other men to protect themselves
+                    from the grenade blast, Specialist Fernandez vaulted over the wounded
+                    sergeant and threw himself on the grenade as it exploded, saving the lives
+                    of his four comrades at the sacrifice of his life. Specialist Fernandez’
+                    profound concern for his fellow soldiers, at the risk of his life above
+                    and beyond the call of duty are in the highest traditions of the United
+                    States Army and reflect great credit upon himself and the Armed Forces of
+                    his country.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

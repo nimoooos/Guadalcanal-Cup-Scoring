@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/thompson.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    PRIVATE FIRST CLASS WILLIAM THOMPSON
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Private First Class William Thompson, Company M, 24th Infantry Regiment,
+                    distinguished himself by conspicuous gallantry and intrepidity above and
+                    beyond the call of duty in action against the enemy near Haman, Korea, on
+                    6 August 1950. While his platoon was reorganizing under cover of darkness,
+                    fanatical enemy forces in overwhelming strength launched a surprise attack
+                    on the unit. Private Thompson set up his machine gun in the path of the
+                    onslaught and swept the enemy with withering fire, pinning them down
+                    momentarily thus permitting the remainder of his platoon to withdraw to a
+                    more tenable position. Although hit repeatedly by grenade fragments and
+                    small-arms fire, he resisted all efforts of his comrades to induce him to
+                    withdraw, steadfastly remained at his machine gun and continued to deliver
+                    deadly, accurate fire until mortally wounded by an enemy grenade. Private
+                    Thompson&#39;s dauntless courage and gallant self-sacrifice reflect the
+                    highest credit on himself and uphold the esteemed traditions of military
+                    service.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

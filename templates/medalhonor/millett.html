@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/millett.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded by the Department of the Army in name
+                    of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    CAPTAIN LEWIS L. MILLETT
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Captain Lewis Millett, Company E, 27th Infantry Regiment, distinguished
+                    himself by conspicuous gallantry and intrepidity above and beyond the call
+                    of duty. On 7 February 1951, in the vicinity of Soam-Ni, Korea while
+                    personally leading his company in an attack against a strongly held
+                    position he noted that the 1st Platoon was pinned down by small-arms,
+                    automatic, and antitank fire. Captain Millett ordered the 3d Platoon
+                    forward, placed himself at the head of the 2 platoons, and, with fixed
+                    bayonet, led the assault up the fire-swept hill. In the fierce charge
+                    Captain Millett bayoneted 2 enemy soldiers and boldly continued on,
+                    throwing grenades, clubbing and bayoneting the enemy, while urging his men
+                    forward by shouting encouragement. Despite vicious opposing fire, the
+                    whirlwind hand-to-hand assault carried to the crest of the hill. His
+                    dauntless leadership and personal courage so inspired his men that they
+                    stormed into the hostile position and used their bayonets with such lethal
+                    effect that the enemy fled in wild disorder. During this fierce onslaught
+                    Captain Millett was wounded by grenade fragments but refused evacuation
+                    until the objective was taken and firmly secured. The superb leadership,
+                    conspicuous courage, and consummate devotion to duty demonstrated by
+                    Captain Millett were directly responsible for the successful
+                    accomplishment of a hazardous mission and reflect the highest credit on
+                    himself and the heroic traditions of the military service.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
