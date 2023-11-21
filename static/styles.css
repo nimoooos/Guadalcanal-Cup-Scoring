@@ -52,3 +52,21 @@
         margin-bottom: 10px;
     }
 }
+
+.hero-link {
+    color: #8B0000;
+    text-decoration: none;
+}
+
+.hero-link:hover {
+    color: #A52A2A;
+    text-decoration: underline;
+}
+
+.emphasize-hiring {
+    color: #333;
+    font-size: larger;
+    font-style: italic;
+    letter-spacing: 1px;
+    padding: 5px;
+}
