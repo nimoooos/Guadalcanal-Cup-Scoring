@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/foley.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863, act of 9 July 1963),
+                    the Medal of Honor for conspicuous gallantry and intrepidity at the risk
+                    of life above and beyond the call of duty is awarded by the Department of
+                    the Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    CAPTAIN ROBERT F. FOLEY
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Captain Robert F. Foley who distinguished himself while serving as company
+                    commander in Company A, 2d Battalion, 27th Infantry, 25th Infantry
+                    Division, on 5 November 1966, near Quan Dau Tieng, Republic of Vietnam.
+                    Captain Foley’s company was ordered to extricate another company of the
+                    battalion. Moving through the dense jungle to aid the besieged unit,
+                    Company A encountered a strong enemy force occupying well concealed,
+                    defensive positions, and the company’s leading element quickly sustained
+                    several casualties. Captain Foley immediately ran forward to the scene of
+                    the most intense action to direct the company’s efforts. Deploying one
+                    platoon on the flank, he led the other two platoons in an attack on the
+                    enemy in the face of intense fire. During this action both radio operators
+                    accompanying him were wounded. At grave risk to himself he defied the
+                    enemy’s murderous fire, and helped the wounded operators to a position
+                    where they could receive medical care. As he moved forward again one of
+                    his machine gun crews was wounded. Seizing the weapon, he charged forward
+                    firing the machine gun, shouting orders and rallying his men, thus
+                    maintaining the momentum of the attack. Under increasingly heavy enemy
+                    fire he ordered his assistant to take cover and, alone, Captain Foley
+                    continued to advance firing the machine gun until the wounded had been
+                    evacuated and the attack in this area could be resumed. When movement on
+                    the other flank was halted by the enemy’s fanatical defense, Captain Foley
+                    moved to personally direct this critical phase of the battle. Leading the
+                    renewed effort he was blown off his feet and wounded by an enemy grenade.
+                    Despite his painful wounds he refused medical aid and persevered in the
+                    forefront of the attack on the enemy redoubt. He led the assault on
+                    several enemy gun emplacements and, single-handedly, destroyed three such
+                    positions. His outstanding personal leadership under intense enemy fire
+                    during the fierce battle which lasted for several hours, inspired his men
+                    to heroic efforts and was instrumental in the ultimate success of the
+                    operation. Captain Foley’s magnificent courage, selfless concern for his
+                    men and professional skill reflect the utmost credit upon himself and the
+                    United States Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

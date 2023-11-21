@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/mcgaha.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded by the Department of the Army in name
+                    of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    MASTER SERGEANT CHARLES L. MCGAHA
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Master Sergeant Charles McGaha, Company G, 35th Infantry, 25th Infantry
+                    Division, distinguished himself for conspicuous gallantry and intrepidity
+                    in action at the risk of his life above and beyond the call of duty. On 7
+                    February 1945, near Lupao, Luzon, Philippine Islands, Sergeant McGaha’s
+                    platoon and one other from Company G were pinned down in a roadside ditch
+                    by heavy fire from 5 Japanese tanks supported by 10 machineguns and a
+                    platoon of riflemen. When one of his men fell wounded 40 yards away, he
+                    unhesitatingly crossed the road under a hail of bullets and moved the man
+                    75 yards to safety. Although he had suffered a deep arm wound, he returned
+                    to his post. Finding the platoon leader seriously wounded, he assumed
+                    command and rallied his men. Once more he braved the enemy fire to go to
+                    the aid of a litter party removing another wounded soldier. A shell
+                    exploded in their midst, wounding him in the shoulder and killing two of
+                    the party. He picked up the remaining man, carried him to cover, and then
+                    moved out in front deliberately to draw the enemy fire while the American
+                    forces, thus protected, withdrew to safety. When the last man had gained
+                    the new position, he rejoined his command and there collapsed from loss of
+                    blood and exhaustion. Sergeant McGaha set an example of courage and
+                    leadership in keeping with the highest traditions of the service.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

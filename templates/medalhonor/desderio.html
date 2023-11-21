@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/desderio.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    CAPTAIN REGINALD B. DESDERIO
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Captain Reginald Desiderio, Company E, 27th Infantry Regiment,
+                    distinguished himself by conspicuous gallantry and intrepidity at the
+                    repeated risk of his life above and beyond the call of duty. On 27
+                    November 1950 near Ipsok, Korea, Captain Desiderio, commanding officer,
+                    was given the mission along with his company of defending the command post
+                    of a task force against an enemy breakthrough. After personal
+                    reconnaissance during darkness and under intense enemy fire, he placed his
+                    men in defensive positions to repel an attack. Early in the action he was
+                    wounded, but refused evacuation and despite enemy fire continued to move
+                    among his men checking their positions and making sure that each element
+                    was prepared to receive the next attack. Again wounded, he continued to
+                    direct his men. By his inspiring leadership he encouraged them to hold
+                    their position. In the subsequent fighting when the fanatical enemy
+                    succeeded in penetrating the position, he personally charged them with
+                    carbine, rifle, and grenades, inflicting many casualties until he himself
+                    was mortally wounded. His men, spurred on by his intrepid example,
+                    repelled this final attack. Captain Desiderio&#39;s heroic leadership,
+                    courageous and loyal devotion to duty, and his complete disregard for
+                    personal safety reflect the highest honor on him and are in keeping with
+                    the esteemed traditions of the Army of the United States.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

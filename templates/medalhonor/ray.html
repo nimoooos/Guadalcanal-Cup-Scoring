@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/ray.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863, act of 9 July 1963),
+                    the Medal of Honor for conspicuous gallantry and intrepidity at the risk
+                    of life above and beyond the call of duty is awarded by the Department of
+                    the Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    CAPTAIN RONALD ERIC RAY
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Rank and organization: Captain (then 1st Lt.), U.S. Army, Company A, 2d
+                    Battalion, 35th Infantry, 25th Infantry Division. Place and date: la Drang
+                    Valley, Republic of Vietnam, 19 June 1966. Entered service at: Atlanta,
+                    Ga. Born: 7 December 1941, Cordelle, Ga. Citation: For conspicuous
+                    gallantry and intrepidity in action at the risk of his life above and
+                    beyond the call of duty. Capt. Ray distinguished himself while serving as
+                    a platoon leader with Company A. When 1 of his ambush patrols was attacked
+                    by an estimated reinforced Viet Cong company, Capt. Ray organized a
+                    reaction force and quickly moved through 2 kilometers of mountainous
+                    jungle terrain to the contact area. After breaking through the hostile
+                    lines to reach the beleaguered patrol, Capt. Ray began directing the
+                    reinforcement of the site. When an enemy position pinned down 3 of his men
+                    with a heavy volume of automatic weapons fire, he silenced the emplacement
+                    with a grenade and killed 4 Viet Cong with his rifle fire. As medics were
+                    moving a casualty toward a sheltered position, they began receiving
+                    intense hostile fire. While directing suppressive fire on the enemy
+                    position, Capt. Ray moved close enough to silence the enemy with a
+                    grenade. A few moments later Capt. Ray saw an enemy grenade land,
+                    unnoticed, near 2 of his men. Without hesitation or regard for his safety
+                    he dove between the grenade and the men, thus shielding them from the
+                    explosion while receiving wounds in his exposed feet and legs. He
+                    immediately sustained additional wounds in his legs from an enemy
+                    machinegun, but nevertheless he silenced the emplacement with another
+                    grenade. Although suffering great pain from his wounds, Capt. Ray
+                    continued to direct his men, providing the outstanding courage and
+                    leadership they vitally needed, and prevented their annihilation by
+                    successfully leading them from their surrounded position. Only after
+                    assuring that his platoon was no longer in immediate danger did he allow
+                    himself to be evacuated for medical treatment. By his gallantry at the
+                    risk of his life in the highest traditions of the military service, Capt.
+                    Ray has reflected great credit on himself, his unit, and the U.S. Army.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
