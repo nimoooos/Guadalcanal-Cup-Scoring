@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/cooley.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded by the Department of the Army in name
+                    of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    STAFF SERGEANT RAYMOND H. COOLEY
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Staff Sergeant Raymond H. Cooley, Company B, 27th Infantry, 25th Infantry
+                    Division distinguished himself for conspicouous gallantry and intrepidity
+                    in action at the risk of his life above and beyond the call of duty. On 24
+                    February 1945 near Lumboy, Luzon, Philippine Islands, Sergeant Cooley was
+                    a platoon guide in an assault on a camouflaged entrenchment defended by
+                    machineguns, rifles, and mortars. When his men were pinned down by two
+                    enemy machineguns, he voluntarily advanced under heavy fire to within 20
+                    yards of one of the guns and attacked it with a hand grenade. The enemy,
+                    however, threw the grenade back at him before it could explode. Arming a
+                    second grenade, he held it for several seconds of the safe period and then
+                    hurled it into the enemy position, where it exploded instantaneously,
+                    destroying the gun and crew. He then moved toward the remaining gun,
+                    throwing grenades into enemy foxholes as he advanced. Inspired by his
+                    actions, one squad of his platoon joined him. After he had armed another
+                    grenade and was preparing to throw it into the second machinegun position,
+                    six enemy soldiers rushed at him. Knowing he could not dispose of the
+                    armed grenade without injuring his comrades, because of the intermingling
+                    in close combat of the men of his platoon and the enemy in the melee which
+                    ensued, he deliberately covered the grenade with his body and was severely
+                    wounded as it exploded. By his heroic actions, Sergeant Cooley not only
+                    silenced a machinegun and so inspired his fellow soldiers that they
+                    pressed the attack and destroyed the remaining enemy emplacements, but
+                    also, in complete disregard of his own safety, accepted certain injury and
+                    possible loss of life to avoid wounding his comrades.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

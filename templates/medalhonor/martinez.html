@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/martinez.jpeg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                    approved 12 July 1862 (amended by act 3 March 1863), the Medal of Honor
+                    for conspicuous gallantry and intrepidity at the risk of life above and
+                    beyond the call of duty is awarded posthumously by the Department of the
+                    Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    CORPORAL BENITO MARTINEZ
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Corporal Benito Martinez, a machinegunner with Company A, 27th Infantry
+                    Regiment, 25th Infantry Division, distinguished himself by conspicuous
+                    gallantry and outstanding courage above and beyond the call of duty in
+                    action against the enemy near Satae-ri, Korea, on 6 September 1952. While
+                    manning a listening post forward of the main line of resistance, his
+                    position was attacked by a hostile force of reinforced company strength.
+                    In the bitter fighting which ensued, the enemy infiltrated the defense
+                    perimeter and, realizing that encirclement was imminent, Corporal Martinez
+                    elected to remain at his post in an attempt to stem the onslaught. In a
+                    daring defense, he raked the attacking troops with crippling fire,
+                    inflicting numerous casualties. Although contacted by sound power phone
+                    several times, he insisted that no attempt be made to rescue him because
+                    of the danger involved. Soon thereafter, the hostile forces rushed the
+                    emplacement, forcing him to make a limited withdrawal with only an
+                    automatic rifle and pistol to defend himself. After a courageous 6-hour
+                    stand and shortly before dawn, he called in for the last time, stating
+                    that the enemy was converging on his position His magnificent stand
+                    enabled friendly elements to reorganize, attack, and regain the key
+                    terrain. Corporal Martinez&#39; incredible valor and supreme sacrifice reflect
+                    lasting glory upon himself and are in keeping with the honored traditions
+                    of the military service.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

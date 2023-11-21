@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='heroes/pitts.jpg')}}" alt="MOH">
+                <img src="{{url_for('static', filename='medal.jpg')}}" alt="MOH">
+            </div>
+            <div class="typewriter-text">
+                <p>By the direction of the President, under the Joint Resolution of Congress
+                approved 12 July 1862 (amended by act 3 March 1863, act of 9 July 1963),
+                the Medal of Honor for conspicuous gallantry and intrepidity at the risk
+                of life above and beyond the call of duty is awarded posthumously by the
+                Department of the Army in name of Congress to:</p>
+                <br>
+                <p class="text-center">
+                    CAPTAIN RILEY L. PITTS
+                </p>
+                <p class="text-center">
+                    UNITED STATES ARMY
+                </p>
+                <br>
+                <p>Rank and organization: Captain, U.S. Army, Company C, 2d Battalion, 27th
+                    Infantry, 25th Infantry Division. Place and date: Ap Dong, Republic of
+                    Vietnam, 31 October 1967. Entered service at: Wichita, Kans. Born: 15
+                    October 1937, Fallis, Okla. Citation: Distinguishing himself by
+                    exceptional heroism while serving as company commander during an airmobile
+                    assault. Immediately after his company landed in the area, several Viet
+                    Cong opened fire with automatic weapons. Despite the enemy fire, Capt.
+                    Pitts forcefully led an assault which overran the enemy positions. Shortly
+                    thereafter, Capt. Pitts was ordered to move his unit to the north to
+                    reinforce another company heavily engaged against a strong enemy force. As
+                    Capt. Pitts’ company moved forward to engage the enemy, intense fire was
+                    received from 3 directions, including fire from 4 enemy bunkers, 2 of
+                    which were within 15 meters of Capt. Pitts’ position. The severity of the
+                    incoming fire prevented Capt. Pitts from maneuvering his company. His
+                    rifle fire proving ineffective against the enemy due to the dense jungle
+                    foliage, he picked up an M-79 grenade launcher and began pinpointing the
+                    targets. Seizing a Chinese Communist grenade which had been taken from a
+                    captured Viet Cong’s web gear, Capt. Pitts lobbed the grenade at a bunker
+                    to his front, but it hit the dense jungle foliage and rebounded. Without
+                    hesitation, Capt. Pitts threw himself on top of the grenade which,
+                    fortunately, failed to explode. Capt. Pitts then directed the
+                    repositioning of the company to permit friendly artillery to be fired.
+                    Upon completion of the artillery fire mission, Capt. Pitts again led his
+                    men toward the enemy positions, personally killing at least 1 more Viet
+                    Cong. The jungle growth still prevented effective fire to be placed on the
+                    enemy bunkers. Capt. Pitts, displaying complete disregard for his life and
+                    personal safety, quickly moved to a position which permitted him to place
+                    effective fire on the enemy. He maintained a continuous fire, pinpointing
+                    the enemy’s fortified positions, while at the same time directing and
+                    urging his men forward, until he was mortally wounded. Capt. Pitts’
+                    conspicuous gallantry, extraordinary heroism, and intrepidity at the cost
+                    of his life, above and beyond the call of duty, are in the highest
+                    traditions of the U.S. Army and reflect great credit upon himself, his
+                    unit, and the Armed Forces of his country.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
