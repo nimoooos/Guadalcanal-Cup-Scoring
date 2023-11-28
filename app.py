@@ -136,6 +136,12 @@ def welcome():
     return flask.render_template('Welcome.html')
 
 
+@app.route('/scoresHide')
+def scoresHide():
+    """This alternate page does not display the scoreboard, to build anticipation!"""
+    flask.flash("Scoreboard temporarily hidden! Official results will be released at the closing ceremony.", "info")
+    return flask.render_template('scoresHide.html')
+
 @app.route('/scores', methods=['POST', 'GET'])
 def scores():
     """
