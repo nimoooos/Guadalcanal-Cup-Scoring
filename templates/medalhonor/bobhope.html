@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="medal">
+        <div class="typewriter-page">
+            <div class="image-row">
+                <img src="{{url_for('static', filename='BobVietnam.jpg')}}" alt="Bob In Vietnam">
+                <img src="{{url_for('static', filename='bobhope.jpg')}}" alt="Bob Hope">
+                <img src="{{url_for('static', filename='Oldbob.jpg')}}" alt="Bob Operation Desert Storm">
+            </div>
+            <div class="typewriter-text">
+                <p>USO events are an integral part of division
+                    history, from World War II to GWOT. For
+                    decades, entertainers have gone to the
+                    front to meet soldiers and perform for
+                    them. Bob Hope was a long fixture of these
+                    events, and the most well-known
+                    supporter and performer with the USO.</p>
+                <br>
+                <p class="text-center">
+                    Bob Hope
+                </p>
+                <p class="text-center">
+                    USO
+                </p>
+                <br>
+                <p>Bob Hope's USO (United Service Organizations) career was marked by a remarkable dedication 
+                to entertaining American troops stationed overseas. From the early 1940s through the Gulf War 
+                in 1990-91, Hope traveled extensively, visiting military bases and war zones to bring laughter
+                and entertainment to servicemen and women. His performances, often accompanied by a bevy of celebrities, 
+                became legendary, providing a much-needed morale boost to troops far from home. Hope's witty humor and genuine 
+                connection with the military personnel earned him the title of "America's No. 1 Soldier in Greasepaint." 
+                His commitment to supporting the troops made him an iconic figure in the history of the USO, and his legacy
+                as a symbol of goodwill and camaraderie lives on.
+
+                Throughout his USO career, Bob Hope's contributions extended beyond just entertaining. 
+                He participated in numerous USO tours, performing in various challenging conditions and
+                even near combat zones. His tireless efforts to boost the spirits of those serving in
+                the armed forces solidified his reputation as a patriotic entertainer, and he remains 
+                a symbol of the entertainment industry's support for the military during times of war and
+                conflict.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
