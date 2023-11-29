@@ -5,6 +5,18 @@
     <img src="{{url_for('static', filename='display/tlw_banner_1.png')}}" width="100%" class="img-responsive">
 </div>
 <hr>
+<div class="container-md text-center">
+    <hr>
+    <h2>Leaderboard<br>Total Scores</h2>
+    <ul class="container-fluid list-group text-center">
+        {% for team in teams %}
+        <li class="list-group-item bg-secondary text-light">
+            <img src="static/insignia/{{team['name']}}.png" height="50">
+            {{ team["name"] }}  -  {{ team["score"] }} Points
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 <div class="container-flex text-center bg-dark text-light" style="height: 800px;">
     <br><br><br><br>
     <h1><b>Tropic Lightning. Strike Hard.</b></h1>
