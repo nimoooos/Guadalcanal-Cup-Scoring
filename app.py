@@ -220,7 +220,7 @@ def info():
     """
     This page displays static images in directory listed in folder_path
     """
-    flash("Softball begins 29NOV at 0700!", 'warning')
+    flash("Weather Call 29NOV: Surfing event CANCELED for today.", 'warning')
     # flash("INFO:Field Feeding and Drone Race events are BDE-only competitions", 'warning')
     return flask.render_template('info2.html', GMAP=env.GMAP_KEY)
 
