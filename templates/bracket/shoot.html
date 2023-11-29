@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Tropic Lightning Week 2023{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+<h1 class="text-center">SP5 Dwight Birdwell Stress Shoot</h1>
+    <div class="container-md"> 
+        <img src="{{ url_for('static', filename='brackets/Stress_Shoot_Schedule.PNG')}}" class="img-fluid" alt="bracket picture">
+    </div>
+{% endblock %}
