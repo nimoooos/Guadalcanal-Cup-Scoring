@@ -147,7 +147,7 @@ def scores():
     """
     This page displays scoreboard.
     """
-    # if check_401("Admin"): return flask.render_template("error.html", code=401, msg="Unauthorized")
+    if check_401("Admin"): return flask.render_template("scoresHide.html")
     # TODO: reimplement authorization check
 
     scoreboard_is_initialized = scoreboard_update_time.year == 1970
