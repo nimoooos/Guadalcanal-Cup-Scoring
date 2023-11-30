@@ -71,8 +71,62 @@
     </div>
 
     <h2>Schedule</h2>
+    <h3>Championships Timeline</h3>
+    <div class="card">
+        <!-- <div class="card-header">
+            <strong>Guadalcanal Cup FINALS!</strong>
+        </div> -->
+        <div class="card-body">
+            <h4>8:00 AM</h4>
+                    <h5><strong><a href="{{url_for('medalhonor', hero='fournier')}}" class="hero-link">SGT William Fournier</a> <a href="{{url_for('bracket', event_id='swim')}}">Swimming Relay</a></strong></h5>
+                    <p><a href="javascript:showLocation('Richardson Pool')">Richardson Pool</a></p>
+            <h4>8:30 AM</h4>
+                    <h5><strong><a href="{{url_for('medalhonor', hero='womack')}}" class="hero-link">PFC Bryant Womack</a> <a href="{{url_for('bracket', event_id='surf')}}">Surf Competition</a></strong></h5>
+                    <p><a href="javascript:showLocation('Puaena Point')">Pua'ena Point Beach</a></p>
+            <h4>9:00 AM</h4>
+                    <h5><strong><a href="{{url_for('medalhonor', hero='copas')}}" class="hero-link">SP4 Ardie Copas</a> Weightlifting Tournament</strong></h5>
+                    <p><a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a></p>
+                    <h5><strong><a href="{{url_for('medalhonor', hero='warren')}}" class="hero-link">1LT John Warren</a> Drone Competition</strong></h5>
+                    <p><a href="javascript:showLocation('E Quad')">E Quad</a></p>
+                    <h5><strong><a href="{{url_for('medalhonor', hero='parrish')}}" class="hero-link">T4 Laverne Parrish</a> <a href="{{url_for('bracket', event_id='frisbee')}}">Ultimate Frisbee Tournament</a></strong></h5>
+                    <p><a href="javascript:showLocation('Leaders Field')">Leader's Field</a></p>
+            <h4>9:50 AM</h4>
+                <h5><strong><a href="{{url_for('medalhonor', hero='desderio')}}" class="hero-link">CPT Reginald Desiderio</a> <a href="{{url_for('bracket', event_id='football')}}">Football Tournament</a></strong></h5>
+                <p><a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a></p>
+            <h4>11:00 AM</h4>
+                <h5><strong><a href="{{url_for('medalhonor', hero='ray')}}" class="hero-link">CPT Ronald Ray</a> Cook-Off</strong></h5>
+                <p><a href="javascript:showLocation('Culinary Lab')">Culinary Lab</a></p>
+            <h4>3:00 PM</h4>
+                <h5><strong><a href="{{url_for('medalhonor', hero='mcgaha')}}" class="hero-link">MSG Charles McGaha</a> <a href="{{url_for('bracket', event_id='eSports')}}">Video Game Tournament</a></strong></h5>
+                <p><a href="javascript:showLocation('Tropics Recreation Center')">Tropics Recreation Center</a></p>
+            <h4>4:00 PM</h4>
+                <h5><strong><a href="{{url_for('medalhonor', hero='foley')}}" class="hero-link">CPT Robert Foley</a> <a href="{{url_for('bracket', event_id='basketball')}}">Basketball Tournament</a></strong></h5>
+                <p><a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a></p>
+            <h4>5:00 PM</h4>
+                <h5><strong><a href="{{url_for('medalhonor', hero='millett')}}" class="hero-link">CPT Lewis Millett</a> <a href="{{url_for('bracket', event_id='combatives')}}">Combatives Tournament</a></strong></h5>
+                <p><a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a></p>
+            <!-- <a href="{{url_for('medalhonor', hero='pitts')}}" class="hero-link">CPT Riley Pitts</a> <a href="{{url_for('bracket', event_id='softball')}}">Softball Tournament</a><br>
+            <br>
+            <a href="{{url_for('medalhonor', hero='martinez')}}" class="hero-link">CPL Benito Martinez</a> <a href="{{url_for('bracket', event_id='tugOwar')}}">Tug-O-War Tournament</a><br>
+            <br>
+            <a href="{{url_for('medalhonor', hero='thompson')}}" class="hero-link">PFC William Thompson</a> <a href="{{url_for('bracket', event_id='volleyball')}}">Volleyball Tournament</a><br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <a href="{{url_for('medalhonor', hero='fernandez')}}" class="hero-link">SP4 Daniel Fernandez</a> Bowling Competition<br>
+            <br>
+            <br>
+            <a href="{{url_for('medalhonor', hero='yabes')}}" class="hero-link">1SG Maximo Yabes</a> Field Feeding Cook-Off <i>Brigade-Only Event</i><br>
+            <br>
+
+            <a href="{{url_for('medalhonor', hero='bobhope')}}" class="hero-link">Bob Hope</a> <a href="{{url_for('bracket', event_id='talent')}}">Talent Show</a><br>
+            <a href="{{url_for('medalhonor', hero='cooley')}}" class="hero-link">SSG Raymond Cooley</a> 10K Race<br>
+            <a href="{{url_for('medalhonor', hero='birdwell')}}" class="hero-link">SP5 Dwight Birdwell</a> Stress Shoot</a> -->
+            <!-- <a href="{{url_for('bracket', event_id='shoot')}}"></a> -->
+        </div>
     <div id="accordion">
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-header" id="headingTuesday">
               <h5 class="mb-0">
                 <button class="btn btn-link" data-toggle="collapse" data-target="#collapseTuesday" aria-expanded="false" aria-controls="collapseTuesday">
@@ -91,8 +145,8 @@
                     <p>
                         CPT Riley Pitts Softball Tournament [<a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a>]<br>
                         T4 Laverne Parrish Ultimate Frisbee Tournament [<a href="javascript:showLocation('Leaders Field')">Leader's Field</a>]<br>
-                        <!-- CPL Benito Martinez Tug-O-War Tournament [<a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a>]<br> -->
-                        <!-- CPT Robert Foley Basketball Tournament [<a href="javascript:showLocation('E Quad')">E Quad</a>]<br> -->
+                        CPL Benito Martinez Tug-O-War Tournament [<a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a>]<br>
+                        CPT Robert Foley Basketball Tournament [<a href="javascript:showLocation('E Quad')">E Quad</a>]<br>
                         PFC William Thompson Volleyball Tournament [<a href="javascript:showLocation('Tropics Recreation Center')">Tropics Recreation Center</a>]<br>
                         MSG Charles McGaha Video Game Tournament [<a href="javascript:showLocation('Tropics Recreation Center')">Tropics Recreation Center</a>]<br>
                         SP4 Ardie Copas Weightlifting Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
@@ -108,7 +162,7 @@
                     <!-- <h5><strong>Tropic Lightning Association Recognition Ceremony</strong></h5>
                     <p><a href="javascript:showLocation('Tropic Lightning Memorial')">Tropic Lightning Memorial</a></p> -->
 
-                </div>
+                <!-- </div>
             </div>
         </div>
         <div class="card">
@@ -121,11 +175,11 @@
             </div>
 
             <div id="collapseWednesday" class="collapse" aria-labelledby="headingWednesday" data-parent="#accordion">
-                <div class="card-body text-dark">
+                <div class="card-body text-dark"> -->
                     <!-- <h4>8:30 AM</h4>
                     <h5><strong>PFC Bryant Womack Surf Competition</strong></h5>
                     <p><a href="javascript:showLocation('White Plains Beach')">White Plains Beach</a></p> -->
-                    <h4>9:00 AM</h4>
+                    <!-- <h4>9:00 AM</h4>
                     <h5><strong>Competitive Events</strong></h5>
                     <p>
                         CPT Riley Pitts Softball Tournament [<a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a>]<br>
@@ -133,13 +187,13 @@
                         CPT Reginald Desiderio Football Tournament [<a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a>]<br>
                         SP4 Daniel Fernandez Bowling Competition [<a href="javascript:showLocation('Schofield Bowling Center')">Schofield Bowling Center</a>]<br>
                         MSG Charles McGaha Video Game Tournament [<a href="javascript:showLocation('Tropics Recreation Center')">Tropics Recreation Center</a>]<br>
-                        CPT Ronald Ray Cook-Off [<a href="javascript:showLocation('Culinary Lab')">Culinary Lab</a>]<br>
+                        CPT Ronald Ray Cook-Off [<a href="javascript:showLocation('Culinary Lab')">Culinary Lab</a>]<br> -->
                         <!-- PFC Bryant Womack Surf Competition [<a href="javascript:showLocation('White Plains Beach')">White Plains Beach</a>]<br> -->
-                        SP4 Ardie Copas Weightlifting Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
-                        CPT Lewis Millett Combatives Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
+                        <!-- SP4 Ardie Copas Weightlifting Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
+                        CPT Lewis Millett Combatives Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br> -->
                         <!-- 1SG Maximo Yabes Field Feeding Cook-Off [<a href="javascript:showLocation('Weyand Field')">Weyand Field</a>]<br> -->
                         <!-- SP5 Dwight Birdwell Stress Shoot [<a href="javascript:showLocation('Bronco Ready Range')">Bronco Ready Range</a>] -->
-                    </p>
+                    <!-- </p>
                     <h4>11:30 AM</h4>
                     <h5><strong>1SG Maximo Yabes Field Feeding Cook-Off</strong></h5>
                     <p><a href="javascript:showLocation('Weyand Field')">Weyand Field</a></p>
@@ -148,7 +202,7 @@
                     <p><a href="javascript:showLocation('Bronco Ready Range')">Bronco Ready Range</a></p>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="card">
             <div class="card-header" id="headingThursday">
               <h5 class="mb-0">
@@ -160,7 +214,7 @@
 
             <div id="collapseThursday" class="collapse" aria-labelledby="headingThursday" data-parent="#accordion">
                 <div class="card-body text-dark">
-                    <h4>6:30 AM</h4>
+                    <!-- <h4>6:30 AM</h4>
                     <h5><strong>SSG Raymond Cooley 10K Race</strong></h5>
                     <p><a href="javascript:showLocation('Weyand Field')">Weyand Field</a></p>
                     <h4>8:30 AM</h4>
@@ -175,15 +229,14 @@
                         CPT Reginald Desiderio Football Tournament [<a href="javascript:showLocation('Stoneman Sports Complex')">Stoneman Sports Complex</a>]<br>
                         CPT Robert Foley Basketball Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
                         MSG Charles McGaha Video Game Tournament [<a href="javascript:showLocation('Tropics Recreation Center')">Tropics Recreation Center</a>]<br>
-                        CPT Ronald Ray Cook-Off [<a href="javascript:showLocation('Culinary Lab')">Culinary Lab</a>]<br>
+                        CPT Ronald Ray Cook-Off [<a href="javascript:showLocation('Culinary Lab')">Culinary Lab</a>]<br> -->
                         <!-- PFC Bryant Womack Surf Competition [<a href="javascript:showLocation('White Plains Beach')">White Plains Beach</a>]<br> -->
-                        SP4 Ardie Copas Weightlifting Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
+                        <!-- SP4 Ardie Copas Weightlifting Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
                         CPT Lewis Millett Combatives Tournament [<a href="javascript:showLocation('Martinez Physical Fitness Center')">Martinez Physical Fitness Center</a>]<br>
                         1LT John Warren Drone Competition [<a href="javascript:showLocation('E Quad')">E Quad</a>]<br>
-                        SGT William Fournier Swimming Relay [<a href="javascript:showLocation('Richardson Pool')">Richardson Pool</a>]<br>
-                        <!-- SP5 Dwight Birdwell Stress Shoot [<a href="javascript:showLocation('Range CR2')">Range SB/CR-2</a>] -->
-                    </p>
-
+                        SGT William Fournier Swimming Relay [<a href="javascript:showLocation('Richardson Pool')">Richardson Pool</a>]<br> -->
+                        <!-- SP5 Dwight Birdwell Stress Shoot [<a href="javascript:showLocation('Range CR2')">Range SB/CR-2</a>]
+                    </p> -->
                     <h4>4:00 PM</h4>
                     <h5><strong>Tropic Lightning Foundation Induction Ceremony</strong></h5>
                     <p><a href="javascript:showLocation('Tropic Lightning Memorial')">Tropic Lightning Memorial</a></p>
