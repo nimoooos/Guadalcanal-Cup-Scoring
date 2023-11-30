@@ -222,6 +222,7 @@ def info():
     """
     # flash("Weather Call 29NOV: Softball poised for 1500 restart.", 'warning')
     flash("Surfing rescheduled to Thurs! 0830@Pua'ena Point", 'warning')
+    flash("Announcement: ALL Basketball teams report to Martinez Gym Thurs@0830", 'danger')
     # flash("INFO:Field Feeding and Drone Race events are BDE-only competitions", 'warning')
     return flask.render_template('info2.html', GMAP=env.GMAP_KEY)
 
