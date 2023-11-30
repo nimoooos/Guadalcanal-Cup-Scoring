@@ -135,13 +135,18 @@ def welcome():
     flask.flash("This website was created by Lightning Labs!", "info")
     return flask.render_template('Welcome.html')
 
+@app.route('/scoresHide')
+def scoresHide():
+    """This alternate page does not display the scoreboard, to build anticipation!"""
+    return flask.render_template('scoresHide.html')
+
 
 @app.route('/scores', methods=['POST', 'GET'])
 def scores():
     """
     This page displays scoreboard.
-    """
-    # if check_401("Admin"): return flask.render_template("error.html", code=401, msg="Unauthorized")
+    """    
+    # if check_401("Admin"): return flask.render_template("scoresHide.html")
     # TODO: reimplement authorization check
 
     scoreboard_is_initialized = scoreboard_update_time.year == 1970
