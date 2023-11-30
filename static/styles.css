@@ -70,3 +70,8 @@
     letter-spacing: 1px;
     padding: 5px;
 }
+
+.blurred-overlay {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
