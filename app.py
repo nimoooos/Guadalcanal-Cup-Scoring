@@ -210,6 +210,7 @@ def scores():
     scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
     # flask.flash("Scoreboard is current as of {time}. Scores not final until Closing Ceremony.".format(time=scoreboard_update_time_string), "info")
     flask.flash("Congratulations to our 2023 Guadalcanal Cup Champions!!", "info")
+    flask.flash("Final Scores shown below", "warning")
 
     return flask.render_template(
         'scores.html',
