@@ -146,7 +146,7 @@ def scores():
     """
     This page displays scoreboard.
     """    
-    if check_401("Admin"): return flask.render_template("scoresHide.html")
+    # if check_401("Admin"): return flask.render_template("scoresHide.html")
     # TODO: reimplement authorization check
 
     scoreboard_is_initialized = scoreboard_update_time.year == 1970
@@ -208,7 +208,9 @@ def scores():
             show_scoreboard = False
 
     scoreboard_update_time_string = scoreboard_update_time.strftime("%B %d, %H:%M HST")
-    flask.flash("Scoreboard is current as of {time}. Scores not final until Closing Ceremony.".format(time=scoreboard_update_time_string), "info")
+    # flask.flash("Scoreboard is current as of {time}. Scores not final until Closing Ceremony.".format(time=scoreboard_update_time_string), "info")
+    flask.flash("Congratulations to our 2023 Guadalcanal Cup Champions!!", "info")
+    flask.flash("Final Scores shown below", "warning")
 
     return flask.render_template(
         'scores.html',
@@ -227,8 +229,8 @@ def info():
     """
     # flash("Weather Call 29NOV: Softball poised for 1500 restart.", 'warning')
     # flash("Surfing rescheduled to Thurs! 0830@Pua'ena Point", 'warning')
-    flash("May the best Battalion win!! STRIKE HARD", 'danger')
-    flash("INFO: Closing Ceremony today @1100 Weyand Field", 'danger')
+    # flash("May the best Battalion win!! STRIKE HARD", 'danger')
+    flash("INFO: Overall Winner Crowned! see scoreboard", 'danger')
     # flash("INFO:Field Feeding and Drone Race events are BDE-only competitions", 'warning')
     return flask.render_template('info2.html', GMAP=env.GMAP_KEY)
 

@@ -4,6 +4,11 @@
   {{ super() }}
 {% endblock %}
 {% block content %}
+<div id="confetti-wrapper">
+<div class="container-md text-center">
+    <h2>WOLFHOUNDS VICTORIOUS! NO FEAR</h2>
+</div>
+</div>
     <div class="container-flex">
         {% if show_leaderboard %}
         <div class="container-md text-center">
@@ -98,4 +103,25 @@
         </div>
 
     </div>
+    <script>
+        const confettiWrapper = document.getElementById('confetti-wrapper');
+
+        function getRandomColor() {
+            const red = Math.floor(Math.random() * 256);
+            const green = Math.floor(Math.random() * 256);
+            const blue = Math.floor(Math.random() * 256);
+            return `rgb(${red}, ${green}, ${blue})`;
+        }
+
+        for (let i=0; i < 100; i++) {
+            let confettiPiece = document.createElement('div');
+            confettiPiece.className = 'confetti-piece';
+            confettiWrapper.appendChild(confettiPiece);
+
+            confettiPiece.style.left = Math.random() * 100 + '%';
+            confettiPiece.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confettiPiece.style.animationDelay = Math.random() + 's';
+            confettiPiece.style.backgroundColor = getRandomColor();
+        }
+    </script>
 {% endblock %}
